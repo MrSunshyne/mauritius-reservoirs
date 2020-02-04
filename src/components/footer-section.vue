@@ -7,7 +7,10 @@
 		<div>&nbsp;</div>
 		<ul class="menu">
 			<li>
-				<router-link to="{}">Contribute on GitHub</router-link>
+				<a
+					target="_blank"
+					href="https://github.com/MrSunshyne/mauritius-reservoirs"
+				>Contribute on GitHub</a>
 			</li>
 		</ul>
 	</div>
