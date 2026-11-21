@@ -14,47 +14,33 @@
 	</div>
 </template>
 
-<style lang="scss" scoped>
-.main-menu {
-	/* @apply bg-black; */
-
-	ul {
-		list-style: none;
-		display: flex;
-		justify-content: center;
-
-		li {
-			position: relative;
-			button {
-				margin: 10px;
-			}
-
-			a {
-				padding: 10px;
-				display: block;
-				@apply border-2;
-				text-decoration: none;
-				border-color: transparent;
-				cursor: pointer;
-			}
-		}
-	}
+<style scoped>
+.main-menu ul {
+	list-style: none;
+	display: flex;
+	justify-content: center;
 }
 
-@screen sm {
-	.main-menu {
-		ul {
-			li {
-				padding: 10px;
+.main-menu ul li {
+	position: relative;
+}
 
-				button {
-					margin: 10px;
-				}
-				a {
-					padding: 10px;
-				}
-			}
-		}
+.main-menu ul li button {
+	margin: 10px;
+}
+
+.main-menu ul li a {
+	padding: 10px;
+	display: block;
+	border-width: 2px;
+	text-decoration: none;
+	border-color: transparent;
+	cursor: pointer;
+}
+
+@media (min-width: 640px) {
+	.main-menu ul li {
+		padding: 10px;
 	}
 }
 </style>

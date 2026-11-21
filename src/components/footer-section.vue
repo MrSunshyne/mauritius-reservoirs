@@ -4,7 +4,7 @@
 	<div
 		class="container mx-auto text-sm uppercase tracking-wide py-10 flex justify-center md:justify-between"
 	>
-		<div>&nbsp;</div>
+		<div></div>
 		<ul class="menu">
 			<li>
 				<a
@@ -16,16 +16,16 @@
 	</div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .menu {
 	display: flex;
+}
 
-	a {
-		@apply pl-2;
+.menu a {
+	padding-left: 0.5rem;
+}
 
-		&:hover {
-			text-decoration: underline;
-		}
-	}
+.menu a:hover {
+	text-decoration: underline;
 }
 </style>
