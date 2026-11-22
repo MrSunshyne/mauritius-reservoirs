@@ -1,8 +1,6339 @@
 [
-  { "date": "2026-11-18",
-    "total": { "percent": 46.6 },
-    "reservoirs": { "mare-aux-vacoas": { "percent": 32.2 }, "la-ferme": { "percent": 29.0 } },
-    "sources": [{ "name": "ION News", "url": "https://ionnews.mu/ressources-en-eau-le-taux-de-remplissage-global-des-reservoirs-recule-a-466-au-18-novembre/" }],
-    "check": { "reservoirs_reported": 2, "computed_total_percent": null, "reported_total_percent": 46.6, "diff": null },
-    "verified": false }
+  {
+    "date": "2024-01-03",
+    "date_basis": "stated",
+    "total": {
+      "percent": 71.1
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 68.3
+      },
+      "midlands": {
+        "percent": 76.1
+      },
+      "bagatelle": {
+        "percent": 73.6
+      },
+      "la-ferme": {
+        "percent": 55.8
+      },
+      "mare-longue": {
+        "percent": 73.6
+      },
+      "la-nicoliere": {
+        "percent": 81.2
+      },
+      "piton-du-milieu": {
+        "percent": 75.6
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 33.8
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/les-reservoirs-remplis-a-711-en-moyenne/",
+        "published": "2024-01-04",
+        "date_basis": "stated",
+        "total_percent": 71.1
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 71.08,
+      "reported_total_percent": 71.1,
+      "diff": -0.02,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2024-01-05",
+    "date_basis": "stated",
+    "total": {
+      "percent": 73.2
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 68.4
+      },
+      "la-nicoliere": {
+        "percent": 85.7
+      },
+      "piton-du-milieu": {
+        "percent": 78.6
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 33.7
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 40.9
+        },
+        "piton-du-milieu": {
+          "percent": 41.9
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/reservoirs-taux-de-remplissage-de-732/619154/",
+        "published": "2024-01-08",
+        "date_basis": "stated",
+        "total_percent": 73.2
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 3,
+      "computed_total_percent": null,
+      "reported_total_percent": 73.2,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-01-18",
+    "date_basis": "published",
+    "total": {
+      "percent": 88
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 87.1
+      },
+      "midlands": {
+        "percent": 99.4
+      },
+      "bagatelle": {
+        "percent": 91.3
+      },
+      "la-ferme": {
+        "percent": 68.1
+      },
+      "mare-longue": {
+        "percent": 83
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 100
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 31.1
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/post-belal-les-reservoirs-remplis-a-88-en-moyenne/",
+        "published": "2024-01-18",
+        "date_basis": "published",
+        "total_percent": 88
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 89.68,
+      "reported_total_percent": 88,
+      "diff": 1.68,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-01-28",
+    "date_basis": "stated",
+    "total": {
+      "percent": 94
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 94.3
+      },
+      "midlands": {
+        "percent": 100
+      },
+      "bagatelle": {
+        "percent": 100
+      },
+      "la-ferme": {
+        "percent": 64.8
+      },
+      "mare-longue": {
+        "percent": 100
+      },
+      "la-nicoliere": {
+        "percent": 90.7
+      },
+      "piton-du-milieu": {
+        "percent": 99.3
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/temps-pluvieux-trois-reservoirs-du-pays-affichent-complet/",
+        "published": "2024-01-29",
+        "date_basis": "stated",
+        "total_percent": 94
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 93.45,
+      "reported_total_percent": 94,
+      "diff": -0.55,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-02-01",
+    "date_basis": "published",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 97.1
+      },
+      "midlands": {
+        "percent": 100
+      },
+      "bagatelle": {
+        "percent": 100
+      },
+      "la-ferme": {
+        "percent": 64.2
+      },
+      "mare-longue": {
+        "percent": 99.7
+      },
+      "la-nicoliere": {
+        "percent": 90.3
+      },
+      "piton-du-milieu": {
+        "percent": 99.3
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/pluies-benefiques-aux-reservoirs/",
+        "published": "2024-02-01",
+        "date_basis": "published"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 94.12,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-02-25",
+    "date_basis": "published",
+    "total": {
+      "percent": 92.5
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 100
+      },
+      "midlands": {
+        "percent": 100
+      },
+      "bagatelle": {
+        "percent": 100
+      },
+      "la-ferme": {
+        "percent": 47.5,
+        "volume_mm3": 5.47
+      },
+      "mare-longue": {
+        "percent": 100
+      },
+      "la-nicoliere": {
+        "percent": 82.7,
+        "volume_mm3": 4.35
+      }
+    },
+    "average": {
+      "total": {
+        "percent": 72
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/eau-les-principaux-reservoirs-affichent-100/624742/",
+        "published": "2024-02-25",
+        "date_basis": "published",
+        "total_percent": 92.5
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 6,
+      "computed_total_percent": null,
+      "reported_total_percent": 92.5,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-03-11",
+    "date_basis": "stated",
+    "total": {
+      "percent": 92.5
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 100
+      },
+      "midlands": {
+        "percent": 100
+      },
+      "bagatelle": {
+        "percent": 100
+      },
+      "la-ferme": {
+        "percent": 42.7
+      },
+      "mare-longue": {
+        "percent": 99.8
+      },
+      "la-nicoliere": {
+        "percent": 94.9
+      },
+      "piton-du-milieu": {
+        "percent": 100
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/eau-taux-de-remplissage-de-100-pour-quatre-reservoirs/627178/",
+        "published": "2024-03-13",
+        "date_basis": "stated",
+        "total_percent": 92.5
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 92.54,
+      "reported_total_percent": 92.5,
+      "diff": 0.04,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2024-03-22",
+    "date_basis": "published",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 87.7
+      },
+      "midlands": {
+        "percent": 99
+      },
+      "bagatelle": {
+        "percent": 94
+      },
+      "la-ferme": {
+        "percent": 66.1
+      },
+      "mare-longue": {
+        "percent": 95.1
+      },
+      "la-nicoliere": {
+        "percent": 99.2
+      },
+      "piton-du-milieu": {
+        "percent": 98
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/journee-internationale-de-leau-a-maurice-la-necessite-continue-dune-gestion-prudente/",
+        "published": "2024-03-22",
+        "date_basis": "published"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 90.63,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-03-27",
+    "date_basis": "stated",
+    "total": {
+      "percent": 93.4
+    },
+    "reservoirs": {
+      "bagatelle": {
+        "percent": 99.9
+      },
+      "la-ferme": {
+        "percent": 48.6
+      },
+      "piton-du-milieu": {
+        "percent": 99
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 88
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/reservoirs-taux-de-remplissage-de-934-a-fin-mars/628926/",
+        "published": "2024-03-28",
+        "date_basis": "stated",
+        "total_percent": 93.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 3,
+      "computed_total_percent": null,
+      "reported_total_percent": 93.4,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-04-02",
+    "date_basis": "published",
+    "total": {
+      "percent": 93.6
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 99.8
+      },
+      "midlands": {
+        "percent": 100
+      },
+      "bagatelle": {
+        "percent": 100
+      },
+      "la-ferme": {
+        "percent": 47
+      },
+      "mare-longue": {
+        "percent": 99
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 100
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 88.1
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/tous-les-reservoirs-de-lile-remplis-sauf-la-ferme/",
+        "published": "2024-04-02",
+        "date_basis": "published",
+        "total_percent": 93.6
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 93.25,
+      "reported_total_percent": 93.6,
+      "diff": -0.35,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2024-05-16",
+    "date_basis": "stated",
+    "total": {
+      "percent": 92.9
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 97.6
+      },
+      "midlands": {
+        "percent": 98.9
+      },
+      "bagatelle": {
+        "percent": 97.3
+      },
+      "la-ferme": {
+        "percent": 58.3
+      },
+      "mare-longue": {
+        "percent": 95.2
+      },
+      "la-nicoliere": {
+        "percent": 97.9
+      },
+      "piton-du-milieu": {
+        "percent": 98.7
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 85.67
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/taux-de-remplissage-des-reservoirs-une-moyenne-de-929/",
+        "published": "2024-05-17",
+        "date_basis": "stated",
+        "total_percent": 92.9
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 92.89,
+      "reported_total_percent": 92.9,
+      "diff": -0.01,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2024-05-22",
+    "date_basis": "published",
+    "total": {
+      "percent": 92.2
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/water-shortages-supply-are-still-a-concern-in-mauritius/",
+        "published": "2024-05-22",
+        "date_basis": "published",
+        "total_percent": 92.2
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 92.2,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-05-28",
+    "date_basis": "stated",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 100
+      },
+      "midlands": {
+        "percent": 100
+      },
+      "bagatelle": {
+        "percent": 95.3
+      },
+      "la-ferme": {
+        "percent": 59.4
+      },
+      "mare-longue": {
+        "percent": 99
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 99
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/water-resources-unit-trois-reservoirs-remplis-a-100/",
+        "published": "2024-05-28",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 94.07,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-07-12",
+    "date_basis": "stated",
+    "reservoirs": {
+      "la-ferme": {
+        "percent": 71.4
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/water-resources-unit-les-principaux-reservoirs-remplis-a-presque-100/",
+        "published": "2024-07-14",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-08-06",
+    "date_basis": "stated",
+    "total": {
+      "percent": 86.6
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 88.1
+      },
+      "midlands": {
+        "percent": 95.6
+      },
+      "bagatelle": {
+        "percent": 94.2
+      },
+      "la-ferme": {
+        "percent": 64
+      },
+      "mare-longue": {
+        "percent": 85.8
+      },
+      "la-nicoliere": {
+        "percent": 64.4
+      },
+      "piton-du-milieu": {
+        "percent": 88
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 87.5
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 79.7
+        },
+        "la-nicoliere": {
+          "percent": 98.9
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/bilan-hydrique-le-taux-de-remplissage-moyen-des-reservoirs-est-de-866/",
+        "published": "2024-08-06",
+        "date_basis": "stated",
+        "total_percent": 86.6
+      },
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/reservoir-levels-drop-to-64-a-growing-drought-concern/",
+        "published": "2024-08-08",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 86.63,
+      "reported_total_percent": 86.6,
+      "diff": 0.03,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2024-08-23",
+    "date_basis": "stated",
+    "total": {
+      "percent": 80.9
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 82.8
+      },
+      "bagatelle": {
+        "percent": 89.2
+      },
+      "la-ferme": {
+        "percent": 60.7
+      },
+      "mare-longue": {
+        "percent": 81.7
+      },
+      "la-nicoliere": {
+        "percent": 58.4
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 88.4
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/penurie-deau-a-camp-fouquereaux-et-highlands-un-calvaire-qui-dure-depuis-8-ans/646917/",
+        "published": "2024-08-26",
+        "date_basis": "stated",
+        "total_percent": 80.9
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 5,
+      "computed_total_percent": null,
+      "reported_total_percent": 80.9,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-09-11",
+    "date_basis": "published",
+    "total": {
+      "percent": 74.3
+    },
+    "reservoirs": {
+      "midlands": {
+        "percent": 80.4
+      },
+      "mare-longue": {
+        "percent": 77.2
+      },
+      "la-nicoliere": {
+        "percent": 48.3
+      },
+      "piton-du-milieu": {
+        "percent": 75.3
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 84.7
+      },
+      "reservoirs": {
+        "midlands": {
+          "percent": 99.3
+        },
+        "piton-du-milieu": {
+          "percent": 93
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/baisse-alarmante-des-niveaux-deau-en-cette-periode-de-lannee/",
+        "published": "2024-09-11",
+        "date_basis": "published",
+        "total_percent": 74.3
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 74.3,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-09-24",
+    "date_basis": "stated",
+    "total": {
+      "percent": 68.85
+    },
+    "last_year": {
+      "total": {
+        "percent": 79.6
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/les-mois-les-plus-secs-depuis-plusieurs-decennies-juillet-aout-et-septembre/",
+        "published": "2024-09-26",
+        "date_basis": "stated",
+        "total_percent": 68.85
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 68.85,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-09-28",
+    "date_basis": "stated",
+    "total": {
+      "percent": 67.5
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 70.3,
+        "volume_mm3": 18.21
+      },
+      "midlands": {
+        "percent": 70.4,
+        "volume_mm3": 17.95
+      },
+      "bagatelle": {
+        "percent": 77.8,
+        "volume_mm3": 11.48
+      },
+      "la-ferme": {
+        "percent": 47.2
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 72.9
+      }
+    },
+    "average": {
+      "total": {
+        "percent": 73.3
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 73.8
+        },
+        "midlands": {
+          "percent": 90.9
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/services-publics-la-baisse-du-niveau-des-reservoirs-inquiete/651360/",
+        "published": "2024-09-29",
+        "date_basis": "stated",
+        "total_percent": 67.5
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 67.5,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-10-01",
+    "date_basis": "published",
+    "total": {
+      "percent": 66.9
+    },
+    "last_year": {
+      "total": {
+        "percent": 80.1
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/reserve-en-eau-la-crise-a-nos-portes/651796/",
+        "published": "2024-10-01",
+        "date_basis": "published",
+        "total_percent": 66.9
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 66.9,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-10-04",
+    "date_basis": "stated",
+    "total": {
+      "percent": 64.6
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 67.6
+      },
+      "midlands": {
+        "percent": 66.3
+      },
+      "la-nicoliere": {
+        "percent": 47.9
+      },
+      "piton-du-milieu": {
+        "percent": 64.5
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 75.3
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 70.5
+        },
+        "la-nicoliere": {
+          "percent": 39.4
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/niveau-des-reservoirs-au-4-octobre-2024-une-baisse-generale-observee/",
+        "published": "2024-10-05",
+        "date_basis": "stated",
+        "total_percent": 64.6
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 64.6,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-10-11",
+    "date_basis": "stated",
+    "total": {
+      "percent": 62.2
+    },
+    "last_year": {
+      "total": {
+        "percent": 72.9
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/reservoirs-le-niveau-deau-baisse/",
+        "published": "2024-10-12",
+        "date_basis": "stated",
+        "total_percent": 62.2
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 62.2,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-10-18",
+    "date_basis": "stated",
+    "total": {
+      "percent": 60.4
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 63.9
+      },
+      "midlands": {
+        "percent": 70.5
+      },
+      "la-nicoliere": {
+        "percent": 55.5
+      },
+      "piton-du-milieu": {
+        "percent": 58.6
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 69.6
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 65.1
+        },
+        "la-nicoliere": {
+          "percent": 45.1
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/niveau-des-reservoirs-au-18-octobre-2024-une-baisse-generale-observee/",
+        "published": "2024-10-19",
+        "date_basis": "stated",
+        "total_percent": 60.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 60.4,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-10-25",
+    "date_basis": "stated",
+    "total": {
+      "percent": 57.4
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 61.2
+      },
+      "midlands": {
+        "percent": 55.2
+      },
+      "bagatelle": {
+        "percent": 66.9
+      },
+      "la-ferme": {
+        "percent": 38.7
+      },
+      "mare-longue": {
+        "percent": 67.9
+      },
+      "la-nicoliere": {
+        "percent": 54.1
+      },
+      "piton-du-milieu": {
+        "percent": 54.9
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "midlands": {
+          "percent": 78.5
+        },
+        "bagatelle": {
+          "percent": 74.3
+        },
+        "piton-du-milieu": {
+          "percent": 69.6
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/taux-alarmant-des-reserves-en-eau-du-pain-sur-la-planche-pour-le-futur-regime/654916/",
+        "published": "2024-10-28",
+        "date_basis": "stated",
+        "total_percent": 67
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 57.49,
+      "reported_total_percent": 57.4,
+      "diff": 0.09,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2024-10-30",
+    "date_basis": "stated",
+    "total": {
+      "percent": 58.4
+    },
+    "last_year": {
+      "total": {
+        "percent": 65.3
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/reservoirs-le-niveau-deau-baisse-2/",
+        "published": "2024-10-31",
+        "date_basis": "stated",
+        "total_percent": 58.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 58.4,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-11-12",
+    "date_basis": "published",
+    "total": {
+      "percent": 52.8
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 58
+      },
+      "midlands": {
+        "percent": 52.2
+      },
+      "bagatelle": {
+        "percent": 58.7
+      },
+      "la-ferme": {
+        "percent": 34.4
+      },
+      "mare-longue": {
+        "percent": 65.4
+      },
+      "la-nicoliere": {
+        "percent": 42.4
+      },
+      "piton-du-milieu": {
+        "percent": 48.5
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 68.6
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/baisse-du-taux-de-remplissage-des-reservoirs-des-reserves-en-diminution-a-maurice/",
+        "published": "2024-11-12",
+        "date_basis": "published",
+        "total_percent": 52.8
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 52.87,
+      "reported_total_percent": 52.8,
+      "diff": 0.07,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2024-11-15",
+    "date_basis": "published",
+    "total": {
+      "percent": 51.6
+    },
+    "last_year": {
+      "total": {
+        "percent": 68
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/reservoirs-le-niveau-deau-baisse-3/",
+        "published": "2024-11-15",
+        "date_basis": "published",
+        "total_percent": 51.6
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 51.6,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-11-19",
+    "date_basis": "stated",
+    "total": {
+      "percent": 50.4
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 55.8
+      },
+      "midlands": {
+        "percent": 49.3
+      },
+      "la-nicoliere": {
+        "percent": 39.5
+      },
+      "piton-du-milieu": {
+        "percent": 45.2
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 68.6
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 67.2
+        },
+        "la-nicoliere": {
+          "percent": 53.2
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/niveau-des-reservoirs-une-baisse-generale-continue/",
+        "published": "2024-11-20",
+        "date_basis": "stated",
+        "total_percent": 50.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 50.4,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-11-28",
+    "date_basis": "published",
+    "total": {
+      "percent": 54.4
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 60.4
+      },
+      "midlands": {
+        "percent": 54.4
+      },
+      "la-nicoliere": {
+        "percent": 41.6
+      },
+      "piton-du-milieu": {
+        "percent": 53.3
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 68.2
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 68.1
+        },
+        "la-nicoliere": {
+          "percent": 54.6
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/reservoirs-le-niveau-deau-baisse-4/",
+        "published": "2024-11-28",
+        "date_basis": "published",
+        "total_percent": 54.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 54.4,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-11-29",
+    "date_basis": "stated",
+    "total": {
+      "percent": 53.9
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 59.9
+      },
+      "midlands": {
+        "percent": 54
+      },
+      "la-nicoliere": {
+        "percent": 41.6
+      },
+      "piton-du-milieu": {
+        "percent": 53.5
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 67.5
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 67.4
+        },
+        "la-nicoliere": {
+          "percent": 54.6
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/niveau-des-reservoirs-une-baisse-generale-continue-2/",
+        "published": "2024-12-01",
+        "date_basis": "stated",
+        "total_percent": 53.9
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 53.9,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-12-05",
+    "date_basis": "stated",
+    "total": {
+      "percent": 52.7
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 58
+      },
+      "midlands": {
+        "percent": 52.6
+      },
+      "la-nicoliere": {
+        "percent": 42.4
+      },
+      "piton-du-milieu": {
+        "percent": 52.5
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 67.2
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 67.1
+        },
+        "la-nicoliere": {
+          "percent": 58.4
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/niveau-des-reservoirs-une-baisse-generale-continue-3/",
+        "published": "2024-12-05",
+        "date_basis": "stated",
+        "total_percent": 52.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 52.7,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-12-08",
+    "date_basis": "stated",
+    "total": {
+      "percent": 49.8
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 56.5
+      },
+      "midlands": {
+        "percent": 51.2
+      },
+      "bagatelle": {
+        "percent": 55.9
+      },
+      "la-ferme": {
+        "percent": 29.7
+      },
+      "mare-longue": {
+        "percent": 66.9
+      },
+      "la-nicoliere": {
+        "percent": 39.8
+      },
+      "piton-du-milieu": {
+        "percent": 51.5
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 67
+        },
+        "midlands": {
+          "percent": 76
+        },
+        "bagatelle": {
+          "percent": 68.2
+        },
+        "piton-du-milieu": {
+          "percent": 68
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/fourniture-en-eau-pour-les-prochaines-annees-des-defis-graves/659300/",
+        "published": "2024-12-09",
+        "date_basis": "stated",
+        "total_percent": 49.8
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 51.18,
+      "reported_total_percent": 49.8,
+      "diff": 1.38,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-12-09",
+    "date_basis": "stated",
+    "total": {
+      "percent": 51.8
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 57
+      },
+      "midlands": {
+        "percent": 51.2
+      },
+      "la-nicoliere": {
+        "percent": 45.1
+      },
+      "piton-du-milieu": {
+        "percent": 51.8
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 66.5
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 65.9
+        },
+        "la-nicoliere": {
+          "percent": 58
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/niveau-des-reservoirs-une-baisse-generale-continue-4/",
+        "published": "2024-12-09",
+        "date_basis": "stated",
+        "total_percent": 51.8
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 51.8,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-12-11",
+    "date_basis": "stated",
+    "total": {
+      "percent": 51.4
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 56.8
+      },
+      "midlands": {
+        "percent": 50.3
+      },
+      "la-nicoliere": {
+        "percent": 45.8
+      },
+      "piton-du-milieu": {
+        "percent": 51.2
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 69.3
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 69.6
+        },
+        "la-nicoliere": {
+          "percent": 59.7
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/niveau-des-reservoirs-une-baisse-generale-continue-5/",
+        "published": "2024-12-12",
+        "date_basis": "stated",
+        "total_percent": 51.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 51.4,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-12-13",
+    "date_basis": "stated",
+    "total": {
+      "percent": 51.7
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 57.6
+      },
+      "midlands": {
+        "percent": 50.1
+      },
+      "la-nicoliere": {
+        "percent": 48.5
+      },
+      "piton-du-milieu": {
+        "percent": 51.2
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 64.44
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 70.3
+        },
+        "la-nicoliere": {
+          "percent": 60.8
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/niveau-des-reservoirs-une-baisse-generale-continue-6/",
+        "published": "2024-12-13",
+        "date_basis": "stated",
+        "total_percent": 51.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 51.7,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2024-12-23",
+    "date_basis": "stated",
+    "total": {
+      "percent": 48.5
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 55.3
+      },
+      "bagatelle": {
+        "percent": 50.8
+      },
+      "la-ferme": {
+        "percent": 28.1
+      },
+      "mare-longue": {
+        "percent": 65.1
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 70.4
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/reservoir-levels-decline-to-48-5-ahead-of-summer-rains/",
+        "published": "2024-12-25",
+        "date_basis": "stated",
+        "total_percent": 48.5
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 48.5,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-01-01",
+    "date_basis": "stated",
+    "total": {
+      "percent": 45.7
+    },
+    "reservoirs": {
+      "la-ferme": {
+        "percent": 26.3
+      },
+      "la-nicoliere": {
+        "percent": 44.6
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/secheresse-hydrologique-de-grande-envergure-lhypothese-dun-remake-de-2022-se-renforce-2/661386/",
+        "published": "2025-01-02",
+        "date_basis": "stated",
+        "total_percent": 45.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 2,
+      "computed_total_percent": null,
+      "reported_total_percent": 45.7,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-01-04",
+    "date_basis": "stated",
+    "total": {
+      "percent": 46.4
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 51.9
+      },
+      "midlands": {
+        "percent": 44.5
+      },
+      "bagatelle": {
+        "percent": 47.4
+      },
+      "la-ferme": {
+        "percent": 28.6
+      },
+      "mare-longue": {
+        "percent": 63.1
+      },
+      "la-nicoliere": {
+        "percent": 43.3
+      },
+      "piton-du-milieu": {
+        "percent": 48.2
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-les-reservoirs-dans-le-rouge-la-moyenne-du-taux-de-remplissage-est-de-464/",
+        "published": "2025-01-05",
+        "date_basis": "stated",
+        "total_percent": 46.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 46.37,
+      "reported_total_percent": 46.4,
+      "diff": -0.03,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-01-06",
+    "date_basis": "stated",
+    "total": {
+      "percent": 45.5
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 51
+      },
+      "midlands": {
+        "percent": 44.1
+      },
+      "bagatelle": {
+        "percent": 46.3
+      },
+      "la-ferme": {
+        "percent": 28.1
+      },
+      "mare-longue": {
+        "percent": 62.4
+      },
+      "la-nicoliere": {
+        "percent": 39.9
+      },
+      "piton-du-milieu": {
+        "percent": 47.2
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 73.2
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/water-reservoir-levels-alarmingly-low-just-45-5-capacity/",
+        "published": "2025-01-06",
+        "date_basis": "stated",
+        "total_percent": 45.5
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 45.5,
+      "reported_total_percent": 45.5,
+      "diff": 0,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-01-07",
+    "date_basis": "stated",
+    "total": {
+      "percent": 45.3
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 50.9
+      },
+      "midlands": {
+        "percent": 43.8
+      },
+      "bagatelle": {
+        "percent": 45.9
+      },
+      "la-ferme": {
+        "percent": 28.3
+      },
+      "mare-longue": {
+        "percent": 62.3
+      },
+      "la-nicoliere": {
+        "percent": 39.5
+      },
+      "piton-du-milieu": {
+        "percent": 47.2
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 74.4
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/reservoirs-baisse-du-taux-de-remplissage/661960/",
+        "published": "2025-01-07",
+        "date_basis": "stated",
+        "total_percent": 45.3
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 45.32,
+      "reported_total_percent": 45.3,
+      "diff": 0.02,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-01-10",
+    "date_basis": "stated",
+    "total": {
+      "percent": 44.4
+    },
+    "last_year": {
+      "total": {
+        "percent": 75
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/nos-reservoirs-dans-le-rouge-avec-un-taux-de-remplissage-moyen-de-moins-de-45/",
+        "published": "2025-01-11",
+        "date_basis": "stated",
+        "total_percent": 44.4
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/faible-taux-de-remplissage-des-reservoirs-un-plan-durgence-en-preparation/662257/",
+        "published": "2025-01-11",
+        "date_basis": "stated",
+        "total_percent": 44.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 44.4,
+      "diff": null,
+      "sources_agree": false
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-01-11",
+    "date_basis": "stated",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 49.9
+      },
+      "midlands": {
+        "percent": 42.6
+      },
+      "bagatelle": {
+        "percent": 44.8
+      },
+      "la-ferme": {
+        "percent": 28
+      },
+      "mare-longue": {
+        "percent": 61.5
+      },
+      "la-nicoliere": {
+        "percent": 40.3
+      },
+      "piton-du-milieu": {
+        "percent": 46
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/utilites-publiques-un-plan-en-gestation-pour-la-gestion-de-leau/662278/",
+        "published": "2025-01-12",
+        "date_basis": "stated"
+      },
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/reservoir-levels-reach-50-urgent-action-required/",
+        "published": "2025-01-13",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 44.44,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-01-13",
+    "date_basis": "stated",
+    "total": {
+      "percent": 44.1
+    },
+    "last_year": {
+      "total": {
+        "percent": 74.8
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/approvisionnement-en-eau-le-ministre-assirvaden-la-situation-est-preoccupante/662668/",
+        "published": "2025-01-15",
+        "date_basis": "stated",
+        "total_percent": 44.1
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 44.1,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-01-17",
+    "date_basis": "stated",
+    "total": {
+      "percent": 43.1
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/secheresse-a-partir-de-lundi-cwa-programme-de-coupures-deau-en-vigueur/662956/",
+        "published": "2025-01-18",
+        "date_basis": "stated",
+        "total_percent": 43
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/rationnement-de-leau-les-nouvelles-mesures-sappliquent-des-aujourdhui/663108/",
+        "published": "2025-01-20",
+        "date_basis": "stated",
+        "total_percent": 43.1
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 43.1,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-01-18",
+    "date_basis": "stated",
+    "total": {
+      "percent": 43
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 47.7,
+        "volume_mm3": 12.34
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 87.1
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/mare-aux-vacoas-en-dessous-de-la-barre-des-50/",
+        "published": "2025-01-19",
+        "date_basis": "stated",
+        "total_percent": 43
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": 43,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-01-19",
+    "date_basis": "published",
+    "reservoirs": {
+      "piton-du-milieu": {
+        "percent": 44.5
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "piton-du-milieu": {
+          "percent": 100
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/piton-du-milieu-au-lieu-de-leau-la-terre-est-visible-sur-300-metres/",
+        "published": "2025-01-19",
+        "date_basis": "published"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-01-21",
+    "date_basis": "published",
+    "total": {
+      "percent": 42.7
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 47.6
+      },
+      "midlands": {
+        "percent": 60.2
+      },
+      "la-ferme": {
+        "percent": 26.8
+      },
+      "piton-du-milieu": {
+        "percent": 44.4
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 87.7
+        },
+        "piton-du-milieu": {
+          "percent": 100
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/crise-de-leau-aux-maux-extremes-les-extremes-remedes/663054/",
+        "published": "2025-01-21",
+        "date_basis": "published",
+        "total_percent": 42.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 42.7,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-01-22",
+    "date_basis": "stated",
+    "total": {
+      "percent": 41.4
+    },
+    "last_year": {
+      "total": {
+        "percent": 90.8
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/en-attendant-les-pluies-de-leau-jusquen-avril-avec-les-nouvelles-mesures-restrictives/",
+        "published": "2025-01-22",
+        "date_basis": "stated",
+        "total_percent": 41.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 41.4,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-01-26",
+    "date_basis": "published",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 45.1
+      },
+      "midlands": {
+        "percent": 38.9
+      },
+      "la-ferme": {
+        "percent": 24.7
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/reserves-en-eau-sous-la-barre-fatidique-des-40-demain/663802/",
+        "published": "2025-01-26",
+        "date_basis": "published"
+      },
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/mauritius-water-reserves-dwindle-below-40/",
+        "published": "2025-01-27",
+        "date_basis": "published"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 3,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-01-30",
+    "date_basis": "stated",
+    "total": {
+      "percent": 39.8
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/imminent-ban-on-water-use-for-vehicle-washing-pool-filling/",
+        "published": "2025-01-30",
+        "date_basis": "stated",
+        "total_percent": 39.8
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 39.8,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-01-31",
+    "date_basis": "stated",
+    "total": {
+      "percent": 39.8
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/situation-de-leau-le-ministre-assirvaden-aucune-amelioration-enregistree/664287/",
+        "published": "2025-02-01",
+        "date_basis": "stated",
+        "total_percent": 39.8
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 39.8,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-02-03",
+    "date_basis": "stated",
+    "total": {
+      "percent": 39.8
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 43.8
+      },
+      "midlands": {
+        "percent": 38
+      },
+      "bagatelle": {
+        "percent": 38
+      },
+      "mare-longue": {
+        "percent": 56.7
+      },
+      "piton-du-milieu": {
+        "percent": 39
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 97.9
+        },
+        "mare-longue": {
+          "percent": 99.7
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/secheresse-la-phase-2-des-mesures-restrictives-enclenchee-histoire-de-limiter-la-casse/664542/",
+        "published": "2025-02-03",
+        "date_basis": "published"
+      },
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/public-service-alert-illegal-sales-of-water-under-cwas-investigation/",
+        "published": "2025-02-04",
+        "date_basis": "stated",
+        "total_percent": 39.8
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 5,
+      "computed_total_percent": null,
+      "reported_total_percent": 39.8,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-02-05",
+    "date_basis": "stated",
+    "total": {
+      "percent": 39.6
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 43.7
+      },
+      "midlands": {
+        "percent": 38
+      },
+      "bagatelle": {
+        "percent": 38.9
+      },
+      "la-ferme": {
+        "percent": 26.4
+      },
+      "mare-longue": {
+        "percent": 56.2
+      },
+      "la-nicoliere": {
+        "percent": 39.4
+      },
+      "piton-du-milieu": {
+        "percent": 39.1
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/les-reservoirs-continuent-detre-dans-le-rouge-la-moyenne-du-taux-de-remplissage-est-de-396/",
+        "published": "2025-02-06",
+        "date_basis": "stated",
+        "total_percent": 39.6
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 39.65,
+      "reported_total_percent": 39.6,
+      "diff": 0.05,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-02-07",
+    "date_basis": "stated",
+    "total": {
+      "percent": 38.8
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 42.3
+      },
+      "midlands": {
+        "percent": 37
+      },
+      "bagatelle": {
+        "percent": 38.5
+      },
+      "la-ferme": {
+        "percent": 25.7
+      },
+      "mare-longue": {
+        "percent": 55.4
+      },
+      "la-nicoliere": {
+        "percent": 39
+      },
+      "piton-du-milieu": {
+        "percent": 37.9
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "midlands": {
+          "percent": 99.3
+        },
+        "bagatelle": {
+          "percent": 100
+        },
+        "la-nicoliere": {
+          "percent": 92.7
+        },
+        "piton-du-milieu": {
+          "percent": 98.6
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/secheresse-de-grande-envergure-en-passe-de-toucher-le-fond/665289/",
+        "published": "2025-02-10",
+        "date_basis": "stated",
+        "total_percent": 38.8
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 38.71,
+      "reported_total_percent": 38.8,
+      "diff": -0.09,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-02-08",
+    "date_basis": "published",
+    "total": {
+      "percent": 39.2
+    },
+    "reservoirs": {
+      "midlands": {
+        "percent": 37.2
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "midlands": {
+          "percent": 99.4
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/secheresse-midlands-dam-meconnaissable/",
+        "published": "2025-02-08",
+        "date_basis": "published",
+        "total_percent": 39.2
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": 39.2,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-02-10",
+    "date_basis": "stated",
+    "total": {
+      "percent": 39.6
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 42.1
+      },
+      "midlands": {
+        "percent": 36.9
+      },
+      "bagatelle": {
+        "percent": 38.1
+      },
+      "la-ferme": {
+        "percent": 26.3
+      },
+      "mare-longue": {
+        "percent": 54.5
+      },
+      "la-nicoliere": {
+        "percent": 39.2
+      },
+      "piton-du-milieu": {
+        "percent": 38.1
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 93.8
+      },
+      "reservoirs": {
+        "la-ferme": {
+          "percent": 57
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/only-39-mauritius-water-crisis-hits-new-low/",
+        "published": "2025-02-11",
+        "date_basis": "stated",
+        "total_percent": 39.6
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 38.6,
+      "reported_total_percent": 39.6,
+      "diff": -1,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-02-13",
+    "date_basis": "published",
+    "total": {
+      "percent": 38.1
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 41.4
+      },
+      "la-ferme": {
+        "percent": 26.3
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/secheresse-reservoirs-niveau-deau-plus-que-critique/665623/",
+        "published": "2025-02-13",
+        "date_basis": "published",
+        "total_percent": 38.1
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 2,
+      "computed_total_percent": null,
+      "reported_total_percent": 38.1,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-02-17",
+    "date_basis": "stated",
+    "total": {
+      "percent": 37.7
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 40.8
+      },
+      "midlands": {
+        "percent": 35.9
+      },
+      "bagatelle": {
+        "percent": 37.5
+      },
+      "la-ferme": {
+        "percent": 26
+      },
+      "mare-longue": {
+        "percent": 53.2
+      },
+      "la-nicoliere": {
+        "percent": 39.2
+      },
+      "piton-du-milieu": {
+        "percent": 37.8
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 93.9
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 100
+        },
+        "la-ferme": {
+          "percent": 54.3
+        },
+        "mare-longue": {
+          "percent": 98.1
+        },
+        "la-nicoliere": {
+          "percent": 100
+        },
+        "piton-du-milieu": {
+          "percent": 98.7
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/secheresse-de-grande-envergure-a-quand-la-delivrance/665927/",
+        "published": "2025-02-17",
+        "date_basis": "stated",
+        "total_percent": 37.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 37.72,
+      "reported_total_percent": 37.7,
+      "diff": 0.02,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-02-21",
+    "date_basis": "stated",
+    "total": {
+      "percent": 38.2
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 40.7
+      },
+      "midlands": {
+        "percent": 35.5
+      },
+      "mare-longue": {
+        "percent": 53
+      },
+      "la-nicoliere": {
+        "percent": 47.9
+      },
+      "piton-du-milieu": {
+        "percent": 36.5
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/reservoirs-only-38-2-full-a-cause-for-concern/",
+        "published": "2025-02-22",
+        "date_basis": "stated",
+        "total_percent": 38.2
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 5,
+      "computed_total_percent": null,
+      "reported_total_percent": 38.2,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-02-28",
+    "date_basis": "stated",
+    "total": {
+      "percent": 38.9
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 41.3
+      },
+      "midlands": {
+        "percent": 37.6
+      },
+      "bagatelle": {
+        "percent": 37.5
+      },
+      "la-ferme": {
+        "percent": 27.4
+      },
+      "mare-longue": {
+        "percent": 52.5
+      },
+      "la-nicoliere": {
+        "percent": 45.8
+      },
+      "piton-du-milieu": {
+        "percent": 38.1
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 91.6
+      },
+      "reservoirs": {
+        "mare-longue": {
+          "percent": 98.1
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/reservoirs-reality-water-levels-plummet-to-a-disheartening-38-9/",
+        "published": "2025-02-28",
+        "date_basis": "published",
+        "total_percent": 38.9
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/limpact-de-garance-sur-les-reservoirs-il-faudra-repasser/667293/",
+        "published": "2025-03-02",
+        "date_basis": "stated",
+        "total_percent": 38.9
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 38.85,
+      "reported_total_percent": 38.9,
+      "diff": -0.05,
+      "sources_agree": true
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-03-03",
+    "date_basis": "stated",
+    "total": {
+      "percent": 40.6
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 40.7
+      },
+      "midlands": {
+        "percent": 40.7
+      },
+      "bagatelle": {
+        "percent": 39.8
+      },
+      "la-ferme": {
+        "percent": 28.6
+      },
+      "mare-longue": {
+        "percent": 51.3
+      },
+      "la-nicoliere": {
+        "percent": 52.9
+      },
+      "piton-du-milieu": {
+        "percent": 44.1
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 91.4
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/niveau-des-reservoirs-seuls-mare-longue-et-la-nicoliere-depassent-50-de-remplissage/",
+        "published": "2025-03-04",
+        "date_basis": "stated",
+        "total_percent": 40.6
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 40.57,
+      "reported_total_percent": 40.6,
+      "diff": -0.03,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-03-04",
+    "date_basis": "stated",
+    "total": {
+      "percent": 41,
+      "volume_mm3": 37.81
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/15-water-capacity-warning-minister-predicts-disaster-if-reservoir-levels-fall-further/",
+        "published": "2025-03-05",
+        "date_basis": "stated",
+        "total_percent": 41
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 41,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-03-17",
+    "date_basis": "stated",
+    "total": {
+      "percent": 44.5
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 39.2
+      },
+      "midlands": {
+        "percent": 45
+      },
+      "bagatelle": {
+        "percent": 48.5
+      },
+      "la-ferme": {
+        "percent": 31.6
+      },
+      "mare-longue": {
+        "percent": 67.1
+      },
+      "la-nicoliere": {
+        "percent": 52.1
+      },
+      "piton-du-milieu": {
+        "percent": 59.2
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 91.6
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/reservoirs-seuls-mare-longue-la-nicoliere-et-piton-du-milieu-affichent-un-taux-de-remplissage-superieur-a-50/",
+        "published": "2025-03-17",
+        "date_basis": "stated",
+        "total_percent": 44.5
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 44.63,
+      "reported_total_percent": 44.5,
+      "diff": 0.13,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-03-20",
+    "date_basis": "stated",
+    "total": {
+      "percent": 45.1
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 38.6
+      },
+      "midlands": {
+        "percent": 45.7
+      },
+      "bagatelle": {
+        "percent": 50.7
+      },
+      "la-ferme": {
+        "percent": 32.7
+      },
+      "mare-longue": {
+        "percent": 51.3
+      },
+      "la-nicoliere": {
+        "percent": 68.6
+      },
+      "piton-du-milieu": {
+        "percent": 61.5
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 92.6
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/les-reservoirs-toujours-a-moitie-vides-un-taux-de-remplissage-de-451/669212/",
+        "published": "2025-03-20",
+        "date_basis": "stated",
+        "total_percent": 45.1
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 45.08,
+      "reported_total_percent": 45.1,
+      "diff": -0.02,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-03-21",
+    "date_basis": "stated",
+    "total": {
+      "percent": 45.5
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 38
+      },
+      "la-nicoliere": {
+        "percent": 69.4
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/malgre-les-fortes-averses-enregistrees-a-vacoas-le-niveau-de-mare-aux-vacoas-chute-de-40-a-38-entre-le-14-et-le-21-mars/669472/",
+        "published": "2025-03-24",
+        "date_basis": "stated",
+        "total_percent": 45.5
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 2,
+      "computed_total_percent": null,
+      "reported_total_percent": 45.5,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-03-31",
+    "date_basis": "stated",
+    "total": {
+      "percent": 47
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 38.8
+      },
+      "la-nicoliere": {
+        "percent": 71.9
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/secteur-de-leau-une-lueur-despoir/671828/",
+        "published": "2025-04-14",
+        "date_basis": "stated",
+        "total_percent": 47
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 2,
+      "computed_total_percent": null,
+      "reported_total_percent": 47,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-04-02",
+    "date_basis": "stated",
+    "total": {
+      "percent": 49.4
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 39.3
+      },
+      "midlands": {
+        "percent": 53.9
+      },
+      "bagatelle": {
+        "percent": 54
+      },
+      "la-ferme": {
+        "percent": 37.5
+      },
+      "mare-longue": {
+        "percent": 51.1
+      },
+      "la-nicoliere": {
+        "percent": 75.1
+      },
+      "piton-du-milieu": {
+        "percent": 72.2
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-le-taux-global-de-remplissage-des-sept-reservoirs-atteint-a-494/",
+        "published": "2025-04-02",
+        "date_basis": "stated",
+        "total_percent": 49.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 49.38,
+      "reported_total_percent": 49.4,
+      "diff": -0.02,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-04-04",
+    "date_basis": "stated",
+    "total": {
+      "percent": 51.5
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 41.6
+      },
+      "midlands": {
+        "percent": 55.4
+      },
+      "bagatelle": {
+        "percent": 56.3
+      },
+      "la-ferme": {
+        "percent": 38.5
+      },
+      "mare-longue": {
+        "percent": 53.8
+      },
+      "la-nicoliere": {
+        "percent": 81.2
+      },
+      "piton-du-milieu": {
+        "percent": 73.3
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-le-taux-global-de-remplissage-des-sept-reservoirs-atteint-a-515/",
+        "published": "2025-04-04",
+        "date_basis": "stated",
+        "total_percent": 51.5
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 51.5,
+      "reported_total_percent": 51.5,
+      "diff": 0,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-04-07",
+    "date_basis": "stated",
+    "total": {
+      "percent": 52.4
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 41.1
+      },
+      "midlands": {
+        "percent": 56.4
+      },
+      "bagatelle": {
+        "percent": 58.4
+      },
+      "la-ferme": {
+        "percent": 40.1
+      },
+      "mare-longue": {
+        "percent": 53.3
+      },
+      "la-nicoliere": {
+        "percent": 84.6
+      },
+      "piton-du-milieu": {
+        "percent": 75.6
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 93
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/reservoirs-water-levels-plummet-to-52-4-capacity/",
+        "published": "2025-04-07",
+        "date_basis": "stated",
+        "total_percent": 52.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 52.41,
+      "reported_total_percent": 52.4,
+      "diff": 0.01,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-04-11",
+    "date_basis": "stated",
+    "total": {
+      "percent": 54
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 41.6
+      },
+      "midlands": {
+        "percent": 57.6
+      },
+      "bagatelle": {
+        "percent": 60.2
+      },
+      "la-ferme": {
+        "percent": 42.4
+      },
+      "mare-longue": {
+        "percent": 52.9
+      },
+      "la-nicoliere": {
+        "percent": 91.3
+      },
+      "piton-du-milieu": {
+        "percent": 76.9
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 93
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-les-reservoirs-montrent-des-signes-damelioration-sauf-mare-aux-vacoas-a-416/",
+        "published": "2025-04-11",
+        "date_basis": "published"
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/secteur-de-leau-une-lueur-despoir/671828/",
+        "published": "2025-04-14",
+        "date_basis": "stated",
+        "total_percent": 54
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 53.85,
+      "reported_total_percent": 54,
+      "diff": -0.15,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-04-17",
+    "date_basis": "stated",
+    "total": {
+      "percent": 56.2
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 41.8
+      },
+      "midlands": {
+        "percent": 61.1
+      },
+      "bagatelle": {
+        "percent": 61.7
+      },
+      "la-ferme": {
+        "percent": 47.9
+      },
+      "mare-longue": {
+        "percent": 51.4
+      },
+      "piton-du-milieu": {
+        "percent": 80.6
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 92
+      },
+      "reservoirs": {
+        "la-nicoliere": {
+          "percent": 100
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/taux-de-remplissage-de-plus-de-98-pour-la-nicoliere-mais/672369/",
+        "published": "2025-04-20",
+        "date_basis": "stated",
+        "total_percent": 56.2
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 6,
+      "computed_total_percent": null,
+      "reported_total_percent": 56.2,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-04-18",
+    "date_basis": "published",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 42
+      },
+      "midlands": {
+        "percent": 62.2
+      },
+      "bagatelle": {
+        "percent": 62.2
+      },
+      "la-ferme": {
+        "percent": 48.6
+      },
+      "mare-longue": {
+        "percent": 51.3
+      },
+      "la-nicoliere": {
+        "percent": 99.4
+      },
+      "piton-du-milieu": {
+        "percent": 81.9
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-la-nicoliere-presque-entierement-remplie-a-994/",
+        "published": "2025-04-18",
+        "date_basis": "published"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 56.85,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-04-24",
+    "date_basis": "published",
+    "total": {
+      "percent": 57.8
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 41
+      },
+      "midlands": {
+        "percent": 64.2
+      },
+      "bagatelle": {
+        "percent": 62.9
+      },
+      "la-ferme": {
+        "percent": 52.9
+      },
+      "mare-longue": {
+        "percent": 49.8
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 84.3
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-les-reservoirs-montrent-des-signes-damelioration-sauf-mare-aux-vacoas-a-410/",
+        "published": "2025-04-24",
+        "date_basis": "published",
+        "total_percent": 57.8
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 57.78,
+      "reported_total_percent": 57.8,
+      "diff": -0.02,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-04-28",
+    "date_basis": "published",
+    "total": {
+      "percent": 57.8
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 40.2
+      },
+      "midlands": {
+        "percent": 65.4
+      },
+      "bagatelle": {
+        "percent": 62.8
+      },
+      "la-ferme": {
+        "percent": 53.2
+      },
+      "mare-longue": {
+        "percent": 48.7
+      },
+      "la-nicoliere": {
+        "percent": 99.2
+      },
+      "piton-du-milieu": {
+        "percent": 84.6
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-le-taux-de-remplissage-des-7-reservoirs-est-de-578/",
+        "published": "2025-04-28",
+        "date_basis": "published",
+        "total_percent": 57.8
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 57.8,
+      "reported_total_percent": 57.8,
+      "diff": 0,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-05-02",
+    "date_basis": "stated",
+    "total": {
+      "percent": 63.7
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 47.6
+      },
+      "midlands": {
+        "percent": 72.5
+      },
+      "bagatelle": {
+        "percent": 68
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 99.3
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/recent-heavy-rainfall-outcome-reservoirs-experience-a-6-surge/",
+        "published": "2025-05-05",
+        "date_basis": "stated",
+        "total_percent": 63.7
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/limpact-des-fortes-precipitations-du-30-avril-hausse-de-6-du-taux-de-remplissage-des-reservoirs/673688/",
+        "published": "2025-05-05",
+        "date_basis": "stated",
+        "total_percent": 63.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 5,
+      "computed_total_percent": null,
+      "reported_total_percent": 63.7,
+      "diff": null,
+      "sources_agree": true
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-05-04",
+    "date_basis": "published",
+    "total": {
+      "percent": 63.7
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 47.6
+      },
+      "midlands": {
+        "percent": 72
+      },
+      "bagatelle": {
+        "percent": 67.4
+      },
+      "la-ferme": {
+        "percent": 56.6
+      },
+      "mare-longue": {
+        "percent": 53.5
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 99.3
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 97.3
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/apres-les-fortes-pluies-niveau-des-reservoirs-au-dessus-de-la-barre-des-60/673597/",
+        "published": "2025-05-04",
+        "date_basis": "published",
+        "total_percent": 63.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 63.71,
+      "reported_total_percent": 63.7,
+      "diff": 0.01,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-05-06",
+    "date_basis": "published",
+    "total": {
+      "percent": 64.9
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 47.6
+      },
+      "midlands": {
+        "percent": 74
+      },
+      "bagatelle": {
+        "percent": 69.4
+      },
+      "la-ferme": {
+        "percent": 59.6
+      },
+      "mare-longue": {
+        "percent": 59.6
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 99
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/taux-de-remplissage-des-sept-reservoirs-une-moyenne-de-649/",
+        "published": "2025-05-06",
+        "date_basis": "published",
+        "total_percent": 64.9
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 65.36,
+      "reported_total_percent": 64.9,
+      "diff": 0.46,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-05-09",
+    "date_basis": "published",
+    "total": {
+      "percent": 71.5
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 56.2
+      },
+      "midlands": {
+        "percent": 83.5
+      },
+      "bagatelle": {
+        "percent": 74.7
+      },
+      "mare-longue": {
+        "percent": 58.4
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 100
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 93.4
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/reservoirs-remplis-a-plus-de-70-les-restrictions-sur-lutilisation-de-leau-sont-toujours-dactualite/674130/",
+        "published": "2025-05-09",
+        "date_basis": "published",
+        "total_percent": 71.5
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 6,
+      "computed_total_percent": null,
+      "reported_total_percent": 71.5,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-05-12",
+    "date_basis": "published",
+    "total": {
+      "percent": 75.7
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 60.4
+      },
+      "midlands": {
+        "percent": 88.9
+      },
+      "bagatelle": {
+        "percent": 78.3
+      },
+      "la-ferme": {
+        "percent": 66.1
+      },
+      "mare-longue": {
+        "percent": 64.8
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 99.7
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-le-taux-de-remplissage-des-7-reservoirs-est-de-757/",
+        "published": "2025-05-12",
+        "date_basis": "published",
+        "total_percent": 75.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 75.69,
+      "reported_total_percent": 75.7,
+      "diff": -0.01,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-05-21",
+    "date_basis": "published",
+    "total": {
+      "percent": 81
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 65
+      },
+      "midlands": {
+        "percent": 97.2
+      },
+      "bagatelle": {
+        "percent": 81.3
+      },
+      "la-ferme": {
+        "percent": 74.2
+      },
+      "mare-longue": {
+        "percent": 67.8
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 99
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-le-taux-moyen-de-remplissage-des-sept-reservoirs-atteint-81/",
+        "published": "2025-05-21",
+        "date_basis": "published",
+        "total_percent": 81
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 80.95,
+      "reported_total_percent": 81,
+      "diff": -0.05,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-05-28",
+    "date_basis": "published",
+    "total": {
+      "percent": 84
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 70
+      },
+      "midlands": {
+        "percent": 99.3
+      },
+      "bagatelle": {
+        "percent": 83.2
+      },
+      "la-ferme": {
+        "percent": 78.9
+      },
+      "mare-longue": {
+        "percent": 71.2
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 99
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-le-taux-moyen-de-remplissage-des-sept-reservoirs-atteint-84/",
+        "published": "2025-05-28",
+        "date_basis": "published",
+        "total_percent": 84
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 84.06,
+      "reported_total_percent": 84,
+      "diff": 0.06,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-05-30",
+    "date_basis": "published",
+    "total": {
+      "percent": 84.3
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 70.5
+      },
+      "midlands": {
+        "percent": 99.5
+      },
+      "bagatelle": {
+        "percent": 83
+      },
+      "la-ferme": {
+        "percent": 79.3
+      },
+      "mare-longue": {
+        "percent": 71.5
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 99.3
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-piton-du-milieu-et-midlands-dam-se-rapprochent-dun-remplissage-de-100/",
+        "published": "2025-05-30",
+        "date_basis": "published",
+        "total_percent": 84.3
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 84.31,
+      "reported_total_percent": 84.3,
+      "diff": 0.01,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-06-16",
+    "date_basis": "stated",
+    "total": {
+      "percent": 84.7
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 71.9
+      },
+      "midlands": {
+        "percent": 98.7
+      },
+      "bagatelle": {
+        "percent": 85
+      },
+      "la-ferme": {
+        "percent": 78.6
+      },
+      "mare-longue": {
+        "percent": 72.1
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 98.7
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 94.7
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 98.4
+        },
+        "midlands": {
+          "percent": 99.4
+        }
+      }
+    },
+    "average": {
+      "total": {
+        "percent": 84.2
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/reservoirs-la-nicoliere-et-midlands-frolent-les-100-mare-aux-vacoas-sous-les-72/677125/",
+        "published": "2025-06-16",
+        "date_basis": "stated",
+        "total_percent": 84.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 84.73,
+      "reported_total_percent": 84.7,
+      "diff": 0.03,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-08-11",
+    "date_basis": "stated",
+    "total": {
+      "percent": 92.9
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 90.7
+      },
+      "midlands": {
+        "percent": 100
+      },
+      "bagatelle": {
+        "percent": 94.1
+      },
+      "la-ferme": {
+        "percent": 78
+      },
+      "mare-longue": {
+        "percent": 88.4
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 99
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 84.5
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/reservoirs-un-taux-moyen-de-remplissage-de-929/",
+        "published": "2025-08-12",
+        "date_basis": "stated",
+        "total_percent": 92.9
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 92.87,
+      "reported_total_percent": 92.9,
+      "diff": -0.03,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-08-20",
+    "date_basis": "stated",
+    "total": {
+      "percent": 95.7
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 97.1
+      },
+      "midlands": {
+        "percent": 100
+      },
+      "bagatelle": {
+        "percent": 97.9
+      },
+      "la-ferme": {
+        "percent": 78
+      },
+      "mare-longue": {
+        "percent": 93.9
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 100
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 82
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/les-reservoirs-affichent-bonne-mine-un-taux-moyen-de-remplissage-de-957/",
+        "published": "2025-08-20",
+        "date_basis": "stated",
+        "total_percent": 95.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 95.69,
+      "reported_total_percent": 95.7,
+      "diff": -0.01,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-08-26",
+    "date_basis": "published",
+    "total": {
+      "percent": 95.7,
+      "volume_mm3": 88.2
+    },
+    "reservoirs": {
+      "midlands": {
+        "percent": 100
+      },
+      "bagatelle": {
+        "percent": 97.9
+      },
+      "la-ferme": {
+        "percent": 78
+      },
+      "mare-longue": {
+        "percent": 93.9
+      },
+      "la-nicoliere": {
+        "percent": 100
+      },
+      "piton-du-milieu": {
+        "percent": 100
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 82
+      },
+      "reservoirs": {
+        "la-ferme": {
+          "percent": 62
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/95-7-full-reservoirs-recent-rains-end-water-scarcity-fears-for-now/",
+        "published": "2025-08-26",
+        "date_basis": "published",
+        "total_percent": 95.7
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/pluies-abondantes-reservoirs-pleins-la-responsabilite-citoyenne-simpose/682351/",
+        "published": "2025-08-26",
+        "date_basis": "published",
+        "total_percent": 95.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 6,
+      "computed_total_percent": null,
+      "reported_total_percent": 95.7,
+      "diff": null,
+      "sources_agree": true
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-09-03",
+    "date_basis": "published",
+    "total": {
+      "percent": 95.3
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 97.1
+      },
+      "midlands": {
+        "percent": 99.4
+      },
+      "bagatelle": {
+        "percent": 99.4
+      },
+      "la-ferme": {
+        "percent": 74
+      },
+      "mare-longue": {
+        "percent": 96.8
+      },
+      "la-nicoliere": {
+        "percent": 98.7
+      },
+      "piton-du-milieu": {
+        "percent": 99
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 77.2
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/reservoirs-un-taux-moyen-de-remplissage-de-953/",
+        "published": "2025-09-03",
+        "date_basis": "published",
+        "total_percent": 95.3
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 95.35,
+      "reported_total_percent": 95.3,
+      "diff": 0.05,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-09-24",
+    "date_basis": "published",
+    "total": {
+      "percent": 92
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 92.3
+      },
+      "midlands": {
+        "percent": 97.9
+      },
+      "bagatelle": {
+        "percent": 97.2
+      },
+      "la-ferme": {
+        "percent": 74.7
+      },
+      "mare-longue": {
+        "percent": 96.3
+      },
+      "la-nicoliere": {
+        "percent": 80.6
+      },
+      "piton-du-milieu": {
+        "percent": 91.3
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 84.82
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/reservoirs-un-taux-moyen-de-remplissage-de-92/",
+        "published": "2025-09-24",
+        "date_basis": "published",
+        "total_percent": 92
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 92.01,
+      "reported_total_percent": 92,
+      "diff": 0.01,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2025-10-21",
+    "date_basis": "stated",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 82
+      },
+      "midlands": {
+        "percent": 89.5
+      },
+      "bagatelle": {
+        "percent": 89.5
+      },
+      "mare-longue": {
+        "percent": 90.3
+      },
+      "la-nicoliere": {
+        "percent": 48.7
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 63
+        },
+        "midlands": {
+          "percent": 57.3
+        },
+        "bagatelle": {
+          "percent": 69.5
+        },
+        "mare-longue": {
+          "percent": 69.4
+        },
+        "la-nicoliere": {
+          "percent": 55.5
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/la-nicoliere-le-niveau-deau-passe-sous-la-barre-de-50/688541/",
+        "published": "2025-10-25",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 5,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-10-24",
+    "date_basis": "stated",
+    "reservoirs": {
+      "la-nicoliere": {
+        "percent": 46.8
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/la-nicoliere-le-niveau-deau-passe-sous-la-barre-de-50/688541/",
+        "published": "2025-10-25",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-10-27",
+    "date_basis": "published",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 81
+      },
+      "la-ferme": {
+        "percent": 63
+      },
+      "mare-longue": {
+        "percent": 89
+      },
+      "la-nicoliere": {
+        "percent": 45
+      },
+      "piton-du-milieu": {
+        "percent": 76
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 62
+        },
+        "la-nicoliere": {
+          "percent": 55
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/north-water-crisis-la-nicoliere-plunges-to-just-45-capacity/",
+        "published": "2025-10-27",
+        "date_basis": "published"
+      },
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-la-nicoliere-remplie-a-45-un-taux-inquietant-pour-les-usagers-du-nord/",
+        "published": "2025-10-28",
+        "date_basis": "published"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 5,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2025-12-30",
+    "date_basis": "stated",
+    "total": {
+      "percent": 65
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 63
+      },
+      "bagatelle": {
+        "percent": 79
+      },
+      "mare-longue": {
+        "percent": 86
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 44
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 51.8
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/reserves-en-eau-lhypothese-du-stress-hydrique-sevapore/695745/",
+        "published": "2026-01-07",
+        "date_basis": "stated",
+        "total_percent": 65
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 3,
+      "computed_total_percent": null,
+      "reported_total_percent": 65,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-01-20",
+    "date_basis": "stated",
+    "total": {
+      "percent": 71.3
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 67.2
+      },
+      "midlands": {
+        "percent": 73.7
+      },
+      "bagatelle": {
+        "percent": 86.4
+      },
+      "la-ferme": {
+        "percent": 46
+      },
+      "mare-longue": {
+        "percent": 93.3
+      },
+      "la-nicoliere": {
+        "percent": 63.1
+      },
+      "piton-du-milieu": {
+        "percent": 77.3
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 46.7
+        },
+        "midlands": {
+          "percent": 40.6
+        },
+        "bagatelle": {
+          "percent": 40.8
+        },
+        "la-ferme": {
+          "percent": 26.4
+        },
+        "mare-longue": {
+          "percent": 58.6
+        },
+        "la-nicoliere": {
+          "percent": 44.3
+        },
+        "piton-du-milieu": {
+          "percent": 43.5
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/reservoirs-in-mauritius-see-major-recovery-as-water-levels-surge-to-71/",
+        "published": "2026-01-22",
+        "date_basis": "stated",
+        "total_percent": 71.3
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 71.29,
+      "reported_total_percent": 71.3,
+      "diff": -0.01,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2026-02-16",
+    "date_basis": "stated",
+    "total": {
+      "percent": 69.5,
+      "volume_mm3": 64.12
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 61.4
+      },
+      "midlands": {
+        "percent": 75.8
+      },
+      "bagatelle": {
+        "percent": 85.4
+      },
+      "la-ferme": {
+        "percent": 44.7
+      },
+      "mare-longue": {
+        "percent": 93.2
+      },
+      "la-nicoliere": {
+        "percent": 55.1
+      },
+      "piton-du-milieu": {
+        "percent": 79.6
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 38.4
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 41.4
+        },
+        "midlands": {
+          "percent": 36
+        },
+        "bagatelle": {
+          "percent": 37.8
+        },
+        "la-ferme": {
+          "percent": 27.8
+        },
+        "mare-longue": {
+          "percent": 53.8
+        },
+        "la-nicoliere": {
+          "percent": 42.8
+        },
+        "piton-du-milieu": {
+          "percent": 38.1
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/reservoir-stocks-reach-64-million-m%c2%b3-as-water-crisis-levels-ease/",
+        "published": "2026-02-19",
+        "date_basis": "stated",
+        "total_percent": 69.5
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 69.53,
+      "reported_total_percent": 69.5,
+      "diff": 0.03,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2026-03-28",
+    "date_basis": "stated",
+    "total": {
+      "percent": 64
+    },
+    "reservoirs": {
+      "mare-longue": {
+        "percent": 87
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/dessalement-de-leau-de-mer-patrick-assirvaden-veut-sinspirer-de-lexpertise-rodriguaise/705052/",
+        "published": "2026-04-21",
+        "date_basis": "stated",
+        "total_percent": 64
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": 64,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-03-31",
+    "date_basis": "published",
+    "total": {
+      "percent": 66.7
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/mauritius-faces-strict-water-curbs-as-7-reservoirs-hit-66-7-capacity/",
+        "published": "2026-03-31",
+        "date_basis": "published",
+        "total_percent": 66.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 66.7,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-04-17",
+    "date_basis": "stated",
+    "total": {
+      "percent": 65.6
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 52.1
+      },
+      "midlands": {
+        "percent": 74
+      },
+      "bagatelle": {
+        "percent": 79
+      },
+      "mare-longue": {
+        "percent": 88.1
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/dessalement-de-leau-de-mer-patrick-assirvaden-veut-sinspirer-de-lexpertise-rodriguaise/705052/",
+        "published": "2026-04-21",
+        "date_basis": "stated",
+        "total_percent": 65.6
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 4,
+      "computed_total_percent": null,
+      "reported_total_percent": 65.6,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-04-21",
+    "date_basis": "published",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 51
+      }
+    },
+    "average": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 85
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/secheresse-un-plan-national-de-restriction-deau-en-preparation/",
+        "published": "2026-04-21",
+        "date_basis": "published"
+      },
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/government-prepares-water-supply-restrictions-as-major-reservoir-reaches-51-capacity/",
+        "published": "2026-04-22",
+        "date_basis": "published"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-04-26",
+    "date_basis": "stated",
+    "total": {
+      "percent": 64.1
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/penurie-deau-et-restrictions-cest-reparti-pour-un-tour/705695/",
+        "published": "2026-04-27",
+        "date_basis": "stated",
+        "total_percent": 64.1
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 64.1,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-05-21",
+    "date_basis": "stated",
+    "total": {
+      "percent": 67.2,
+      "volume_mm3": 61.92
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 49.5
+      },
+      "midlands": {
+        "percent": 82.2
+      },
+      "bagatelle": {
+        "percent": 77.8,
+        "volume_mm3": 11.49
+      },
+      "la-ferme": {
+        "percent": 51.3
+      },
+      "mare-longue": {
+        "percent": 86.5
+      },
+      "la-nicoliere": {
+        "percent": 52.7
+      },
+      "piton-du-milieu": {
+        "percent": 84.6
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 81.2
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 64.9
+        },
+        "mare-longue": {
+          "percent": 67.7
+        }
+      }
+    },
+    "average": {
+      "total": {
+        "percent": 88.2
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/transition-climatique-niveau-deau-mare-aux-vacoas-sous-la-barre-de-50/707798/",
+        "published": "2026-05-22",
+        "date_basis": "stated",
+        "total_percent": 67.2
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 67.14,
+      "reported_total_percent": 67.2,
+      "diff": -0.06,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2026-05-26",
+    "date_basis": "published",
+    "total": {
+      "percent": 67.1
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 49.5
+      },
+      "midlands": {
+        "percent": 82.4
+      },
+      "bagatelle": {
+        "percent": 77.6
+      },
+      "la-ferme": {
+        "percent": 51.6
+      },
+      "mare-longue": {
+        "percent": 86.3
+      },
+      "la-nicoliere": {
+        "percent": 51.9
+      },
+      "piton-du-milieu": {
+        "percent": 84.6
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "la-nicoliere": {
+          "percent": 100
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/reservoir-water-levels-plunge-by-14-7-million-m%c2%b3-in-12-months/",
+        "published": "2026-05-26",
+        "date_basis": "published",
+        "total_percent": 67.1
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 67.14,
+      "reported_total_percent": 67.1,
+      "diff": 0.04,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2026-06-05",
+    "date_basis": "stated",
+    "total": {
+      "percent": 65.4
+    },
+    "last_year": {
+      "total": {
+        "percent": 84.4
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/niveau-des-reservoirs-en-baisse-maurice-a-soif/",
+        "published": "2026-06-12",
+        "date_basis": "stated",
+        "total_percent": 65.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 65.4,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-06-10",
+    "date_basis": "published",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 45
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/niveau-critique-a-mare-aux-vacoas-des-restrictions-de-distribution-deau-des-la-semaine-prochaine/709405/",
+        "published": "2026-06-10",
+        "date_basis": "published"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-06-11",
+    "date_basis": "published",
+    "total": {
+      "percent": 64
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 45
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/le-niveau-de-mare-aux-vacoas-inquiete-restrictions-deau-a-partir-du-15-juin/",
+        "published": "2026-06-11",
+        "date_basis": "published",
+        "total_percent": 64
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/niveau-critique-a-mare-aux-vacoas-restrictions-des-la-semaine-prochaine/709438/",
+        "published": "2026-06-11",
+        "date_basis": "published"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": 64,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-06-17",
+    "date_basis": "stated",
+    "total": {
+      "percent": 62.6
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 43.6
+      },
+      "midlands": {
+        "percent": 75.8
+      },
+      "bagatelle": {
+        "percent": 72.4
+      },
+      "la-ferme": {
+        "percent": 46.2
+      },
+      "mare-longue": {
+        "percent": 82
+      },
+      "la-nicoliere": {
+        "percent": 68.4
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 84.6
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 71.7
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/secheresse-le-niveau-de-mare-aux-vacoas-chute-a-436-des-restrictions-renforcees/",
+        "published": "2026-06-18",
+        "date_basis": "stated",
+        "total_percent": 62.6
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 6,
+      "computed_total_percent": null,
+      "reported_total_percent": 62.6,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-07-20",
+    "date_basis": "published",
+    "total": {
+      "percent": 65.8
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/reservoir-mare-aux-vacoas-sous-les-45/712960/",
+        "published": "2026-07-20",
+        "date_basis": "published",
+        "total_percent": 65.8
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 65.8,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-07-23",
+    "date_basis": "stated",
+    "total": {
+      "percent": 65.1
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 43.8
+      },
+      "la-nicoliere": {
+        "percent": 54.2
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 90.7
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/authorities-consider-new-water-restrictions-as-storage-plunges-to-65/",
+        "published": "2026-07-24",
+        "date_basis": "stated",
+        "total_percent": 65.1
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 2,
+      "computed_total_percent": null,
+      "reported_total_percent": 65.1,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-07-30",
+    "date_basis": "stated",
+    "total": {
+      "percent": 62
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 41.2
+      },
+      "midlands": {
+        "percent": 81
+      },
+      "bagatelle": {
+        "percent": 72.8
+      },
+      "la-ferme": {
+        "percent": 45.4
+      },
+      "mare-longue": {
+        "percent": 86.3
+      },
+      "la-nicoliere": {
+        "percent": 48.3
+      },
+      "piton-du-milieu": {
+        "percent": 85.2
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 90
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/deficit-pluviometrique-situation-preoccupante-dans-les-reservoirs/713946/",
+        "published": "2026-08-01",
+        "date_basis": "stated"
+      },
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-pres-de-200-000-m%c2%b3-de-production-perdus-chaque-jour/",
+        "published": "2026-08-03",
+        "date_basis": "stated"
+      },
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/la-cwa-envisage-des-restrictions-alors-que-les-reservoirs-se-vident-a-vue-doeil/",
+        "published": "2026-08-03",
+        "date_basis": "stated"
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/mare-aux-vacoas-et-la-nicoliere-en-chute-libre-eau-rare-o-desespoir/714106/",
+        "published": "2026-08-03",
+        "date_basis": "stated",
+        "total_percent": 62
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 62.69,
+      "reported_total_percent": 62,
+      "diff": 0.69,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-08-03",
+    "date_basis": "stated",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 40.2
+      },
+      "la-nicoliere": {
+        "percent": 46.8
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 89.9
+        },
+        "la-nicoliere": {
+          "percent": 100
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/nationwide-water-supply-cut-by-2-hours-daily-as-reservoir-levels-plummet/",
+        "published": "2026-08-03",
+        "date_basis": "stated"
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/eau-la-distribution-reduite-de-deux-heures-par-jour-a-partir-de-mercredi/714266/",
+        "published": "2026-08-04",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 2,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-08-17",
+    "date_basis": "stated",
+    "total": {
+      "percent": 62.5,
+      "volume_mm3": 57.63
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 40,
+        "volume_mm3": 10.35
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 92.3
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 89.9,
+          "volume_mm3": 23.28
+        }
+      }
+    },
+    "average": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 79.3,
+          "volume_mm3": 20.53
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/secheresse-mare-aux-vacoas-a-seulement-40-de-sa-capacite/",
+        "published": "2026-08-17",
+        "date_basis": "stated",
+        "total_percent": 62.5
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": 62.5,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-09-01",
+    "date_basis": "stated",
+    "total": {
+      "percent": 63.4,
+      "volume_mm3": 58.44
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 39.5
+      },
+      "midlands": {
+        "percent": 84.5
+      },
+      "bagatelle": {
+        "percent": 71.3
+      },
+      "la-ferme": {
+        "percent": 46.6
+      },
+      "la-nicoliere": {
+        "percent": 55.3
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/nos-reservoirs-a-seulement-597-de-leur-capacite-contre-903-lan-dernier/",
+        "published": "2026-09-30",
+        "date_basis": "stated",
+        "total_percent": 63.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 5,
+      "computed_total_percent": null,
+      "reported_total_percent": 63.4,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-09-10",
+    "date_basis": "stated",
+    "total": {
+      "percent": 63.6,
+      "volume_mm3": 58.66
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 40.7,
+        "volume_mm3": 10.53
+      },
+      "midlands": {
+        "percent": 85.7,
+        "volume_mm3": 21.86
+      },
+      "bagatelle": {
+        "percent": 70.3,
+        "volume_mm3": 10.38
+      },
+      "la-ferme": {
+        "percent": 46.2,
+        "volume_mm3": 5.32
+      },
+      "mare-longue": {
+        "percent": 84.7,
+        "volume_mm3": 5.32
+      },
+      "la-nicoliere": {
+        "percent": 51.3,
+        "volume_mm3": 2.7
+      },
+      "piton-du-milieu": {
+        "percent": 85.3,
+        "volume_mm3": 2.55
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 94.8,
+        "volume_mm3": 87.38
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 95.1,
+          "volume_mm3": 24.62
+        },
+        "midlands": {
+          "percent": 99.4
+        },
+        "bagatelle": {
+          "percent": 99.1
+        },
+        "la-ferme": {
+          "percent": 76.1
+        },
+        "mare-longue": {
+          "percent": 97.6
+        },
+        "la-nicoliere": {
+          "percent": 94.9
+        },
+        "piton-du-milieu": {
+          "percent": 97
+        }
+      }
+    },
+    "average": {
+      "total": {
+        "percent": 79.7,
+        "volume_mm3": 73.52
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 78.2,
+          "volume_mm3": 20.24
+        },
+        "la-ferme": {
+          "percent": 39.6
+        },
+        "la-nicoliere": {
+          "percent": 91.8
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/niveau-des-reservoirs-la-situation-devient-critique-mare-aux-vacoas-sombre-a-407/",
+        "published": "2026-09-14",
+        "date_basis": "stated",
+        "total_percent": 63.6
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 63.62,
+      "reported_total_percent": 63.6,
+      "diff": 0.02,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2026-09-14",
+    "date_basis": "stated",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 40.3,
+        "volume_mm3": 10.43
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/sans-pluie-mare-aux-vacoas-niveau-a-20-dans-140-jours-leau-bientot-difficile-a-extraire/",
+        "published": "2026-09-18",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-09-17",
+    "date_basis": "stated",
+    "total": {
+      "percent": 62.4,
+      "volume_mm3": 57.57
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 39.9,
+        "volume_mm3": 10.32
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 93.3,
+        "volume_mm3": 86.03
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 93.1,
+          "volume_mm3": 24.11
+        }
+      }
+    },
+    "average": {
+      "total": {
+        "percent": 78.3,
+        "volume_mm3": 72.15
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 77.5,
+          "volume_mm3": 20.06
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/niveau-des-reservoirs-mare-aux-vacoas-passe-sous-la-barre-des-40/",
+        "published": "2026-09-17",
+        "date_basis": "stated",
+        "total_percent": 62.4
+      },
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/sans-pluie-mare-aux-vacoas-niveau-a-20-dans-140-jours-leau-bientot-difficile-a-extraire/",
+        "published": "2026-09-18",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": 62.4,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-09-18",
+    "date_basis": "stated",
+    "total": {
+      "percent": 62.4,
+      "volume_mm3": 57.52
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 39.9
+      },
+      "midlands": {
+        "percent": 85.2
+      },
+      "la-ferme": {
+        "percent": 44.9
+      },
+      "mare-longue": {
+        "percent": 83.8
+      },
+      "la-nicoliere": {
+        "percent": 45.2
+      },
+      "piton-du-milieu": {
+        "percent": 83.6
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 93.2,
+        "volume_mm3": 85.93
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 93.2
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/eau-les-reserves-sous-pression-plusieurs-regions-toujours-vulnerables/",
+        "published": "2026-09-20",
+        "date_basis": "stated",
+        "total_percent": 62.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 6,
+      "computed_total_percent": null,
+      "reported_total_percent": 62.4,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-09-29",
+    "date_basis": "stated",
+    "total": {
+      "percent": 59.7,
+      "volume_mm3": 55.05
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 37.3
+      },
+      "midlands": {
+        "percent": 81.6
+      },
+      "bagatelle": {
+        "percent": 66.1
+      },
+      "la-ferme": {
+        "percent": 42.5
+      },
+      "mare-longue": {
+        "percent": 81.2
+      },
+      "la-nicoliere": {
+        "percent": 45.8
+      },
+      "piton-du-milieu": {
+        "percent": 80.6
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 90.3,
+        "volume_mm3": 83.25
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 90.5
+        },
+        "bagatelle": {
+          "percent": 95.9
+        },
+        "la-ferme": {
+          "percent": 73.8
+        },
+        "la-nicoliere": {
+          "percent": 75.7
+        }
+      }
+    },
+    "average": {
+      "total": {
+        "percent": 75
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 75.4
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/nos-reservoirs-a-seulement-597-de-leur-capacite-contre-903-lan-dernier/",
+        "published": "2026-09-30",
+        "date_basis": "stated",
+        "total_percent": 59.7
+      },
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/zero-water-day-le-compte-a-rebours-de-51-jours/",
+        "published": "2026-10-09",
+        "date_basis": "stated",
+        "total_percent": 59.7
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 59.69,
+      "reported_total_percent": 59.7,
+      "diff": -0.01,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2026-10-04",
+    "date_basis": "stated",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 36.6
+      },
+      "mare-longue": {
+        "percent": 80.3
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 89.6
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/mare-aux-vacoas-ce-dimanche-apres-midi/719403/",
+        "published": "2026-10-04",
+        "date_basis": "stated"
+      },
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/cwa-restricts-supply-and-cracks-down-on-waste-as-key-reservoir-dips-to-36-6/",
+        "published": "2026-10-05",
+        "date_basis": "published"
+      },
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/water-50-years-of-master-plans-and-endless-recurrent-crises/",
+        "published": "2026-10-05",
+        "date_basis": "published"
+      },
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/coupure-deau-sans-preavis-colere-dans-la-region-de-curepipe/",
+        "published": "2026-10-06",
+        "date_basis": "published"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 2,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-10-06",
+    "date_basis": "stated",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 35.9
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 88.6
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/crise-de-leau-partagez-vos-problemes-sur-whatsapp/",
+        "published": "2026-10-07",
+        "date_basis": "stated"
+      },
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/minister-announces-15-containerised-pressure-filtration-units-to-tackle-water-crisis/",
+        "published": "2026-10-07",
+        "date_basis": "stated"
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/secheresse-et-fourniture-deau-assirvaden-sitiasion-pou-vinn-pli-difisil-dan-le-zour-a-venir/719602/",
+        "published": "2026-10-07",
+        "date_basis": "stated"
+      },
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/crise-de-leau-deux-mois-a-tenir-avant-les-grandes-pluies/",
+        "published": "2026-10-08",
+        "date_basis": "stated"
+      },
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/crise-de-leau-faut-il-revoir-le-prix-de-leau-pour-financer-les-infrastructures/",
+        "published": "2026-10-08",
+        "date_basis": "stated"
+      },
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/zero-water-day-le-compte-a-rebours-de-51-jours/",
+        "published": "2026-10-09",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-10-08",
+    "date_basis": "stated",
+    "total": {
+      "percent": 57.1
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 35.7
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 87.4
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/water-tank-and-water-pump-grant-scheme-la-subvention-etendue-aux-menages-qui-ne-sont-pas-encore-equipes/",
+        "published": "2026-10-09",
+        "date_basis": "stated",
+        "total_percent": 57.1
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/mare-aux-vacoas-a-357-30-000-m%c2%b3-deau-supplementaires-attendus-dici-fin-octobre/719924/",
+        "published": "2026-10-10",
+        "date_basis": "stated"
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/secheresse-operation-rod-dilo-pou-tegn-dife-mesures-durgence-face-au-stress-hydrique/719951/",
+        "published": "2026-10-10",
+        "date_basis": "stated",
+        "total_percent": 57.1
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": 57.1,
+      "diff": null,
+      "sources_agree": true
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-10-16",
+    "date_basis": "stated",
+    "total": {
+      "percent": 54.6
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 34.6,
+        "volume_mm3": 8.95
+      },
+      "midlands": {
+        "percent": 74.4,
+        "volume_mm3": 18.98
+      },
+      "bagatelle": {
+        "percent": 60.9,
+        "volume_mm3": 8.99
+      },
+      "la-ferme": {
+        "percent": 37.5,
+        "volume_mm3": 4.32
+      },
+      "mare-longue": {
+        "percent": 76.1,
+        "volume_mm3": 4.78
+      },
+      "la-nicoliere": {
+        "percent": 40.9,
+        "volume_mm3": 2.15
+      },
+      "piton-du-milieu": {
+        "percent": 72.6,
+        "volume_mm3": 2.17
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 84
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 84.6
+        },
+        "bagatelle": {
+          "percent": 91.1
+        },
+        "la-ferme": {
+          "percent": 66
+        },
+        "la-nicoliere": {
+          "percent": 59.1
+        }
+      }
+    },
+    "average": {
+      "total": {
+        "percent": 69.6
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/urgence-hydrique-8-ministeres-mobilises-alors-que-la-mare-aux-vacoas-chute-a-346/",
+        "published": "2026-10-17",
+        "date_basis": "stated",
+        "total_percent": 54.6
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/crise-de-leau-face-a-la-bombe-a-retardement-sociale-le-pm-prend-les-manettes/720970/",
+        "published": "2026-10-18",
+        "date_basis": "stated",
+        "total_percent": 54.6
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 54.6,
+      "reported_total_percent": 54.6,
+      "diff": 0,
+      "sources_agree": true
+    },
+    "verified": true
+  },
+  {
+    "date": "2026-10-17",
+    "date_basis": "stated",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 34.4
+      },
+      "midlands": {
+        "percent": 74
+      },
+      "bagatelle": {
+        "percent": 60.6
+      },
+      "la-ferme": {
+        "percent": 37.1
+      },
+      "mare-longue": {
+        "percent": 75.8
+      },
+      "la-nicoliere": {
+        "percent": 39.5
+      },
+      "piton-du-milieu": {
+        "percent": 72.2
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/plaines-wilhems-faces-water-rationing-every-2-days-as-capacity-drops-below-35/",
+        "published": "2026-10-19",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 54.22,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-10-20",
+    "date_basis": "stated",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 34.2
+      },
+      "la-nicoliere": {
+        "percent": 39.4
+      }
+    },
+    "sources": [
+      {
+        "name": "News Moris",
+        "url": "https://newsmoris.com/water-tank-subsidy-scheme-may-be-extended-to-households-with-existing-storage/",
+        "published": "2026-10-21",
+        "date_basis": "stated"
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/le-mauricien/eau-problemes-dapprovisionnement-reunion-demain-du-comite-ramgoolam/721237/",
+        "published": "2026-10-21",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 2,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-10-21",
+    "date_basis": "stated",
+    "total": {
+      "percent": 53.19,
+      "volume_mm3": 49.04
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 34.03,
+        "volume_mm3": 8.81
+      },
+      "midlands": {
+        "percent": 72.59
+      },
+      "bagatelle": {
+        "percent": 58.74
+      },
+      "la-ferme": {
+        "percent": 36.2
+      },
+      "mare-longue": {
+        "percent": 74.84
+      },
+      "la-nicoliere": {
+        "percent": 39.35
+      },
+      "piton-du-milieu": {
+        "percent": 70.57
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 81.56,
+        "volume_mm3": 75.2
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 81.96,
+          "volume_mm3": 21.22
+        },
+        "midlands": {
+          "percent": 89.45
+        },
+        "bagatelle": {
+          "percent": 89.5
+        },
+        "la-ferme": {
+          "percent": 64.41
+        },
+        "mare-longue": {
+          "percent": 90.29
+        },
+        "la-nicoliere": {
+          "percent": 48.67
+        },
+        "piton-du-milieu": {
+          "percent": 77.26
+        }
+      }
+    },
+    "average": {
+      "total": {
+        "percent": 67.59,
+        "volume_mm3": 62.32
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 69.91,
+          "volume_mm3": 18.1
+        },
+        "midlands": {
+          "percent": 84.39
+        },
+        "bagatelle": {
+          "percent": 80.27
+        },
+        "la-ferme": {
+          "percent": 23
+        },
+        "mare-longue": {
+          "percent": 43.31
+        },
+        "la-nicoliere": {
+          "percent": 64.07
+        },
+        "piton-du-milieu": {
+          "percent": 70.57
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/reservoirs-taux-global-de-remplissage-a-5319-en-ce-mercredi-mare-aux-vacoas-a-34/",
+        "published": "2026-10-21",
+        "date_basis": "stated",
+        "total_percent": 53.19
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 53.19,
+      "reported_total_percent": 53.19,
+      "diff": 0,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2026-10-22",
+    "date_basis": "stated",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 33.9
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/crise-de-leau-112-millions-de-litres-supplementaires-attendus-le-gouvernement-envisage-jusqua-20-autres-forages/721776/",
+        "published": "2026-10-26",
+        "date_basis": "stated"
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/cwa-secheresse-dautres-mesures-durgence-activees-face-a-la-baisse-des-reserves-en-eau/721935/",
+        "published": "2026-10-28",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-10-26",
+    "date_basis": "stated",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 33.7
+      },
+      "la-nicoliere": {
+        "percent": 36.1
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/politique/crise-de-leau-mare-aux-vacoas-a-337-joe-lesjongard-accuse-le-gouvernement-de-huit-mois-dinaction-malgre-les-alertes-meteo/721743/",
+        "published": "2026-10-26",
+        "date_basis": "stated"
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/msm-joe-lesjongard-desam-pa-pou-kapav-tir-delo-dan-mare-aux-vacoas/721833/",
+        "published": "2026-10-27",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 2,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-10-29",
+    "date_basis": "stated",
+    "total": {
+      "percent": 51.6
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 33.9
+      },
+      "la-nicoliere": {
+        "percent": 38
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/crise-de-leau-les-reservoirs-a-516-plusieurs-mesures-en-cours/",
+        "published": "2026-10-31",
+        "date_basis": "stated",
+        "total_percent": 51.6
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/crise-de-leau-mare-aux-vacoas-a-339-plus-de-38-000-demandes-daide-pour-des-reservoirs/722188/",
+        "published": "2026-10-31",
+        "date_basis": "stated",
+        "total_percent": 51.6
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/crise-de-leau-de-quoi-limiter-la-casse-apres-la-mise-en-operation-de-8-forages-et-de-6-unites-conteneurisees-de-filtration-des-reservoirs-de-30000-litres-en/722234/",
+        "published": "2026-11-01",
+        "date_basis": "published",
+        "total_percent": 51.6
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 2,
+      "computed_total_percent": null,
+      "reported_total_percent": 51.6,
+      "diff": null,
+      "sources_agree": true
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-10-30",
+    "date_basis": "stated",
+    "total": {
+      "percent": 51.4,
+      "volume_mm3": 47.39
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 33.8,
+        "volume_mm3": 8.75
+      },
+      "midlands": {
+        "percent": 70.4
+      },
+      "bagatelle": {
+        "percent": 55.8,
+        "volume_mm3": 8.23
+      },
+      "la-ferme": {
+        "percent": 33.7,
+        "volume_mm3": 3.88
+      },
+      "mare-longue": {
+        "percent": 71.7,
+        "volume_mm3": 4.5
+      },
+      "la-nicoliere": {
+        "percent": 39,
+        "volume_mm3": 2.05
+      },
+      "piton-du-milieu": {
+        "percent": 67.9,
+        "volume_mm3": 2.03
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 77.2
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 77.9,
+          "volume_mm3": 20.16
+        },
+        "midlands": {
+          "percent": 84.1
+        },
+        "bagatelle": {
+          "percent": 86.1
+        },
+        "la-ferme": {
+          "percent": 61.4
+        },
+        "mare-longue": {
+          "percent": 87.4
+        },
+        "la-nicoliere": {
+          "percent": 41.3
+        },
+        "piton-du-milieu": {
+          "percent": 71.9
+        }
+      }
+    },
+    "average": {
+      "total": {
+        "percent": 63.9
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 67.4
+        },
+        "midlands": {
+          "percent": 80.1
+        },
+        "bagatelle": {
+          "percent": 77.2
+        },
+        "la-ferme": {
+          "percent": 19.1
+        },
+        "mare-longue": {
+          "percent": 38.1
+        },
+        "la-nicoliere": {
+          "percent": 57.6
+        },
+        "piton-du-milieu": {
+          "percent": 66.9
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/niveau-des-reservoirs-la-barre-des-50-frolee-mare-aux-vacoas-chute-drastiquement-a-338/",
+        "published": "2026-11-01",
+        "date_basis": "stated",
+        "total_percent": 51.4
+      },
+      {
+        "name": "L'Express",
+        "url": "https://lexpress.mu/s/le-taux-de-remplissage-chute-a-514-564346",
+        "published": "2026-11-03",
+        "date_basis": "stated",
+        "total_percent": 51.4
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 51.42,
+      "reported_total_percent": 51.4,
+      "diff": 0.02,
+      "sources_agree": true
+    },
+    "verified": true
+  },
+  {
+    "date": "2026-11-03",
+    "date_basis": "stated",
+    "total": {
+      "percent": 50.1
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 33.3,
+        "volume_mm3": 8.61
+      },
+      "midlands": {
+        "percent": 68
+      },
+      "bagatelle": {
+        "percent": 53.6
+      },
+      "la-ferme": {
+        "percent": 32.6
+      },
+      "mare-longue": {
+        "percent": 70.2
+      },
+      "la-nicoliere": {
+        "percent": 40.9
+      },
+      "piton-du-milieu": {
+        "percent": 65.9
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 75.4
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 76.1
+        },
+        "midlands": {
+          "percent": 81.4
+        },
+        "bagatelle": {
+          "percent": 84.3
+        },
+        "la-ferme": {
+          "percent": 60.2
+        },
+        "mare-longue": {
+          "percent": 86.1
+        },
+        "la-nicoliere": {
+          "percent": 42.8
+        },
+        "piton-du-milieu": {
+          "percent": 69.6
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/approvisionnement-en-eau-forte-baisse-des-reserves-a-mare-aux-vacoas-et-a-la-ferme/722389/",
+        "published": "2026-11-04",
+        "date_basis": "stated",
+        "total_percent": 50.1
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 7,
+      "computed_total_percent": 50.06,
+      "reported_total_percent": 50.1,
+      "diff": -0.04,
+      "sources_agree": null
+    },
+    "verified": true
+  },
+  {
+    "date": "2026-11-04",
+    "date_basis": "stated",
+    "total": {
+      "percent": 49.9
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/eclairage-crise-de-leau-maurice-face-a-la-penurie/722740/",
+        "published": "2026-11-08",
+        "date_basis": "stated",
+        "total_percent": 49.9
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 0,
+      "computed_total_percent": null,
+      "reported_total_percent": 49.9,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-11-05",
+    "date_basis": "stated",
+    "total": {
+      "percent": 49.6
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 32.8
+      },
+      "la-nicoliere": {
+        "percent": 43.7
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/meteo-des-averses-attendues-un-espoir-pour-nos-reservoirs/",
+        "published": "2026-11-07",
+        "date_basis": "stated",
+        "total_percent": 49.6
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/crise-de-leau-les-reserves-sous-les-50-40-000-demandes-daide-pour-des-reservoirs/722615/",
+        "published": "2026-11-07",
+        "date_basis": "stated",
+        "total_percent": 49.6
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/eclairage-crise-de-leau-maurice-face-a-la-penurie/722740/",
+        "published": "2026-11-08",
+        "date_basis": "stated",
+        "total_percent": 49.6
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 2,
+      "computed_total_percent": null,
+      "reported_total_percent": 49.6,
+      "diff": null,
+      "sources_agree": true
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-11-12",
+    "date_basis": "stated",
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 33
+      }
+    },
+    "last_year": {
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 74.3
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/secheresse-mare-aux-vacoas-a-33-la-baisse-du-niveau-vue-du-ciel/723192/",
+        "published": "2026-11-13",
+        "date_basis": "stated"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": null,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-11-18",
+    "date_basis": "stated",
+    "total": {
+      "percent": 46.6,
+      "volume_mm3": 42.96
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 32.2,
+        "volume_mm3": 8.33
+      },
+      "bagatelle": {
+        "percent": 48.2,
+        "volume_mm3": 7.12
+      },
+      "la-ferme": {
+        "percent": 29,
+        "volume_mm3": 3.34
+      }
+    },
+    "last_year": {
+      "total": {
+        "percent": 72.5,
+        "volume_mm3": 66.85
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 72,
+          "volume_mm3": 18.65
+        },
+        "bagatelle": {
+          "percent": 81
+        },
+        "la-ferme": {
+          "percent": 54.9
+        }
+      }
+    },
+    "average": {
+      "total": {
+        "percent": 57.5,
+        "volume_mm3": 53.04
+      },
+      "reservoirs": {
+        "mare-aux-vacoas": {
+          "percent": 61.8
+        },
+        "la-ferme": {
+          "percent": 11.5
+        }
+      }
+    },
+    "sources": [
+      {
+        "name": "ION News",
+        "url": "https://ionnews.mu/ressources-en-eau-le-taux-de-remplissage-global-des-reservoirs-recule-a-466-au-18-novembre/",
+        "published": "2026-11-19",
+        "date_basis": "stated",
+        "total_percent": 46.6
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 3,
+      "computed_total_percent": null,
+      "reported_total_percent": 46.6,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  },
+  {
+    "date": "2026-11-21",
+    "date_basis": "published",
+    "total": {
+      "percent": 46.3
+    },
+    "reservoirs": {
+      "mare-aux-vacoas": {
+        "percent": 31.9
+      }
+    },
+    "sources": [
+      {
+        "name": "Defimedia",
+        "url": "https://defimedia.info/crise-de-leau-douze-nouveaux-systemes-de-filtration-attendus-dici-fin-decembre",
+        "published": "2026-11-21",
+        "date_basis": "published",
+        "total_percent": 46.3
+      },
+      {
+        "name": "Le Mauricien",
+        "url": "https://www.lemauricien.com/actualites/societe/tamarind-falls-20-000-m%c2%b3-deau-supplementaires-par-jour-bientot-mobilises/723733/",
+        "published": "2026-11-21",
+        "date_basis": "published"
+      }
+    ],
+    "check": {
+      "reservoirs_reported": 1,
+      "computed_total_percent": null,
+      "reported_total_percent": 46.3,
+      "diff": null,
+      "sources_agree": null
+    },
+    "verified": false
+  }
 ]
