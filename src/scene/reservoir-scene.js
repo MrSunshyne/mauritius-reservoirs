@@ -42,7 +42,8 @@ export class ReservoirScene {
     // The island floats on the page's near-black, the sea fading into it with distance.
     this.scene = new THREE.Scene();
     this.scene.background = BACKGROUND;
-    this.scene.fog = new THREE.Fog(BACKGROUND, 70, 200);
+    this.fog = new THREE.Fog(BACKGROUND, 70, 200);
+    this.scene.fog = this.fog;
     this.camera = new THREE.PerspectiveCamera(38, 1, 0.5, 600);
 
     const { width: W, height: H, cellSize } = terrain.meta;

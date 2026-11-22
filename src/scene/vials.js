@@ -28,7 +28,8 @@ export class Vials {
     const frac = s.known ? Math.max(s.current, 0.004) : 0;
     // A level change sets the water sloshing, in proportion to the step.
     const step = frac - g.frac;
-    if (Math.abs(step) > 0.002 && !this.core.reducedMotion) {
+    // Only a jump (a new bulletin) does; continuous playback moves it smoothly, in place.
+    if (Math.abs(step) > 0.002 && lake.level.ms > 0) {
       g.slosh = Math.min(0.06, g.slosh + Math.abs(step) * 0.5);
       g.sloshT0 = performance.now();
     }

@@ -1,75 +1,60 @@
 <script setup>
-import { computed, onBeforeUnmount, ref } from "vue";
+import { computed } from "vue";
 import { formatDate, pct, fillColor } from "../lib/data.js";
+import { dayOf, isoOf } from "../lib/playback.js";
 
+// A time axis over every bulletin: ticks at the bulletin dates, a playhead that moves
+// continuously while playing, and snapping to the nearest bulletin when dragged.
 const props = defineProps({
   timeline: { type: Array, required: true },
+  index: { type: Number, required: true },
+  day: { type: Number, default: null }, // the continuous day while playing, else null
+  total: { type: Number, default: null }, // island total shown beside the date
 });
-const index = defineModel({ type: Number, required: true });
+const emit = defineEmits(["seek", "play", "pause"]);
 
-const playing = ref(false);
-let timer = null;
-const STEP_MS = 260;
-
-const entry = computed(() => props.timeline[index.value]);
-const last = computed(() => props.timeline.length - 1);
-// Year boundaries along the slider, as tick marks.
+const d0 = computed(() => dayOf(props.timeline[0].date));
+const d1 = computed(() => dayOf(props.timeline[props.timeline.length - 1].date));
+const span = computed(() => Math.max(1, d1.value - d0.value));
+const at = (d) => ((d - d0.value) / span.value) * 100;
+const current = computed(() => props.day ?? dayOf(props.timeline[props.index].date));
+const ticks = computed(() => props.timeline.map((e) => at(dayOf(e.date))));
 const years = computed(() => {
   const out = [];
-  props.timeline.forEach((e, i) => {
-    const y = e.date.slice(0, 4);
-    if (i === 0 || props.timeline[i - 1].date.slice(0, 4) !== y) out.push({ y, at: (i / Math.max(1, last.value)) * 100 });
-  });
+  for (let y = +props.timeline[0].date.slice(0, 4) + 1; dayOf(`${y}-01-01`) <= d1.value; y++) out.push({ y, at: at(dayOf(`${y}-01-01`)) });
   return out;
 });
 
-function play() {
-  if (playing.value) return stop();
-  if (index.value >= last.value) index.value = 0;
-  playing.value = true;
-  timer = setInterval(() => {
-    if (index.value >= last.value) return stop();
-    index.value++;
-  }, STEP_MS);
-}
-function stop() {
-  playing.value = false;
-  clearInterval(timer);
-}
+// Dragging lands on the nearest bulletin.
 function onInput(e) {
-  stop();
-  index.value = +e.target.value;
+  const d = +e.target.value;
+  let best = 0;
+  props.timeline.forEach((t, i) => {
+    if (Math.abs(dayOf(t.date) - d) < Math.abs(dayOf(props.timeline[best].date) - d)) best = i;
+  });
+  emit("seek", best);
 }
-onBeforeUnmount(stop);
 </script>
 
 <template>
   <div class="flex items-center gap-4 sm:gap-6">
-    <button class="w-12 shrink-0 text-left text-[11px] font-bold uppercase tracking-[0.12em] hover:underline disabled:opacity-40" :disabled="timeline.length < 2" @click="play">
-      {{ playing ? "Pause" : "Play" }}
+    <button class="w-12 shrink-0 text-left text-[11px] font-bold uppercase tracking-[0.12em] hover:underline disabled:opacity-40" :disabled="timeline.length < 2" @click="day == null ? emit('play') : emit('pause')">
+      {{ day == null ? "Play" : "Pause" }}
     </button>
-    <div class="min-w-0 flex-1">
-      <div class="relative">
-        <input
-          type="range"
-          class="timeline w-full"
-          min="0"
-          :max="last"
-          step="1"
-          :value="index"
-          :aria-valuetext="`${formatDate(entry.date)}, island total ${pct(entry.total)}`"
-          aria-label="Bulletin date"
-          @input="onInput"
-        />
-        <div class="pointer-events-none relative h-4 text-[10px] text-muted">
-          <span v-for="y in years" :key="y.y" class="absolute top-0 border-l border-line pl-1" :style="{ left: `${y.at}%` }">{{ y.y }}</span>
-        </div>
+    <div class="relative min-w-0 flex-1">
+      <input type="range" class="timeline relative z-10 w-full" :min="d0" :max="d1" step="0.01" :value="current" :aria-valuetext="formatDate(isoOf(current))" aria-label="Date" @input="onInput" />
+      <div class="pointer-events-none absolute inset-x-0 top-[15px] h-1.5">
+        <span v-for="(x, i) in ticks" :key="i" class="absolute top-0 h-1.5 w-px bg-[#4a4a4a]" :style="{ left: `${x}%` }"></span>
+      </div>
+      <div class="pointer-events-none relative h-4 text-[10px] text-muted">
+        <span v-for="y in years" :key="y.y" class="absolute top-0 pl-1" :style="{ left: `${y.at}%` }">{{ y.y }}</span>
       </div>
     </div>
-    <div class="shrink-0 text-right">
-      <div class="font-display text-base leading-tight sm:text-lg">{{ formatDate(entry.date) }}</div>
+    <div class="w-[8.5rem] shrink-0 whitespace-nowrap text-right sm:w-[10rem]">
+      <div class="font-display text-base leading-tight tabular-nums sm:text-lg">{{ formatDate(isoOf(current)) }}</div>
       <div class="text-xs text-soft">
-        island <span class="font-bold" :style="{ color: fillColor(entry.total) }">{{ pct(entry.total) }}</span>
+        {{ day != null ? "interpolated" : "island" }}
+        <span class="font-bold tabular-nums" :style="{ color: fillColor(total) }">{{ pct(total) }}</span>
       </div>
     </div>
   </div>

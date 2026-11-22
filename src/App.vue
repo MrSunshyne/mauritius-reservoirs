@@ -1,12 +1,13 @@
 <script setup>
-import { computed, nextTick, onMounted, ref, shallowRef, watch } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from "vue";
 import SceneView from "./components/SceneView.vue";
 import TimelineBar from "./components/TimelineBar.vue";
 import ReservoirDetail from "./components/ReservoirDetail.vue";
 import HistoryChart from "./components/HistoryChart.vue";
 import { loadDataset, buildTimeline, historyOf, totalHistory, formatDate, pct, mm3, pts, fillColor, ALERT, DATASET_REPO } from "./lib/data.js";
 import { islandSummary, reservoirSummary, sortedByLevel } from "./lib/stats.js";
-import { BASIN_EXAG, TERRAIN_EXAG, CRITICAL } from "./lib/model.js";
+import { buildSeries, entryAt, dayOf } from "./lib/playback.js";
+import { BASIN_EXAG, TERRAIN_EXAG, CLOSE_EXAG, CRITICAL } from "./lib/model.js";
 
 const data = shallowRef(null);
 const error = ref(null);
@@ -29,37 +30,113 @@ onMounted(async () => {
 const reservoirs = computed(() => data.value?.reservoirs ?? []);
 const readings = computed(() => data.value?.readings ?? []);
 const timeline = computed(() => (data.value ? buildTimeline(data.value.reservoirs, data.value.readings) : []));
-const entry = computed(() => timeline.value[index.value]);
-const isLatest = computed(() => index.value === timeline.value.length - 1);
+const series = computed(() => (data.value ? buildSeries(data.value.reservoirs, data.value.readings) : null));
+
+// Playback. `day` runs continuously while playing (null when paused): every level is
+// interpolated between its own bulletins, and pausing snaps back to the nearest
+// bulletin. With reduced motion it steps from bulletin to bulletin instead.
+const DAYS_PER_SECOND = 30;
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const day = ref(null);
+const stepping = ref(false); // reduced-motion playback
+let raf = 0;
+let stepTimer = 0;
+let lastFrame = 0;
+const playing = computed(() => day.value != null || stepping.value);
+const frozenOrder = ref(null); // the list keeps its order while playing
+
+// The bulletin at or before the playhead.
+const baseIndex = computed(() => {
+  if (day.value == null) return index.value;
+  let i = 0;
+  while (i + 1 < timeline.value.length && dayOf(timeline.value[i + 1].date) <= day.value) i++;
+  return i;
+});
+const entry = computed(() => {
+  const base = timeline.value[baseIndex.value];
+  return day.value == null || !base ? base : entryAt(series.value, reservoirs.value, base, day.value);
+});
+
+function play() {
+  const tl = timeline.value;
+  frozenOrder.value = sorted.value.map((r) => r.id);
+  if (index.value >= tl.length - 1) index.value = 0;
+  if (reducedMotion) {
+    stepping.value = true;
+    stepTimer = setInterval(() => (index.value >= tl.length - 1 ? pause() : index.value++), 400);
+    return;
+  }
+  day.value = dayOf(tl[index.value].date);
+  lastFrame = performance.now();
+  const end = dayOf(tl[tl.length - 1].date);
+  const tick = (now) => {
+    day.value = Math.min(end, day.value + ((now - lastFrame) / 1000) * DAYS_PER_SECOND);
+    lastFrame = now;
+    if (day.value >= end) return pause();
+    raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
+}
+function pause() {
+  cancelAnimationFrame(raf);
+  clearInterval(stepTimer);
+  stepping.value = false;
+  if (day.value != null) {
+    // Snap to the nearest bulletin.
+    let best = 0;
+    timeline.value.forEach((e, i) => {
+      if (Math.abs(dayOf(e.date) - day.value) < Math.abs(dayOf(timeline.value[best].date) - day.value)) best = i;
+    });
+    index.value = best;
+    day.value = null;
+  }
+  frozenOrder.value = null;
+}
+function seek(i) {
+  if (playing.value) pause();
+  index.value = i;
+}
+onBeforeUnmount(pause);
+
+const isLatest = computed(() => day.value == null && index.value === timeline.value.length - 1);
 const capacity = computed(() => reservoirs.value.reduce((s, r) => s + r.capacity_mm3, 0));
-const island = computed(() => (entry.value ? islandSummary(timeline.value, readings.value, index.value, capacity.value) : null));
-const sorted = computed(() => (entry.value ? sortedByLevel(reservoirs.value, entry.value) : []));
+// Comparisons and trends come from the bulletin; the headline figures follow the playhead.
+const island = computed(() => {
+  if (!entry.value) return null;
+  const s = islandSummary(timeline.value, readings.value, baseIndex.value, capacity.value);
+  return { ...s, date: entry.value.date, total: entry.value.total, volume: entry.value.totalVolume, critical: entry.value.total != null && entry.value.total < CRITICAL };
+});
+const sorted = computed(() => {
+  if (!entry.value) return [];
+  if (frozenOrder.value) return frozenOrder.value.map((id) => reservoirs.value.find((r) => r.id === id));
+  return sortedByLevel(reservoirs.value, entry.value);
+});
 const selectedReservoir = computed(() => reservoirs.value.find((r) => r.id === selected.value));
-const selectedSummary = computed(() => (selectedReservoir.value ? reservoirSummary(timeline.value, readings.value, index.value, selectedReservoir.value) : null));
+const selectedSummary = computed(() => {
+  if (!selectedReservoir.value) return null;
+  const s = reservoirSummary(timeline.value, readings.value, baseIndex.value, selectedReservoir.value);
+  const l = entry.value.levels[selected.value];
+  return s && l && day.value != null ? { ...s, percent: l.percent, volume: l.volume, volumeEstimated: false, critical: l.percent < CRITICAL, interpolated: true } : s;
+});
 const selectedHistory = computed(() => (selected.value ? historyOf(readings.value, selected.value) : []));
 const totals = computed(() => totalHistory(readings.value));
 const verified = computed(() => readings.value.filter((r) => r.verified).length);
 const firstDate = computed(() => readings.value[0]?.date);
-
-// The timeline steps every 260 ms while playing; anything slower is a person dragging.
-const playing = ref(false);
-let lastIndexChange = 0;
-watch(index, () => {
-  const now = performance.now();
-  playing.value = now - lastIndexChange < 400;
-  lastIndexChange = now;
-});
 
 // The tab title carries the latest figure, like the owner's other sites.
 watch(island, (s) => {
   if (s && isLatest.value && s.total != null) document.title = `Mauritius reservoirs: ${pct(s.total)} full (${formatDate(s.date)})`;
 });
 
-const dayMonth = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", timeZone: "UTC" });
-const normalDay = (iso) => dayMonth.format(new Date(iso + "T00:00:00Z"));
-const below = (v) => (v < 0 ? "below" : "above");
 const lessMore = (v) => (v < 0 ? "less" : "more");
-const onDate = (pair) => (pair.date !== entry.value.date ? `On ${formatDate(pair.date)} the island was at ${pct(pair.total)}, ` : "");
+const yearBefore = (iso) => formatDate(`${+iso.slice(0, 4) - 1}${iso.slice(4)}`);
+// Last year and the average come from the latest bulletin that gave them: say which, once.
+const comparedFrom = computed(() => {
+  const s = island.value;
+  const pairs = [s?.lastYear, s?.average].filter(Boolean);
+  const other = pairs.find((p) => p.date !== timeline.value[baseIndex.value]?.date);
+  return other ? `From the bulletin of ${formatDate(other.date)} (island at ${pct(other.total)}), the latest to give them.` : "";
+});
 
 function select(id) {
   selected.value = selected.value === id ? null : id;
@@ -88,52 +165,55 @@ function select(id) {
     <section v-else class="md:grid md:h-[calc(100svh-53px)] md:min-h-[660px] md:grid-cols-[minmax(380px,440px)_1fr] md:grid-rows-[auto_1fr]">
       <!-- Island total -->
       <div class="px-4 pb-6 pt-8 sm:px-8 md:col-start-1 md:row-start-1 md:border-r md:border-line">
-        <p class="kicker">Island total · bulletin of {{ formatDate(entry.date) }}</p>
-        <p class="mt-3 font-display text-7xl leading-none tabular-nums sm:text-8xl" :style="{ color: island.critical ? ALERT : undefined }">{{ pct(island.total) }}</p>
-        <p class="mt-4 text-base text-soft">
+        <p class="kicker truncate">Island total · {{ entry.interpolated ? `${formatDate(entry.date)}, interpolated` : `bulletin of ${formatDate(entry.date)}` }}</p>
+        <p class="mt-3 whitespace-nowrap font-display text-7xl leading-none tabular-nums sm:text-8xl" :style="{ color: island.critical ? ALERT : undefined }">{{ pct(island.total) }}</p>
+        <p class="mt-4 min-h-[3.2em] text-base text-soft">
           {{ island.volume != null ? `${mm3(island.volume, 1)} in the seven reservoirs, of ${mm3(capacity, 1)} they can hold.` : `The seven reservoirs hold up to ${mm3(capacity, 1)}.` }}
-          <button v-if="!isLatest" class="ml-1 text-paper underline underline-offset-4" @click="index = timeline.length - 1">Back to the latest</button>
+          <button class="ml-1 text-paper underline underline-offset-4" :class="isLatest || playing ? 'invisible' : ''" @click="seek(timeline.length - 1)">Back to the latest</button>
         </p>
 
-        <dl class="mt-6 border-t border-line text-sm leading-relaxed">
-          <div v-if="island.lastYear" class="border-b border-line py-3">
-            <dt class="kicker">A year earlier</dt>
-            <dd class="mt-1 text-soft">
-              {{ onDate(island.lastYear) }}<span class="text-paper">{{ Math.abs(island.lastYear.pts).toFixed(1) }} pts {{ below(island.lastYear.pts) }}</span> the same day the year before ({{ pct(island.lastYear.ref) }}):
-              <span class="text-paper">{{ mm3(Math.abs(island.lastYear.mm3), 1) }} {{ lessMore(island.lastYear.mm3) }}</span> water.
-            </dd>
+        <!-- Every line below keeps its place whatever the bulletin gives: missing figures show as a dash. -->
+        <div class="mt-4 border-t border-line text-sm">
+          <div class="border-b border-line py-3">
+            <p class="kicker">Against last year and the average</p>
+            <p class="mt-1 line-clamp-2 h-8 text-xs leading-4 text-muted">{{ comparedFrom }}</p>
+            <dl class="grid grid-cols-[1fr_auto] items-baseline gap-x-4 gap-y-1.5">
+              <dt class="truncate text-soft">{{ island.lastYear ? `vs ${yearBefore(island.lastYear.date)} (${pct(island.lastYear.ref)})` : "vs the same day last year" }}</dt>
+              <dd class="whitespace-nowrap text-right">
+                <span class="font-display text-lg tabular-nums">{{ island.lastYear ? pts(island.lastYear.pts) : "–" }}</span>
+                <span class="block text-xs text-muted">{{ island.lastYear ? `${mm3(Math.abs(island.lastYear.mm3), 1)} ${lessMore(island.lastYear.mm3)}` : "\u00a0" }}</span>
+              </dd>
+              <dt class="truncate text-soft">{{ island.average ? `vs the average for the date (${pct(island.average.ref)})` : "vs the average for the date" }}</dt>
+              <dd class="whitespace-nowrap text-right">
+                <span class="font-display text-lg tabular-nums">{{ island.average ? pts(island.average.pts) : "–" }}</span>
+                <span class="block text-xs text-muted">{{ island.average ? `${mm3(Math.abs(island.average.mm3), 1)} ${lessMore(island.average.mm3)}` : "\u00a0" }}</span>
+              </dd>
+            </dl>
           </div>
-          <div v-if="island.average" class="border-b border-line py-3">
-            <dt class="kicker">Long-term average</dt>
-            <dd class="mt-1 text-soft">
-              {{ onDate(island.average) }}<span class="text-paper">{{ Math.abs(island.average.pts).toFixed(1) }} pts {{ below(island.average.pts) }}</span> the average for the date ({{ pct(island.average.ref) }}):
-              <span class="text-paper">{{ mm3(Math.abs(island.average.mm3), 1) }} {{ lessMore(island.average.mm3) }}</span> than a normal {{ normalDay(island.average.date) }}.
-            </dd>
-          </div>
-          <div v-if="island.week || island.month" class="grid grid-cols-2 border-b border-line py-3">
-            <div v-if="island.week">
-              <dt class="kicker">Last {{ island.week.days }} days</dt>
-              <dd class="mt-1 font-display text-xl tabular-nums">{{ pts(island.week.pts) }}</dd>
-              <dd class="text-xs text-muted">from {{ pct(island.week.fromTotal) }} on {{ formatDate(island.week.from) }}</dd>
+          <dl class="grid grid-cols-2 border-b border-line py-3">
+            <div>
+              <dt class="kicker">Last {{ island.week?.days ?? 7 }} days</dt>
+              <dd class="mt-1 font-display text-xl tabular-nums">{{ island.week ? pts(island.week.pts) : "–" }}</dd>
+              <dd class="truncate text-xs text-muted">{{ island.week ? `from ${pct(island.week.fromTotal)} on ${formatDate(island.week.from)}` : "no bulletin a week before" }}</dd>
             </div>
-            <div v-if="island.month">
-              <dt class="kicker">Last {{ island.month.days }} days</dt>
-              <dd class="mt-1 font-display text-xl tabular-nums">{{ pts(island.month.pts) }}</dd>
-              <dd class="text-xs text-muted">{{ pts(island.month.perWeek) }} a week</dd>
+            <div>
+              <dt class="kicker">Last {{ island.month?.days ?? 30 }} days</dt>
+              <dd class="mt-1 font-display text-xl tabular-nums">{{ island.month ? pts(island.month.pts) : "–" }}</dd>
+              <dd class="truncate text-xs text-muted">{{ island.month ? `${pts(island.month.perWeek)} a week` : "no bulletin a month before" }}</dd>
             </div>
-          </div>
-        </dl>
+          </dl>
+        </div>
       </div>
 
       <!-- 3D -->
       <div ref="stageEl" class="relative h-[66svh] min-h-[440px] scroll-mt-2 border-y border-line md:col-start-2 md:row-span-2 md:row-start-1 md:h-auto md:border-y-0">
-        <SceneView :reservoirs="reservoirs" :levels="entry.levels" :date="entry.date" :selected="selected" :playing="playing" @select="select" @closeup="closeup = $event" />
+        <SceneView :reservoirs="reservoirs" :levels="entry.levels" :selected="selected" :playing="playing" @select="select" @closeup="closeup = $event" />
         <div v-if="selected" class="absolute left-4 top-4 z-10 flex items-baseline gap-4 sm:left-6">
           <button class="kicker hover:text-paper" @click="selected = null">← Back to the island</button>
           <span v-if="closeup?.loading" class="text-xs text-soft">Loading the 1 m terrain…</span>
         </div>
         <div class="absolute inset-x-0 bottom-0 border-t border-line bg-ink px-4 py-2 sm:px-6">
-          <TimelineBar v-model="index" :timeline="timeline" />
+          <TimelineBar :timeline="timeline" :index="index" :day="day" :total="entry.total" @play="play" @pause="pause" @seek="seek" />
         </div>
       </div>
 
@@ -161,13 +241,16 @@ function select(id) {
                   <span class="absolute inset-y-0 left-0" :style="{ width: `${entry.levels[r.id]?.percent ?? 0}%`, background: fillColor(entry.levels[r.id]?.percent) }"></span>
                   <span v-if="entry.levels[r.id]?.lastYear != null" class="absolute -top-1 h-3 w-px bg-paper" :style="{ left: `${entry.levels[r.id].lastYear}%` }"></span>
                 </span>
-                <span class="col-span-2 mt-1.5 text-xs text-muted">
-                  {{ mm3(entry.levels[r.id]?.volume, 1) }} of {{ mm3(r.capacity_mm3, 1) }}<template v-if="entry.levels[r.id] && entry.levels[r.id].asOf !== entry.date"> · last reported {{ formatDate(entry.levels[r.id].asOf) }}</template>
+                <span class="col-span-2 mt-1.5 truncate text-xs text-muted">
+                  {{ mm3(entry.levels[r.id]?.volume, 1) }} of {{ mm3(r.capacity_mm3, 1) }}<template v-if="entry.levels[r.id] && (entry.levels[r.id].stale || (!entry.interpolated && entry.levels[r.id].asOf !== entry.date))"> · last reported {{ formatDate(entry.levels[r.id].asOf) }}</template>
                 </span>
               </button>
             </li>
           </ul>
-          <p class="mt-3 text-xs text-muted">White tick: the same day a year earlier, when the bulletin gave it. Select a reservoir to open it.</p>
+          <p class="mt-3 text-xs text-muted">
+            White tick: the same day a year earlier, when the bulletin gave it. In the 3D view a grey figure is a reservoir left out of that bulletin: its last reported level.
+            {{ frozenOrder ? "The order stays as it was when play started." : "" }}
+          </p>
         </template>
       </div>
     </section>
@@ -198,7 +281,7 @@ function select(id) {
           <div class="flex flex-col gap-4">
             <p>
               <span class="text-paper">The basins are modelled.</span> There is no public depth survey of the reservoirs. Each lake's basin is shaped from its outline, deepest in the middle, and sized to hold its official capacity;
-              the water stands at the level that holds the reported %. Depths are drawn {{ BASIN_EXAG }}× deeper on top of the terrain's {{ TERRAIN_EXAG }}×. The real shoreline at a given % will differ.
+              the water stands at the level that holds the reported %. On the island, heights are drawn {{ TERRAIN_EXAG }}× and basin depths {{ BASIN_EXAG }}× more on top, so they show at that scale; in a close-up, terrain and basin are both drawn {{ CLOSE_EXAG }}×. The real shoreline at a given % will differ.
             </p>
             <p>
               <span class="text-paper">Projections.</span> "At that pace" dates are a straight line through a reservoir's last 30 days of reports. They ignore rain and changes in use, and are only shown when the level is falling.

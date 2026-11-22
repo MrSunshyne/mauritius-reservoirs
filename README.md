@@ -2,7 +2,7 @@
 
 How full are the seven main reservoirs of Mauritius? The island total and each reservoir, bulletin by bulletin since January 2024, against the same day a year earlier and the long-term average, on a 3D model of the island.
 
-Live at https://mrsunshyne.github.io/mauritius-reservoirs/
+Live at https://reservoirs.ramgolam.com/
 
 ## What it shows
 
@@ -10,7 +10,7 @@ Live at https://mrsunshyne.github.io/mauritius-reservoirs/
 - The seven reservoirs, lowest first: Mare aux Vacoas, Midlands, Bagatelle, La Ferme, Mare Longue, La Nicolière and Piton du Milieu. Each one shows its level, volume, what it supplies, how it compares with last year and the average, the date it was last reported (many bulletins leave some out), its pace over 30 days, and a chart of every report.
 - On the 3D island, each lake sits in a modelled basin: the water stands at the level that holds the reported %, so the shoreline pulls back over a dry, cracked bed with a pale ring at the full level. A glass vial above each lake fills to the same %, so the level reads at island scale.
 - Opening a reservoir shows a close-up block of the Land Drainage Authority's 1 m terrain around it, with the basin, the water, and the vial beside the lake.
-- A timeline over every bulletin, with a play button that animates all the levels.
+- A timeline over every bulletin. Play runs through time continuously (30 days a second): each reservoir moves in a straight line between its own reports, marked "interpolated"; pausing or dragging lands on a real bulletin.
 
 ## Where the data comes from
 
@@ -33,7 +33,7 @@ If that fails it falls back to the copy bundled in `public/data/`.
 
 ```
 pnpm install
-pnpm dev       # http://localhost:5173/mauritius-reservoirs/
+pnpm dev       # http://localhost:5173/
 pnpm build     # into dist/
 pnpm preview
 ```

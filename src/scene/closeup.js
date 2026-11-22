@@ -1,23 +1,25 @@
 // The close-up: a cut-out block of the Land Drainage Authority's 1 m terrain (MNT 2021,
 // via Moris 3D) around one reservoir, like a museum diorama: earth layers on the sides,
-// a plinth, its own low sun and soft shadows. Blocks are cut offline at 1-2 m by
-// scripts/build-closeups.mjs and loaded when a lake is opened.
+// a plinth on a softly lit floor, its own low warm sun. Blocks are cut offline at 1-2 m
+// by scripts/build-closeups.mjs and loaded when a lake is opened.
 //
-// The basin is modelled the same way as on the island (see basins.js), on this
-// block's own grid: depth grows with distance from the shore, scaled so the basin holds
-// the official capacity. The mesh is coarser than the data; the full detail comes back
-// through a normal map, a baked ambient-occlusion term and per-pixel colour.
+// Heights are drawn CLOSE_EXAG times, terrain and basin alike. The basin is modelled as
+// on the island (depth grows away from the shore, sized to hold the official capacity),
+// then roughened and smoothed so it reads as a drawn-down valley rather than a cut: no
+// crease at the rim, an irregular waterline as it drops. The mesh is coarser than the
+// data; the detail comes back through a normal map, baked occlusion and per-pixel colour.
 import * as THREE from "three";
-import { KM, toY, EXAG, LAND_STOPS, ROCK, BED_GLSL, levelCurve, lakeShapeGeometry } from "./common.js";
-import { BASIN_EXAG, BASIN_SHAPE } from "../lib/model.js";
-import { RING_M } from "./basins.js";
+import { KM, toY, LAND_STOPS, ROCK, levelCurve, lakeShapeGeometry, BACKGROUND } from "./common.js";
+import { BASIN_SHAPE, CLOSE_EXAG } from "../lib/model.js";
 
 const BASE = import.meta.env.BASE_URL + "closeups/";
-// Moris 3D's diorama: side layers as fractions of the block's width, the last runs to the base.
-const STRATA = ["#5e4636", "#7f6249", "#9b7d60", "#736d66"].map((c) => new THREE.Color(c));
-const LAYER_FRACTIONS = [0.006, 0.03, 0.07];
-const BASE_FRAC = 0.1;
-const CLOSE_SUN = new THREE.Vector3(-0.75, 0.42, -0.5).normalize(); // lower than the island's: it models the relief
+// Earth layers down the sides, as fractions of the block's width (Moris 3D's diorama);
+// the last runs to the base.
+const STRATA = ["#5a3f2c", "#7d5a40", "#9a7a5a", "#3b3734"].map((c) => new THREE.Color(c));
+const LAYER_FRACTIONS = [0.008, 0.045, 0.1];
+const BASE_FRAC = 0.17;
+// A warm low sun from the north-west: long shadows that model the relief.
+const CLOSE_SUN = new THREE.Vector3(-0.72, 0.5, -0.48).normalize();
 
 export class CloseUp {
   constructor(core) {
@@ -26,8 +28,14 @@ export class CloseUp {
     this.token = 0;
     this.index = null;
     this.rampTexture = rampTexture();
+    this.backdrop = backdropTexture();
+    this.fade = radialTexture([
+      [0, "rgba(255,255,255,1)"],
+      [0.45, "rgba(255,255,255,0.9)"],
+      [1, "rgba(255,255,255,0)"],
+    ]);
 
-    const sun = new THREE.DirectionalLight("#fff3e2", 3.4);
+    const sun = new THREE.DirectionalLight("#ffd9b0", 3.6);
     sun.castShadow = true;
     sun.shadow.mapSize.set(core.mobile ? 1024 : 2048, core.mobile ? 1024 : 2048);
     sun.visible = false;
@@ -61,12 +69,18 @@ export class CloseUp {
     core.basins.setVisible(false);
     core.vials.isolate(lake.id);
     core.vials.place(lake.id, block.vialAt, block.vialScale);
+    core.scene.background = this.backdrop;
+    core.scene.fog = null;
     this.sun.visible = true;
     core.islandSun.visible = false;
-    core.hemi.intensity = 0.65; // let the low sun model the relief
+    // Cool, dim sky light so the warm sun does the modelling.
+    core.hemi.color.set("#93aed0");
+    core.hemi.groundColor.set("#3a2e24");
+    core.hemi.intensity = 0.55;
     this.setLevel(lake);
     core.dirty = true;
-    return { target: block.center.clone(), distance: block.sizeKm * 1.45 };
+    // Far enough to see the whole block, its sides and its shadow, like a diorama on a table.
+    return { target: block.center.clone().setY(block.center.y - block.sizeKm * 0.06), distance: block.sizeKm * 2.05 };
   }
 
   close() {
@@ -79,7 +93,7 @@ export class CloseUp {
     if (!a || a.id !== lake.id) return;
     const s = lake.level;
     const h = s.known ? a.depthFor(s.current) : a.D;
-    const y = toY(a.fullM - h * BASIN_EXAG);
+    const y = a.yOf(a.fullM - h);
     a.water.position.y = y;
     a.water.visible = s.known && s.current > 0.002;
     a.bedUniforms.uWater.value = s.known ? y : -1e3;
@@ -97,8 +111,12 @@ export class CloseUp {
     core.basins.setVisible(true);
     core.vials.isolate(null);
     core.vials.place(a.id, null);
+    core.scene.background = BACKGROUND;
+    core.scene.fog = core.fog;
     this.sun.visible = false;
     core.islandSun.visible = true;
+    core.hemi.color.set("#b9d4ff");
+    core.hemi.groundColor.set("#5a4630");
     core.hemi.intensity = 1.1;
     core.dirty = true;
   }
@@ -115,6 +133,10 @@ export class CloseUp {
     // Lake mask by scanline: a cell is in the lake if its centre is inside the outline.
     const mask = new Uint8Array(n * n);
     const ring = lake.ring;
+    let rMin = n;
+    let rMax = 0;
+    let cMin = n;
+    let cMax = 0;
     for (let r = 0; r < n; r++) {
       const z = z0 + (r + 0.5) * cellKm;
       const xs = [];
@@ -128,10 +150,16 @@ export class CloseUp {
         const c0 = Math.max(0, Math.ceil((xs[k] - x0) / cellKm - 0.5));
         const c1 = Math.min(n - 1, Math.floor((xs[k + 1] - x0) / cellKm - 0.5));
         for (let c = c0; c <= c1; c++) mask[r * n + c] = 1;
+        if (c1 >= c0) {
+          rMin = Math.min(rMin, r);
+          rMax = Math.max(rMax, r);
+          cMin = Math.min(cMin, c0);
+          cMax = Math.max(cMax, c1);
+        }
       }
     }
 
-    // Distance from the shore, in cells (two-pass chamfer over the mask).
+    // Distance from the shore, in cells.
     const dist = chamfer(mask, n);
     let dmax = 0;
     for (let i = 0; i < n * n; i++) if (mask[i]) dmax = Math.max(dmax, dist[i]);
@@ -146,26 +174,46 @@ export class CloseUp {
     shore.sort((a, b) => a - b);
     const fullM = shore[shore.length >> 1];
 
-    // Basin depth scaled so it holds the official capacity, and its level-volume curve.
+    // Basin profile: distance-to-shore ^ SHAPE, warped by low-frequency noise so the
+    // waterline wanders as it drops, with a little small-scale roughness on the bed,
+    // then smoothed so the bank eases into the land around it without a crease.
+    const g = new Float32Array(n * n);
+    for (let r = rMin; r <= rMax; r++) {
+      for (let c = cMin; c <= cMax; c++) {
+        const i = r * n + c;
+        if (!mask[i]) continue;
+        const xm = c * res;
+        const ym = r * res;
+        const warp = (fbm(xm / 140, ym / 140) - 0.5) * 0.5;
+        const s = Math.max(0, Math.min(1, dist[i] / dmax + warp * Math.min(1, (dist[i] * res) / 60)));
+        g[i] = Math.pow(s, BASIN_SHAPE) * (0.92 + 0.16 * fbm(xm / 18, ym / 18));
+      }
+    }
+    const radius = Math.max(1, Math.round(22 / res));
+    const pad = radius * 3;
+    boxBlur(g, n, Math.max(0, rMin - pad), Math.min(n - 1, rMax + pad), Math.max(0, cMin - pad), Math.min(n - 1, cMax + pad), radius, 3);
+
+    // Scale so the basin holds the official capacity, and its level-volume curve.
     const cellArea = res * res;
-    let sumF = 0;
-    for (let i = 0; i < n * n; i++) if (mask[i]) sumF += Math.pow(dist[i] / dmax, BASIN_SHAPE);
-    const D = (lake.capacity * 1e6) / (sumF * cellArea);
+    let sumG = 0;
+    for (let i = 0; i < n * n; i++) sumG += g[i];
+    const D = (lake.capacity * 1e6) / (sumG * cellArea);
     const depths = new Float32Array(n * n);
     const lakeDepths = [];
-    const Y = new Float32Array(n * n);
     for (let i = 0; i < n * n; i++) {
-      const h = heights[i];
-      Y[i] = toY(h);
-      if (mask[i]) {
-        depths[i] = D * Math.pow(dist[i] / dmax, BASIN_SHAPE);
-        lakeDepths.push(depths[i]);
-        Y[i] = Math.min(Y[i], toY(fullM - depths[i] * BASIN_EXAG));
-      }
+      depths[i] = D * g[i];
+      if (depths[i] > 0.01) lakeDepths.push(depths[i]);
     }
     const depthFor = levelCurve(Float32Array.from(lakeDepths), cellArea, D);
 
-    const { normalTex, dataTex } = this.#textures(n, res, cellKm, heights, Y, mask, depths, D);
+    // Scene heights: drawn CLOSE_EXAG times around the lake's full level, which stays
+    // where it is on the island.
+    const fullY = toY(fullM);
+    const yOf = (m) => fullY + (m - fullM) * KM * CLOSE_EXAG;
+    const Y = new Float32Array(n * n);
+    for (let i = 0; i < n * n; i++) Y[i] = yOf((mask[i] ? Math.min(heights[i], fullM) : heights[i]) - depths[i]);
+
+    const { normalTex, dataTex } = this.#textures(n, res, cellKm, heights, Y, depths, D);
 
     // The top surface: a grid coarser than the data, sampled from it.
     const N = core.mobile ? 256 : 512;
@@ -203,9 +251,9 @@ export class CloseUp {
 
     const bedUniforms = {
       uWater: { value: -1e3 },
-      uFull: { value: toY(fullM) },
-      uRing: { value: toY(RING_M * BASIN_EXAG) },
-      uDeep: { value: toY(D * BASIN_EXAG) * 0.6 },
+      uFullY: { value: fullY },
+      uFullM: { value: fullM },
+      uYPerM: { value: KM * CLOSE_EXAG },
     };
     const top = new THREE.Mesh(topGeo, terrainMaterial(normalTex, dataTex, this.rampTexture, bedUniforms));
     top.castShadow = top.receiveShadow = true;
@@ -213,13 +261,32 @@ export class CloseUp {
     const baseY = minY - BASE_FRAC * sizeKm;
     const walls = wallsMesh(pos, V, N, sizeKm, baseY);
     walls.castShadow = walls.receiveShadow = true;
-    const plinthT = 0.022 * sizeKm;
+    const plinthT = 0.03 * sizeKm;
     const plinth = new THREE.Mesh(
-      new THREE.BoxGeometry(sizeKm * 1.03, plinthT, sizeKm * 1.03),
-      new THREE.MeshStandardMaterial({ color: "#262626", roughness: 0.7 }),
+      new THREE.BoxGeometry(sizeKm * 1.035, plinthT, sizeKm * 1.035),
+      new THREE.MeshStandardMaterial({ color: "#1c1c1c", roughness: 0.55, metalness: 0.1 }),
     );
-    plinth.position.set(x0 + sizeKm / 2, baseY - plinthT / 2, z0 + sizeKm / 2);
-    plinth.receiveShadow = true;
+    const cx = x0 + sizeKm / 2;
+    const cz = z0 + sizeKm / 2;
+    plinth.position.set(cx, baseY - plinthT / 2, cz);
+    plinth.castShadow = plinth.receiveShadow = true;
+
+    // A floor that fades into the background, to catch the block's shadow, and a soft
+    // contact shadow right under it.
+    const floorY = baseY - plinthT - 0.001;
+    const floor = new THREE.Mesh(
+      new THREE.PlaneGeometry(sizeKm * 7, sizeKm * 7).rotateX(-Math.PI / 2),
+      new THREE.MeshStandardMaterial({ color: "#3a3a3c", roughness: 1, transparent: true, opacity: 0.55, alphaMap: this.fade, depthWrite: false }),
+    );
+    floor.position.set(cx, floorY, cz);
+    floor.receiveShadow = true;
+    floor.renderOrder = -2;
+    const contact = new THREE.Mesh(
+      new THREE.PlaneGeometry(sizeKm * 1.5, sizeKm * 1.5).rotateX(-Math.PI / 2),
+      new THREE.MeshBasicMaterial({ color: "#000000", transparent: true, opacity: 0.55, alphaMap: this.fade, depthWrite: false }),
+    );
+    contact.position.set(cx, floorY + 0.0005, cz);
+    contact.renderOrder = -1;
 
     const waterUniforms = {
       uTime: core.uniforms.uTime,
@@ -233,43 +300,50 @@ export class CloseUp {
     water.renderOrder = 1;
 
     const group = new THREE.Group();
-    group.add(top, walls, plinth, water);
+    group.add(floor, contact, top, walls, plinth, water);
 
-    // The sun's shadow camera fits the block.
-    const center = new THREE.Vector3(x0 + sizeKm / 2, toY(fullM), z0 + sizeKm / 2);
+    // The sun's shadow camera covers the block and the floor around it.
+    const center = new THREE.Vector3(cx, fullY, cz);
     this.sun.target.position.copy(center);
     this.sun.position.copy(center).addScaledVector(CLOSE_SUN, sizeKm * 3);
-    const s = this.sun.shadow.camera;
-    Object.assign(s, { left: -sizeKm * 0.8, right: sizeKm * 0.8, top: sizeKm * 0.8, bottom: -sizeKm * 0.8, near: sizeKm, far: sizeKm * 5 });
-    s.updateProjectionMatrix();
+    const sc = this.sun.shadow.camera;
+    Object.assign(sc, { left: -sizeKm * 1.3, right: sizeKm * 1.3, top: sizeKm * 1.3, bottom: -sizeKm * 1.3, near: sizeKm * 0.5, far: sizeKm * 6 });
+    sc.updateProjectionMatrix();
     this.sun.shadow.bias = -0.0002;
     this.sun.shadow.normalBias = 0.0015 * sizeKm;
+    this.sun.shadow.radius = 3;
 
     // The vial stands on the bank beyond the lake (north-east), so it never hides the water.
     let vialAt = null;
     for (let k = 0; k < 24 && !vialAt; k++) {
-      const a = -Math.PI / 4 + ((k % 2 ? 1 : -1) * Math.ceil(k / 2) * Math.PI) / 12; // from north-east outwards
+      const a = -Math.PI / 4 + ((k % 2 ? 1 : -1) * Math.ceil(k / 2) * Math.PI) / 12;
       for (let d = lake.radius * 0.7; d < sizeKm / 2 - 0.1 && !vialAt; d += 0.05) {
         const x = lake.center.x + Math.cos(a) * d;
         const z = lake.center.z + Math.sin(a) * d;
         const c = (x - x0) / cellKm - 0.5;
         const r = (z - z0) / cellKm - 0.5;
         if (c < 4 || r < 4 || c > n - 5 || r > n - 5) break;
-        // Clear of the lake by at least 60 m all round.
+        // Clear of the basin by at least 60 m all round.
         const m = Math.ceil(60 / res);
         let clear = true;
-        for (let dr = -m; dr <= m && clear; dr += Math.max(1, m >> 2)) for (let dc = -m; dc <= m && clear; dc += Math.max(1, m >> 2)) clear = !mask[Math.min(n - 1, Math.max(0, Math.round(r) + dr)) * n + Math.min(n - 1, Math.max(0, Math.round(c) + dc))];
+        for (let dr = -m; dr <= m && clear; dr += Math.max(1, m >> 2)) {
+          for (let dc = -m; dc <= m && clear; dc += Math.max(1, m >> 2)) {
+            const i = Math.min(n - 1, Math.max(0, Math.round(r) + dr)) * n + Math.min(n - 1, Math.max(0, Math.round(c) + dc));
+            clear = !mask[i] && depths[i] < 0.05;
+          }
+        }
         if (clear) vialAt = new THREE.Vector3(x, bilinear(Y, n, c, r), z);
       }
     }
     vialAt ??= new THREE.Vector3(x0 + sizeKm * 0.1, bilinear(Y, n, n * 0.1, n * 0.9), z0 + sizeKm * 0.9);
 
-    return { id: lake.id, group, water, waterUniforms, bedUniforms, depthFor, D, fullM, center, sizeKm, vialAt, vialScale: Math.min(0.7, sizeKm * 0.11) };
+    return { id: lake.id, group, water, waterUniforms, bedUniforms, depthFor, D, fullM, yOf, center, sizeKm, vialAt, vialScale: Math.min(0.7, sizeKm * 0.11) };
   }
 
-  // Object-space normals from the exaggerated heights, and a data texture: ambient
-  // occlusion (R), lake mask (G), slope (B, 0-60 degrees) and basin depth / D (A).
-  #textures(n, res, cellKm, heights, Y, mask, depths, D) {
+  // Object-space normals from the drawn heights, and a data texture: ambient occlusion
+  // (R), how much of the basin's bed shows here (G), slope (B, 0-60 degrees) and
+  // basin depth / D (A).
+  #textures(n, res, cellKm, heights, Y, depths, D) {
     const nrm = new Uint8Array(n * n * 4);
     const data = new Uint8Array(n * n * 4);
     for (let r = 0; r < n; r++) {
@@ -288,9 +362,10 @@ export class CloseUp {
         nrm[i * 4 + 3] = 255;
         const sx = (heights[r * n + cr] - heights[r * n + cl]) / ((cr - cl) * res);
         const sz = (heights[rd * n + c] - heights[ru * n + c]) / ((rd - ru) * res);
-        data[i * 4 + 1] = mask[i] ? 255 : 0;
+        const bed = Math.min(1, Math.max(0, (depths[i] - 0.03) / 0.6));
+        data[i * 4 + 1] = bed * 255;
         data[i * 4 + 2] = Math.min(255, (Math.atan(Math.hypot(sx, sz)) * (180 / Math.PI) * 255) / 60);
-        data[i * 4 + 3] = mask[i] ? Math.min(255, (depths[i] / D) * 255) : 0;
+        data[i * 4 + 3] = Math.min(255, (depths[i] / D) * 255);
       }
     }
     // Ambient occlusion from the horizon in 8 directions, on a grid a quarter as fine.
@@ -317,7 +392,7 @@ export class CloseUp {
           }
           occ += Math.atan(best) / (Math.PI / 2);
         }
-        ao[r * m + c] = 1 - Math.min(1, (occ / 8) * 1.6);
+        ao[r * m + c] = 1 - Math.min(1, (occ / 8) * 2.2);
       }
     }
     for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) data[(r * n + c) * 4] = bilinear(ao, m, c / q, r / q) * 255;
@@ -402,6 +477,55 @@ function chamfer(mask, n) {
   return d;
 }
 
+// Separable box blur of rows r0..r1, columns c0..c1, repeated (3 passes ~ a Gaussian).
+function boxBlur(a, n, r0, r1, c0, c1, radius, passes) {
+  const w = c1 - c0 + 1;
+  const h = r1 - r0 + 1;
+  const tmp = new Float32Array(Math.max(w, h));
+  for (let p = 0; p < passes; p++) {
+    for (let r = r0; r <= r1; r++) {
+      let sum = 0;
+      for (let k = -radius; k <= radius; k++) sum += a[r * n + Math.min(c1, Math.max(c0, c0 + k))];
+      for (let c = c0; c <= c1; c++) {
+        tmp[c - c0] = sum / (2 * radius + 1);
+        sum += a[r * n + Math.min(c1, c + radius + 1)] - a[r * n + Math.max(c0, c - radius)];
+      }
+      for (let c = c0; c <= c1; c++) a[r * n + c] = tmp[c - c0];
+    }
+    for (let c = c0; c <= c1; c++) {
+      let sum = 0;
+      for (let k = -radius; k <= radius; k++) sum += a[Math.min(r1, Math.max(r0, r0 + k)) * n + c];
+      for (let r = r0; r <= r1; r++) {
+        tmp[r - r0] = sum / (2 * radius + 1);
+        sum += a[Math.min(r1, r + radius + 1) * n + c] - a[Math.max(r0, r - radius) * n + c];
+      }
+      for (let r = r0; r <= r1; r++) a[r * n + c] = tmp[r - r0];
+    }
+  }
+}
+
+// Value noise in three octaves, 0..1, for the basin's shape.
+function hash(x, y) {
+  const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+  return s - Math.floor(s);
+}
+function noise(x, y) {
+  const ix = Math.floor(x);
+  const iy = Math.floor(y);
+  const fx = x - ix;
+  const fy = y - iy;
+  const ux = fx * fx * (3 - 2 * fx);
+  const uy = fy * fy * (3 - 2 * fy);
+  const a = hash(ix, iy);
+  const b = hash(ix + 1, iy);
+  const c = hash(ix, iy + 1);
+  const d = hash(ix + 1, iy + 1);
+  return a + (b - a) * ux + (c - a) * uy + (a - b - c + d) * ux * uy;
+}
+function fbm(x, y) {
+  return (noise(x, y) * 0.57 + noise(x * 2.03 + 17, y * 2.03 + 5) * 0.29 + noise(x * 4.1 + 3, y * 4.1 + 11) * 0.14) / 1.0;
+}
+
 // Land colours by elevation, 0-850 m, as a 256 x 1 texture (linear values).
 function rampTexture() {
   const data = new Uint8Array(256 * 4);
@@ -422,30 +546,67 @@ function rampTexture() {
   return t;
 }
 
-const GRAIN_GLSL = /* glsl */ `
-  float grainHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
-  float grainNoise(vec2 p) {
+function radialTexture(stops) {
+  const cv = document.createElement("canvas");
+  cv.width = cv.height = 256;
+  const ctx = cv.getContext("2d");
+  const grad = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+  for (const [at, color] of stops) grad.addColorStop(at, color);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 256, 256);
+  return new THREE.CanvasTexture(cv);
+}
+
+// The page's near-black, lifted a little behind the block, like a lit studio backdrop.
+function backdropTexture() {
+  const cv = document.createElement("canvas");
+  cv.width = 512;
+  cv.height = 512;
+  const ctx = cv.getContext("2d");
+  const grad = ctx.createRadialGradient(256, 230, 20, 256, 256, 380);
+  grad.addColorStop(0, "#262626");
+  grad.addColorStop(0.55, "#151515");
+  grad.addColorStop(1, "#0a0a0a");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 512, 512);
+  const t = new THREE.CanvasTexture(cv);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+
+const NOISE_GLSL = /* glsl */ `
+  float cuHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+  float cuNoise(vec2 p) {
     vec2 i = floor(p); vec2 f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f);
-    return mix(mix(grainHash(i), grainHash(i + vec2(1.0, 0.0)), u.x), mix(grainHash(i + vec2(0.0, 1.0)), grainHash(i + vec2(1.0, 1.0)), u.x), u.y);
+    return mix(mix(cuHash(i), cuHash(i + vec2(1.0, 0.0)), u.x), mix(cuHash(i + vec2(0.0, 1.0)), cuHash(i + vec2(1.0, 1.0)), u.x), u.y);
   }
-  // Value noise from 200 m down to 6 m, each octave fading out once a pixel covers too much of it.
-  float grain(vec2 m) {
+  // Fades out an octave once a pixel covers too much of it, so nothing shimmers.
+  float cuOctave(vec2 m, float wave) {
     float pixel = length(fwidth(m));
+    return (cuNoise(m / wave) - 0.5) * (1.0 - smoothstep(0.15 * wave, 0.4 * wave, pixel));
+  }
+  float cuGrain(vec2 m) {
     float sum = 0.0; float amp = 1.0; float total = 0.0; float wave = 200.0;
-    for (int o = 0; o < 6; o++) {
-      float fade = 1.0 - smoothstep(0.15 * wave, 0.4 * wave, pixel);
-      sum += (grainNoise(m / wave + float(o) * 17.0) - 0.5) * amp * fade;
-      total += amp; amp *= 0.75; wave *= 0.5;
-    }
+    for (int o = 0; o < 6; o++) { sum += cuOctave(m + float(o) * 37.0, wave) * amp; total += amp; amp *= 0.75; wave *= 0.5; }
     return sum / total;
+  }
+  vec2 cuHash2(vec2 p) { p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3))); return fract(sin(p) * 43758.5453); }
+  float cuCracks(vec2 x) {
+    vec2 n = floor(x); vec2 f = fract(x); float d1 = 8.0; float d2 = 8.0;
+    for (int j = -1; j <= 1; j++) for (int i = -1; i <= 1; i++) {
+      vec2 g = vec2(float(i), float(j)); vec2 r = g + cuHash2(n + g) - f; float d = dot(r, r);
+      if (d < d1) { d2 = d1; d1 = d; } else if (d < d2) { d2 = d; }
+    }
+    return sqrt(d2) - sqrt(d1);
   }
 `;
 
-// Per-pixel terrain: elevation ramp, rock on steep slopes, a ground grain, ambient
-// occlusion, and the dry bed of the basin; lit through the object-space normal map.
+// Per-pixel terrain: Moris 3D's elevation ramp with patches of drier and darker
+// vegetation, rock on steep slopes, a ground grain and ambient occlusion; inside the
+// basin, the exposed bed. Lit through the object-space normal map.
 function terrainMaterial(normalTex, dataTex, ramp, bedUniforms) {
   const mat = new THREE.MeshStandardMaterial({ roughness: 0.95, metalness: 0, normalMap: normalTex, normalMapType: THREE.ObjectSpaceNormalMap });
-  const uniforms = { uData: { value: dataTex }, uRamp: { value: ramp }, uRock: { value: ROCK }, uYPerM: { value: KM * EXAG }, ...bedUniforms };
+  const uniforms = { uData: { value: dataTex }, uRamp: { value: ramp }, uRock: { value: ROCK }, ...bedUniforms };
   mat.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, uniforms);
     shader.vertexShader = shader.vertexShader
@@ -456,29 +617,61 @@ function terrainMaterial(normalTex, dataTex, ramp, bedUniforms) {
         "#include <common>",
         `#include <common>
         varying vec3 vTerrainWorld; varying vec2 vTerrainUv;
-        uniform sampler2D uData; uniform sampler2D uRamp; uniform vec3 uRock; uniform float uYPerM;
-        uniform float uWater; uniform float uFull; uniform float uRing; uniform float uDeep;
-        ${GRAIN_GLSL}
-        ${BED_GLSL}`,
+        uniform sampler2D uData; uniform sampler2D uRamp; uniform vec3 uRock;
+        uniform float uWater; uniform float uFullY; uniform float uFullM; uniform float uYPerM;
+        ${NOISE_GLSL}
+        // The exposed bed, by height between the water (t = 0) and the full level (t = 1).
+        vec3 bedColor(vec2 m, float y, vec3 land) {
+          float n1 = cuNoise(m / 30.0);
+          float n2 = cuNoise(m / 9.0 + 7.0);
+          if (y < uWater) {
+            float below = (uWater - y) / uYPerM;
+            return mix(vec3(0.07, 0.06, 0.04), vec3(0.012, 0.02, 0.025), clamp(below / 5.0, 0.0, 1.0));
+          }
+          float span = max(uFullY - uWater, 1e-5);
+          float t = clamp((y - uWater) / span, 0.0, 1.0);
+          float tn = t + (n1 - 0.5) * 0.22;
+          vec3 damp = vec3(0.11, 0.08, 0.055);
+          vec3 dried = vec3(0.36, 0.3, 0.22);
+          vec3 c = mix(damp, dried, smoothstep(0.08, 0.55, tn));
+          c *= 0.85 + 0.3 * n2;
+          // Cracks where the silt has dried, fading with distance.
+          float cr = cuCracks(m / 3.5);
+          float fade = 1.0 - smoothstep(0.4, 1.2, length(fwidth(m / 3.5)));
+          c *= mix(1.0, 0.5 + 0.5 * smoothstep(0.0, 0.14, cr), fade * smoothstep(0.25, 0.6, tn));
+          // Grass creeping down from the bank.
+          float grass = smoothstep(0.7, 0.95, tn) * smoothstep(0.45, 0.75, n2);
+          c = mix(c, land * 0.9, grass * 0.85);
+          // The bathtub ring: a soft, uneven stain just below the full level.
+          float ring = smoothstep(0.8, 0.9, t) * (1.0 - smoothstep(0.95, 1.0, t));
+          c = mix(c, vec3(0.5, 0.48, 0.42), ring * (0.25 + 0.3 * n1));
+          // Dark wet mud at the waterline.
+          c = mix(c, vec3(0.045, 0.035, 0.025), 1.0 - smoothstep(0.0, 0.05 + 0.04 * n2, t));
+          return c;
+        }`,
       )
       .replace(
         "#include <color_fragment>",
         `#include <color_fragment>
         {
           vec4 d = texture2D(uData, vTerrainUv);
-          float elev = vTerrainWorld.y / uYPerM;
+          vec2 m = vTerrainWorld.xz * 1000.0;
+          float elev = uFullM + (vTerrainWorld.y - uFullY) / uYPerM;
           vec3 c = texture2D(uRamp, vec2(clamp(elev / 850.0, 0.0, 1.0), 0.5)).rgb;
+          // Patches: drier grass and cane in the open, darker scrub in places.
+          float p1 = cuNoise(m / 160.0);
+          float p2 = cuNoise(m / 45.0 + 13.0);
+          c = mix(c, c * vec3(1.18, 1.08, 0.72), smoothstep(0.55, 0.8, p1) * 0.7);
+          c = mix(c, c * vec3(0.72, 0.82, 0.74), smoothstep(0.6, 0.85, p2) * 0.6);
           c = mix(c, uRock, smoothstep(28.0 / 60.0, 50.0 / 60.0, d.b) * 0.8);
-          c *= 1.0 + 0.7 * grain(vTerrainWorld.xz * 1000.0);
-          if (d.g > 0.5) c = bedColor(vTerrainWorld, uWater, uFull, uRing, uDeep, 260.0);
-          // A touch less saturated than the island ramp, and occlusion in the hollows.
-          c = mix(vec3(dot(c, vec3(0.299, 0.587, 0.114))), c, 0.8);
-          c *= mix(0.38, 1.0, d.r);
+          c *= 1.0 + 0.6 * cuGrain(m);
+          c = mix(c, bedColor(m, vTerrainWorld.y, c), d.g);
+          c *= mix(0.32, 1.0, d.r);
           diffuseColor.rgb = c;
         }`,
       );
   };
-  mat.customProgramCacheKey = () => "closeup-terrain";
+  mat.customProgramCacheKey = () => "closeup-terrain-2";
   return mat;
 }
 
@@ -499,7 +692,6 @@ function wallsMesh(pos, V, N, sizeKm, baseY) {
   for (let k = 0; k + 1 < perim.length; k++) {
     const p = [pos[perim[k] * 3], pos[perim[k] * 3 + 1], pos[perim[k] * 3 + 2]];
     const q = [pos[perim[k + 1] * 3], pos[perim[k + 1] * 3 + 1], pos[perim[k + 1] * 3 + 2]];
-    // Outward normal: away from the block's centre, along the side's axis.
     const mx = (p[0] + q[0]) / 2 - cx;
     const mz = (p[2] + q[2]) / 2 - cz;
     const normal = Math.abs(mx) > Math.abs(mz) ? [Math.sign(mx), 0, 0] : [0, 0, Math.sign(mz)];
@@ -523,11 +715,13 @@ function wallsMesh(pos, V, N, sizeKm, baseY) {
   geo.setAttribute("position", new THREE.Float32BufferAttribute(out, 3));
   geo.setAttribute("normal", new THREE.Float32BufferAttribute(nrm, 3));
   geo.setAttribute("color", new THREE.Float32BufferAttribute(col, 3));
-  return new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, side: THREE.DoubleSide }));
+  // A little self-light so the shaded sides still show their layers.
+  return new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, side: THREE.DoubleSide, emissive: "#3a2a1e", emissiveIntensity: 1 }));
 }
 
-// Water that looks like water: wind ripples as a normal, colour and opacity by the
-// depth of the modelled basin under it, a fresnel reflection of the sky and the sun's glint.
+// Water that reads as water: wind ripples as a normal, colour and opacity by the
+// depth of the modelled basin under it (clear and foamy at the edge, dark offshore),
+// a fresnel reflection of a sky gradient and the sun's glint.
 function waterMaterial(uniforms) {
   return new THREE.ShaderMaterial({
     transparent: true,
@@ -543,6 +737,7 @@ function waterMaterial(uniforms) {
     fragmentShader: /* glsl */ `
       uniform float uTime; uniform vec3 uSun; uniform sampler2D uData; uniform vec3 uRect; uniform float uD; uniform float uH;
       varying vec3 vWorld;
+      ${NOISE_GLSL}
       vec2 waves(vec2 p, float t) {
         vec2 g = vec2(0.0);
         float amp = 1.0;
@@ -566,11 +761,16 @@ function waterMaterial(uniforms) {
         vec3 N = normalize(vec3(-g.x * 0.05, 1.0, -g.y * 0.05));
         vec3 V = normalize(cameraPosition - vWorld);
         float fres = 0.02 + 0.98 * pow(1.0 - max(dot(N, V), 0.0), 5.0);
-        vec3 body = mix(vec3(0.07, 0.12, 0.08), vec3(0.004, 0.03, 0.06), 1.0 - exp(-depth / 6.0));
-        vec3 sky = vec3(0.42, 0.5, 0.58);
-        float spec = pow(max(dot(reflect(-uSun, N), V), 0.0), 220.0) * 6.0;
-        vec3 col = mix(body, sky, fres) + spec * vec3(1.0, 0.92, 0.8);
-        float alpha = clamp(mix(0.2, 0.94, 1.0 - exp(-depth / 1.2)) + fres * 0.3 + spec, 0.0, 1.0);
+        vec3 R = reflect(-V, N);
+        vec3 sky = mix(vec3(0.55, 0.6, 0.64), vec3(0.16, 0.26, 0.42), clamp(R.y * 1.6, 0.0, 1.0));
+        vec3 body = mix(vec3(0.08, 0.13, 0.1), vec3(0.006, 0.035, 0.065), 1.0 - exp(-depth / 5.0));
+        float spec = pow(max(dot(R, uSun), 0.0), 260.0) * 5.0;
+        vec3 col = mix(body, sky, fres) + spec * vec3(1.0, 0.9, 0.75);
+        // Foam and clear water where it is only a few centimetres deep.
+        float edge = 1.0 - smoothstep(0.0, 0.18, depth);
+        float foam = edge * smoothstep(0.35, 0.8, cuNoise(m / 7.0 + uTime * 0.15)) * 0.3 * (1.0 - smoothstep(0.6, 2.0, length(fwidth(m))));
+        col = mix(col, vec3(0.75, 0.75, 0.7), foam);
+        float alpha = clamp(mix(0.15, 0.95, 1.0 - exp(-depth / 1.0)) + fres * 0.35 + spec + foam, 0.0, 1.0);
         gl_FragColor = vec4(col, alpha);
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
@@ -581,12 +781,12 @@ function waterMaterial(uniforms) {
 function dispose(group) {
   group.traverse((o) => {
     o.geometry?.dispose();
-    if (o.material) {
-      for (const m of [].concat(o.material)) {
-        for (const v of Object.values(m.uniforms ?? {})) if (v.value?.isTexture && v.value !== undefined) v.value.dispose?.();
-        m.normalMap?.dispose();
-        m.dispose();
-      }
+    if (!o.material) return;
+    for (const m of [].concat(o.material)) {
+      // Shared textures (the ramp, the floor's fade) stay; the block's own go.
+      if (m.uniforms?.uData) m.uniforms.uData.value.dispose();
+      m.normalMap?.dispose();
+      m.dispose();
     }
   });
 }

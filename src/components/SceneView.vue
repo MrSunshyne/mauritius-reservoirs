@@ -6,7 +6,6 @@ import { CRITICAL } from "../lib/model.js";
 const props = defineProps({
   reservoirs: { type: Array, required: true },
   levels: { type: Object, required: true }, // id -> level | null
-  date: { type: String, required: true },
   selected: { type: String, default: null },
   playing: { type: Boolean, default: false },
 });
@@ -68,60 +67,121 @@ onBeforeUnmount(() => scene.value?.dispose());
 
 watch(
   () => props.levels,
-  () => scene.value?.setLevels(sceneLevels(), props.playing ? 240 : 700),
+  // While playing the levels already move continuously, frame by frame: no tween on top.
+  () => scene.value?.setLevels(sceneLevels(), props.playing ? 0 : 700),
 );
 watch(
   () => props.selected,
   (id) => scene.value?.select(id),
 );
 
-// Called by the scene every rendered frame: each label sits off to the side of its
-// vial, away from the middle of the group, joined to it by a leader line. Labels on
-// the same side are pushed apart. DOM writes only, no Vue updates.
+// Called by the scene every rendered frame. Each label is placed beside its vial and
+// joined to it by a leader line. Candidate spots (either side, above, level, below, at
+// growing distances) are scored: overlapping a placed label, covering another vial,
+// a leader running through a label, crossing another leader or leaving the frame all
+// cost; the cheapest spot wins. The opened lake is placed first, then top to bottom.
+// DOM writes only, no Vue updates.
+const inside = (r, x, y) => x > r.x0 - 2 && x < r.x1 + 2 && y > r.y0 - 2 && y < r.y1 + 2;
+const overlap = (a, b) => Math.max(0, Math.min(a.x1, b.x1) - Math.max(a.x0, b.x0) + 6) * Math.max(0, Math.min(a.y1, b.y1) - Math.max(a.y0, b.y0) + 4);
+function crosses(p, q, r, s) {
+  const d = (a, b, c) => (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+  return d(p, q, r) * d(p, q, s) < 0 && d(r, s, p) * d(r, s, q) < 0;
+}
+function segmentHitsRect(a, b, r) {
+  for (let k = 1; k < 10; k++) if (inside(r, a.x + ((b.x - a.x) * k) / 10, a.y + ((b.y - a.y) * k) / 10)) return true;
+  return false;
+}
+
+// The layout (which side, how far, each label sits from its vial) is worked out once
+// per view and size, and when the vials have moved well apart from where they were
+// (the camera turned) but never while playing. In between, each label just follows
+// its vial at the same offset: no flips, no jumps.
+let layout = null; // { key, offsets: { id: { dx, dy, ex, ey, side } }, anchors: { id: [x, y] } }
+
+function solveLayout(shown, w, h) {
+  const top = 44; // clear of the controls along the top
+  const bottom = h - 70; // and of the timeline along the bottom
+  const reach = mobile ? 20 : 34;
+  const cx = shown.length > 1 ? shown.reduce((s, l) => s + l.x, 0) / shown.length : w / 2;
+  const order = [...shown].sort((a, b) => (a.id === props.selected ? -1 : b.id === props.selected ? 1 : a.y - b.y));
+  const rects = [];
+  const leaders = [];
+  const offsets = {};
+  for (const l of order) {
+    const el = labelEls[l.id];
+    if (!el) continue;
+    const lw = el.offsetWidth;
+    const lh = el.offsetHeight;
+    const pref = l.x >= cx ? 1 : -1;
+    let best = null;
+    for (const k of [1, 1.7, 2.5, 3.5]) {
+      for (const side of [pref, -pref]) {
+        for (const dy of [-0.8, 0, 0.8, -1.8, 1.8]) {
+          const ax = l.x + side * reach * k;
+          const ay = l.y + dy * reach * k - reach * 0.4;
+          const r = side > 0 ? { x0: ax + 4, x1: ax + 4 + lw, y0: ay - lh / 2, y1: ay + lh / 2 } : { x0: ax - 4 - lw, x1: ax - 4, y0: ay - lh / 2, y1: ay + lh / 2 };
+          const end = { x: side > 0 ? r.x0 : r.x1, y: ay };
+          let cost = k * 2 + Math.abs(dy) + (side === pref ? 0 : 1.5) + (layout?.offsets[l.id]?.side === side ? 0 : 2);
+          if (r.x0 < 4 || r.x1 > w - 4 || r.y0 < top || r.y1 > bottom) cost += 60;
+          for (const o of rects) cost += overlap(r, o) * 0.5;
+          for (const o of shown) if (o !== l && inside(r, o.x, o.y)) cost += 40;
+          for (const o of rects) if (segmentHitsRect(l, end, o)) cost += 40;
+          for (const [p, q] of leaders) {
+            if (segmentHitsRect(p, q, r)) cost += 40;
+            if (crosses(l, end, p, q)) cost += 12;
+          }
+          if (!best || cost < best.cost) best = { cost, r, end, side };
+        }
+      }
+    }
+    rects.push(best.r);
+    leaders.push([{ x: l.x, y: l.y }, best.end]);
+    offsets[l.id] = { dx: best.r.x0 - l.x, dy: best.r.y0 - l.y, ex: best.end.x - l.x, ey: best.end.y - l.y, side: best.side };
+  }
+  return offsets;
+}
+
 function placeLabels(list) {
   const box = root.value;
   if (!box) return;
   const w = box.clientWidth;
   const h = box.clientHeight;
   const shown = list.filter((l) => l.visible);
-  let cx = w / 2;
-  if (shown.length > 1) cx = shown.reduce((s, l) => s + l.x, 0) / shown.length;
-  const reach = mobile ? 26 : 48;
-  const gap = mobile ? 30 : 38;
-  const placed = [];
-  for (const l of [...list].sort((a, b) => a.y - b.y)) {
+  const key = `${w}x${h}|${props.selected}|${shown.map((l) => l.id).join()}`;
+  // How far the vials have moved relative to each other since the layout was made.
+  let drift = 0;
+  if (layout && layout.key === key) {
+    const c = (pts) => pts.reduce((s, p) => [s[0] + p[0] / pts.length, s[1] + p[1] / pts.length], [0, 0]);
+    const now = shown.map((l) => [l.x, l.y]);
+    const then = shown.map((l) => layout.anchors[l.id]);
+    const [ax, ay] = c(now);
+    const [bx, by] = c(then);
+    drift = Math.max(...shown.map((l, i) => Math.hypot(now[i][0] - ax - (then[i][0] - bx), now[i][1] - ay - (then[i][1] - by))));
+  }
+  if (!layout || layout.key !== key || (drift > 45 && !props.playing)) {
+    layout = { key, offsets: solveLayout(shown, w, h), anchors: Object.fromEntries(shown.map((l) => [l.id, [l.x, l.y]])) };
+  }
+  for (const l of list) {
     const el = labelEls[l.id];
     const line = lineEls[l.id];
     const dot = dotEls[l.id];
     if (!el || !line || !dot) continue;
-    if (!l.visible) {
+    const o = layout.offsets[l.id];
+    if (!l.visible || !o) {
       el.style.visibility = line.style.visibility = dot.style.visibility = "hidden";
       continue;
     }
     el.style.visibility = line.style.visibility = dot.style.visibility = "";
-    // Outward from the group, unless the label would run off the edge.
-    let side = shown.length === 1 || l.x >= cx ? 1 : -1;
-    const width = el.offsetWidth + 6;
-    if (side < 0 && l.x - reach - width < 4) side = 1;
-    else if (side > 0 && l.x + reach + width > w - 4) side = -1;
-    const lx = Math.min(w - 8, Math.max(8, l.x + side * reach));
-    let ly = l.y - reach * 0.7;
-    for (const p of placed) if (p.side === side && Math.abs(p.lx - lx) < 150 && Math.abs(p.ly - ly) < gap) ly = p.ly + gap;
-    ly = Math.min(h - 20, Math.max(48, ly));
-    placed.push({ side, lx, ly });
-    el.style.transform = `translate3d(${lx.toFixed(1)}px, ${ly.toFixed(1)}px, 0) translate(${side > 0 ? "6px" : "calc(-100% - 6px)"}, -50%)`;
-    el.style.textAlign = side > 0 ? "left" : "right";
+    el.style.transform = `translate3d(${(l.x + o.dx).toFixed(1)}px, ${(l.y + o.dy).toFixed(1)}px, 0)`;
+    el.style.textAlign = o.side > 0 ? "left" : "right";
     line.setAttribute("x1", l.x.toFixed(1));
     line.setAttribute("y1", l.y.toFixed(1));
-    line.setAttribute("x2", lx.toFixed(1));
-    line.setAttribute("y2", ly.toFixed(1));
+    line.setAttribute("x2", (l.x + o.ex).toFixed(1));
+    line.setAttribute("y2", (l.y + o.ey).toFixed(1));
     dot.setAttribute("cx", l.x.toFixed(1));
     dot.setAttribute("cy", l.y.toFixed(1));
   }
 }
-
-const short = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
-const staleDate = (l) => (l && l.asOf !== props.date ? short.format(new Date(l.asOf + "T00:00:00Z")) : "");
 </script>
 
 <template>
@@ -139,12 +199,12 @@ const staleDate = (l) => (l && l.asOf !== props.date ? short.format(new Date(l.a
         v-for="r in reservoirs"
         :key="r.id"
         :ref="(el) => (labelEls[r.id] = el)"
-        class="label absolute left-0 top-0 whitespace-nowrap leading-tight"
+        class="label absolute left-0 top-0 whitespace-nowrap bg-ink/75 px-2 py-1 leading-tight"
         @click="emit('select', r.id)"
       >
-        <span class="block text-[10px] font-bold uppercase tracking-[0.12em] sm:text-[11px]" :class="selected === r.id || hovered === r.id ? 'text-paper underline underline-offset-4' : 'text-soft'">{{ r.name }}</span>
-        <span class="font-display text-base tabular-nums sm:text-xl" :style="{ color: (levels[r.id]?.percent ?? 100) < CRITICAL ? ALERT : '#fcfcfc' }">{{ levels[r.id] ? pct(levels[r.id].percent) : "–" }}</span>
-        <span v-if="staleDate(levels[r.id])" class="ml-1.5 text-[10px] text-muted">{{ staleDate(levels[r.id]) }}</span>
+        <span class="block text-[11px] font-bold uppercase tracking-[0.1em] text-paper sm:text-xs" :class="selected === r.id || hovered === r.id ? 'underline underline-offset-4' : ''">{{ r.name }}</span>
+        <!-- A fixed-width figure; grey when the reservoir is not in this bulletin (its last reported level). -->
+        <span class="inline-block min-w-[4.4em] font-display text-base tabular-nums sm:text-xl" :style="{ color: !levels[r.id] ? '#666' : levels[r.id].percent < CRITICAL ? ALERT : levels[r.id].stale ? '#a3a3a3' : '#fcfcfc' }">{{ levels[r.id] ? pct(levels[r.id].percent) : "–" }}</span>
       </button>
     </template>
 
@@ -172,5 +232,9 @@ const staleDate = (l) => (l && l.asOf !== props.date ? short.format(new Date(l.a
 <style scoped>
 .label {
   will-change: transform;
+  /* A soft dark halo keeps the text readable over bright terrain. */
+  text-shadow:
+    0 0 3px rgb(0 0 0 / 0.9),
+    0 0 10px rgb(0 0 0 / 0.6);
 }
 </style>
