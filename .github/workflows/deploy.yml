@@ -1,0 +1,59 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # The site reads the dataset at runtime; the build only refreshes the
+      # bundled fallback copy when the dataset is reachable.
+      - name: Refresh the bundled dataset copy
+        run: |
+          base=https://raw.githubusercontent.com/MrSunshyne/mauritius-dataset-reservoirs/main/data
+          for f in reservoirs.json readings.json latest.json; do
+            curl -sf "$base/$f" -o "/tmp/$f" && jq -e . "/tmp/$f" > /dev/null && cp "/tmp/$f" "public/data/$f" || echo "Keeping the committed $f"
+          done
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

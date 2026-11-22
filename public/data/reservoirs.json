@@ -1,0 +1,9 @@
+[
+  { "id": "mare-aux-vacoas", "name": "Mare aux Vacoas", "capacity_mm3": 25.89, "lat": -20.374, "lon": 57.503, "district": "Plaines Wilhems", "purpose": "Potable water" },
+  { "id": "midlands", "name": "Midlands", "capacity_mm3": 25.5, "lat": -20.322, "lon": 57.589, "district": "Moka" },
+  { "id": "bagatelle", "name": "Bagatelle", "capacity_mm3": 14.7, "lat": -20.249, "lon": 57.522, "district": "Moka" },
+  { "id": "la-ferme", "name": "La Ferme", "capacity_mm3": 11.52, "lat": -20.256, "lon": 57.43, "district": "Black River" },
+  { "id": "mare-longue", "name": "Mare Longue", "capacity_mm3": 6.28, "lat": -20.381, "lon": 57.46, "district": "Plaines Wilhems" },
+  { "id": "la-nicoliere", "name": "La Nicolière", "capacity_mm3": 5.26, "lat": -20.158, "lon": 57.616, "district": "Pamplemousses" },
+  { "id": "piton-du-milieu", "name": "Piton du Milieu", "capacity_mm3": 2.99, "lat": -20.292, "lon": 57.58, "district": "Moka" }
+]

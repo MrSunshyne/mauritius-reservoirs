@@ -1,0 +1,8 @@
+[
+  { "date": "2026-11-18",
+    "total": { "percent": 46.6 },
+    "reservoirs": { "mare-aux-vacoas": { "percent": 32.2 }, "la-ferme": { "percent": 29.0 } },
+    "sources": [{ "name": "ION News", "url": "https://ionnews.mu/ressources-en-eau-le-taux-de-remplissage-global-des-reservoirs-recule-a-466-au-18-novembre/" }],
+    "check": { "reservoirs_reported": 2, "computed_total_percent": null, "reported_total_percent": 46.6, "diff": null },
+    "verified": false }
+]
