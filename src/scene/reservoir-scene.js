@@ -26,7 +26,7 @@ export class ReservoirScene {
     this.selected = null;
     this.flight = null;
     this.dirty = true;
-    this.clock = new THREE.Clock();
+    this.t0 = performance.now();
     this.lastInteraction = -4; // start drifting a few seconds after load
 
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
@@ -34,7 +34,7 @@ export class ReservoirScene {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.05;
     renderer.shadowMap.enabled = !mobile;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
     this.renderer = renderer;
 
     const scene = new THREE.Scene();
@@ -60,7 +60,7 @@ export class ReservoirScene {
     controls.target.copy(this.home.target);
     controls.addEventListener("start", () => {
       this.flight = null;
-      this.lastInteraction = this.clock.getElapsedTime();
+      this.lastInteraction = this.#elapsed();
       controls.autoRotate = false;
     });
     controls.addEventListener("change", () => (this.dirty = true));
@@ -162,7 +162,7 @@ export class ReservoirScene {
   }
 
   #fly(target, position) {
-    this.lastInteraction = this.clock.getElapsedTime();
+    this.lastInteraction = this.#elapsed();
     this.controls.autoRotate = false;
     if (this.reducedMotion) {
       this.controls.target.copy(target);
@@ -187,14 +187,18 @@ export class ReservoirScene {
     for (const col of this.columns.values()) c.add(col.center);
     c.divideScalar(this.columns.size);
     c.y = 0.4;
-    const target = c.clone().add(new THREE.Vector3(1, 0, -2));
+    const target = c.clone().add(new THREE.Vector3(1, 0, 3));
     this.home = { target, position: target.clone().add(new THREE.Vector3(-14, 34, 44)) };
     this.camera.position.copy(this.home.position);
     this.camera.lookAt(target);
   }
 
+  #elapsed() {
+    return (performance.now() - this.t0) / 1000;
+  }
+
   #frame() {
-    const t = this.clock.getElapsedTime();
+    const t = this.#elapsed();
     const now = performance.now();
     const animated = !this.reducedMotion;
 
