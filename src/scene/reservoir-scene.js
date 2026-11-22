@@ -155,6 +155,14 @@ export class ReservoirScene {
 
   // Opens a lake's close-up (null: back to the island). The camera heads for the lake on
   // the island straight away, then frames the block once its 1 m terrain has loaded.
+  // The timeline is playing: hold the idle drift (it resumes a few seconds after).
+  setPlaying(on) {
+    if (this.playing === on) return;
+    this.playing = on;
+    if (on) this.controls.autoRotate = false;
+    else this.lastInteraction = this.#elapsed();
+  }
+
   select(id) {
     this.selected = id;
     this.vials.setSelected(id);
@@ -260,8 +268,9 @@ export class ReservoirScene {
       this.dirty = true;
     }
 
-    // Calm idle drift once the visitor has left the controls alone for a while.
-    if (animated && !this.flight && !this.controls.autoRotate && t - this.lastInteraction > 7) this.controls.autoRotate = true;
+    // Calm idle drift once the visitor has left the controls alone for a while; held
+    // while the timeline plays, so the labels stay put.
+    if (animated && !this.playing && !this.flight && !this.controls.autoRotate && t - this.lastInteraction > 7) this.controls.autoRotate = true;
 
     for (const lake of this.lakes.values()) {
       const s = lake.level;
