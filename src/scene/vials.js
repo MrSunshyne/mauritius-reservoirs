@@ -1,25 +1,20 @@
-// Gauges: strictly the data. Each lake is drawn flat at its real outline and
-// coloured by how full it is; above it floats a glass vial of the same size for
-// every reservoir, filled to the reported %, with marks at 25/50/75 %, last year
-// (orange) and the long-term average (white). No modelled shoreline.
+// A glass vial floating above each lake, the same size for every reservoir, filled to
+// the reported %: the level reads at island scale, where the basins are a few pixels
+// wide. Marks at 25/50/75 %, a white ring for the same date last year and a grey one
+// for the long-term average. In the close-up the vial stands on the ground beside the lake.
 import * as THREE from "three";
-import { SUN, lakeShapeGeometry } from "../common.js";
-import { levelColor } from "../../lib/data.js";
+import { SUN } from "./common.js";
 
 const H = 2.2; // vial height
 const R = 0.17; // vial radius
 const HOVER = 0.5; // gap between the lake and the vial
 const INNER = H - 0.05;
 
-export class GaugesView {
-  name = "gauges";
-  holes = false;
-
+export class Vials {
   constructor(core) {
     this.core = core;
     this.group = new THREE.Group();
-    this.group.visible = false;
-    this.gauges = new Map();
+    this.vials = new Map();
     this.pickables = [];
     this.tickGeo = new THREE.TorusGeometry(R * 1.01, 0.0035, 6, 48).rotateX(Math.PI / 2);
     this.markGeo = new THREE.TorusGeometry(R * 1.1, 0.011, 8, 48).rotateX(Math.PI / 2);
@@ -27,16 +22,8 @@ export class GaugesView {
     core.scene.add(this.group);
   }
 
-  enter() {
-    this.group.visible = true;
-  }
-
-  leave() {
-    this.group.visible = false;
-  }
-
   setLevel(lake) {
-    const g = this.gauges.get(lake.id);
+    const g = this.vials.get(lake.id);
     const s = lake.level;
     const frac = s.known ? Math.max(s.current, 0.004) : 0;
     // A level change sets the water sloshing, in proportion to the step.
@@ -48,12 +35,11 @@ export class GaugesView {
     g.frac = frac;
     g.water.scale.y = Math.max(frac, 0.0001) * INNER;
     g.water.visible = s.known;
-    g.lakeMat.color.set(levelColor(s.known ? s.current * 100 : null));
     g.glass.material.uniforms.uUnknown.value = s.known ? 0 : 1;
   }
 
   setMarkers(lake) {
-    const g = this.gauges.get(lake.id);
+    const g = this.vials.get(lake.id);
     for (const [mark, pct] of [
       [g.lastYear, lake.level.lastYear],
       [g.average, lake.level.average],
@@ -64,25 +50,43 @@ export class GaugesView {
   }
 
   setHover(id) {
-    for (const [gid, g] of this.gauges) g.glass.material.uniforms.uHover.value = gid === id ? 1 : 0;
+    for (const [gid, g] of this.vials) g.glass.material.uniforms.uHover.value = gid === id ? 1 : 0;
   }
 
   setSelected(id) {
-    for (const [gid, g] of this.gauges) g.glass.material.uniforms.uSelected.value = gid === id ? 1 : 0;
+    for (const [gid, g] of this.vials) g.glass.material.uniforms.uSelected.value = gid === id ? 1 : 0;
   }
 
+  // Where a lake's label points: the top of its vial.
   labelPoint(lake, v) {
-    return v.set(lake.center.x, lake.fullY + HOVER + H + 0.12, lake.center.z);
+    const g = this.vials.get(lake.id);
+    return v.copy(g.vial.position).setY(g.vial.position.y + H * g.vial.scale.y + 0.08 * g.vial.scale.y);
   }
 
-  focus(lake) {
-    return { target: new THREE.Vector3(lake.center.x, lake.fullY + HOVER + H * 0.4, lake.center.z), distance: Math.max(6.5, lake.radius * 3.5) };
+  // Stand a vial somewhere else (the close-up) at a given scale, or put it back with null.
+  place(id, position, scale = 1) {
+    const g = this.vials.get(id);
+    if (position) {
+      g.vial.position.copy(position);
+      g.vial.scale.setScalar(scale);
+      g.stem.visible = false;
+    } else {
+      g.vial.position.copy(g.home);
+      g.vial.scale.setScalar(1);
+      g.stem.visible = true;
+    }
+  }
+
+  // Show only one lake's vial (the close-up), or all of them with null.
+  isolate(id) {
+    for (const [gid, g] of this.vials) g.vial.visible = g.stem.visible = !id || gid === id;
+    if (id) this.vials.get(id).stem.visible = false;
   }
 
   update(t, animated) {
     let moving = false;
     const now = performance.now();
-    for (const g of this.gauges.values()) {
+    for (const g of this.vials.values()) {
       const u = g.waterUniforms;
       const dt = (now - g.sloshT0) / 1000;
       const amp = g.slosh * Math.exp(-dt * 2.2);
@@ -96,14 +100,9 @@ export class GaugesView {
   }
 
   #build(lake) {
-    const lakeMat = new THREE.MeshStandardMaterial({ color: "#94a3b8", roughness: 0.35, metalness: 0.05, polygonOffset: true, polygonOffsetFactor: -2 });
-    const flat = new THREE.Mesh(lakeShapeGeometry(lake.ring), lakeMat);
-    flat.position.y = lake.fullY;
-    flat.receiveShadow = true;
-    flat.userData.id = lake.id;
-
     const vial = new THREE.Group();
-    vial.position.set(lake.center.x, lake.fullY + HOVER, lake.center.z);
+    const home = new THREE.Vector3(lake.center.x, lake.fullY + HOVER, lake.center.z);
+    vial.position.copy(home);
 
     const waterUniforms = {
       uTime: this.core.uniforms.uTime,
@@ -124,9 +123,10 @@ export class GaugesView {
     glass.renderOrder = 2;
     glass.userData.id = lake.id;
 
-    const metal = new THREE.MeshStandardMaterial({ color: "#cbd5e1", roughness: 0.35, metalness: 0.15 });
+    const metal = new THREE.MeshStandardMaterial({ color: "#d4d4d4", roughness: 0.35, metalness: 0.15 });
     const base = new THREE.Mesh(new THREE.CylinderGeometry(R * 1.3, R * 1.45, 0.05, 40), metal);
     base.position.y = -0.005;
+    base.castShadow = true;
     const cap = new THREE.Mesh(new THREE.TorusGeometry(R * 1.02, 0.012, 8, 40).rotateX(Math.PI / 2), metal);
     cap.position.y = H;
 
@@ -137,8 +137,8 @@ export class GaugesView {
       tick.renderOrder = 3;
       vial.add(tick);
     }
-    const lastYear = new THREE.Mesh(this.markGeo, new THREE.MeshBasicMaterial({ color: "#ffb347" }));
-    const average = new THREE.Mesh(this.markGeo, new THREE.MeshBasicMaterial({ color: "#f8fafc" }));
+    const lastYear = new THREE.Mesh(this.markGeo, new THREE.MeshBasicMaterial({ color: "#fcfcfc" }));
+    const average = new THREE.Mesh(this.markGeo, new THREE.MeshBasicMaterial({ color: "#7a7a7a" }));
     average.scale.set(1.06, 1, 1.06);
     lastYear.visible = average.visible = false;
     vial.add(water, glass, base, cap, lastYear, average);
@@ -149,9 +149,9 @@ export class GaugesView {
       new THREE.LineBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0.45 }),
     );
 
-    this.group.add(flat, vial, stem);
-    this.pickables.push(glass, flat);
-    this.gauges.set(lake.id, { water, glass, lakeMat, lastYear, average, waterUniforms, frac: 0, slosh: 0, sloshT0: 0, phase: Math.random() * 6.28 });
+    this.group.add(vial, stem);
+    this.pickables.push(glass);
+    this.vials.set(lake.id, { vial, stem, home, water, glass, lastYear, average, waterUniforms, frac: 0, slosh: 0, sloshT0: 0, phase: Math.random() * 6.28 });
   }
 }
 

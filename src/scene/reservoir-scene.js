@@ -1,23 +1,20 @@
 // The 3D view: the island's terrain and its seven reservoirs at their real
-// OpenStreetMap outlines. How a fill level is drawn is up to the active view
-// (views/*.js); the scene owns everything they share: terrain, sky, camera,
-// picking, labels and the animated level of each lake.
+// OpenStreetMap outlines. Each lake has a modelled basin (basins.js) and a glass vial
+// above it (vials.js); opening one shows a 1 m close-up block (closeup.js). The scene
+// owns what they share: terrain, camera, picking, labels and each lake's animated level.
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { landDistance } from "../lib/terrain.js";
-import { KM, EXAG, SUN, HORIZON, DEEP_SEA, toY, landColor, seaColor, simplify, chaikin, pointInRing, distToRing, sampleBicubic } from "./common.js";
-import { PrismsView } from "./views/prisms.js";
-import { BasinsView } from "./views/basins.js";
-import { GaugesView } from "./views/gauges.js";
-import { DEFAULT_VIEW } from "../lib/views.js";
-
-export const VIEWS = { basins: BasinsView, gauges: GaugesView, prisms: PrismsView };
+import { KM, SUN, BACKGROUND, DEEP_SEA, toY, landColor, seaColor, simplify, chaikin, pointInRing, distToRing, sampleBicubic } from "./common.js";
+import { Basins } from "./basins.js";
+import { Vials } from "./vials.js";
+import { CloseUp } from "./closeup.js";
 
 const SEA_FLOOR_MAX = 40; // metres: stylised shelf, not real bathymetry
 const DEEP_PLANE = -70; // metres: well below the shelf, so the two never fight for the same depth
 
 export class ReservoirScene {
-  constructor(canvas, { terrain, reservoirs, view, reducedMotion, mobile, onSelect, onHover, onLabels }) {
+  constructor(canvas, { terrain, reservoirs, reducedMotion, mobile, onSelect, onHover, onLabels, onCloseUp }) {
     this.canvas = canvas;
     this.T = terrain;
     this.reducedMotion = reducedMotion;
@@ -25,6 +22,7 @@ export class ReservoirScene {
     this.onSelect = onSelect;
     this.onHover = onHover;
     this.onLabels = onLabels;
+    this.onCloseUp = onCloseUp;
     this.hovered = null;
     this.selected = null;
     this.flight = null;
@@ -37,12 +35,14 @@ export class ReservoirScene {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1.5 : 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.05;
-    renderer.shadowMap.enabled = !mobile;
+    renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
     this.renderer = renderer;
 
+    // The island floats on the page's near-black, the sea fading into it with distance.
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.Fog(HORIZON, 90, 230);
+    this.scene.background = BACKGROUND;
+    this.scene.fog = new THREE.Fog(BACKGROUND, 70, 200);
     this.camera = new THREE.PerspectiveCamera(38, 1, 0.5, 600);
 
     const { width: W, height: H, cellSize } = terrain.meta;
@@ -50,7 +50,6 @@ export class ReservoirScene {
     this.cy = (H * cellSize) / 2;
     this.lakes = new Map(reservoirs.map((r) => [r.id, this.#prepareLake(r)]));
 
-    this.#addSky();
     this.#addLights();
     this.#addTerrain();
     this.#homeView();
@@ -73,8 +72,11 @@ export class ReservoirScene {
     controls.update();
     this.controls = controls;
 
-    this.views = {};
-    this.setView(view);
+    this.basins = new Basins(this);
+    this.vials = new Vials(this);
+    this.closeup = new CloseUp(this);
+    this.terrainMesh.geometry.setIndex(this.holedIndex);
+    this.pickables = [...this.basins.pickables, ...this.vials.pickables];
 
     this.raycaster = new THREE.Raycaster();
     this.down = null;
@@ -106,7 +108,7 @@ export class ReservoirScene {
     this.canvas.removeEventListener("pointerdown", this.#onPointerDown);
     this.canvas.removeEventListener("pointerup", this.#onPointerUp);
     this.canvas.removeEventListener("pointerleave", this.#onPointerLeave);
-    for (const v of Object.values(this.views)) v.dispose?.();
+    this.closeup.close();
     this.scene.traverse((o) => {
       o.geometry?.dispose();
       if (o.material) [].concat(o.material).forEach((m) => m.dispose());
@@ -125,22 +127,10 @@ export class ReservoirScene {
     this.dirty = true;
   }
 
-  setView(name) {
-    if (!VIEWS[name]) name = DEFAULT_VIEW;
-    if (this.view?.name === name) return;
-    this.view?.leave();
-    this.views[name] ??= new VIEWS[name](this);
-    this.view = this.views[name];
-    this.terrainMesh.geometry.setIndex(this.view.holes ? this.holedIndex : this.fullIndex);
-    this.view.enter();
-    for (const lake of this.lakes.values()) {
-      this.view.setMarkers(lake);
-      this.view.setLevel(lake);
-    }
-    this.view.setSelected?.(this.selected);
-    if (this.hovered) this.view.setHover?.(this.hovered);
-    if (this.selected) this.#focus(this.selected);
-    this.dirty = true;
+  #setLevel(lake) {
+    this.basins.setLevel(lake);
+    this.vials.setLevel(lake);
+    this.closeup.setLevel(lake);
   }
 
   // levels: { id: { percent, lastYear, average } | null }; animates there over `ms`.
@@ -156,17 +146,37 @@ export class ReservoirScene {
       s.ms = this.reducedMotion ? 0 : ms;
       s.lastYear = l?.lastYear ?? null;
       s.average = l?.average ?? null;
-      this.view.setMarkers(lake);
-      this.view.setLevel(lake);
+      this.vials.setMarkers(lake);
+      this.#setLevel(lake);
     }
     this.dirty = true;
   }
 
+  // Opens a lake's close-up (null: back to the island). The camera heads for the lake on
+  // the island straight away, then frames the block once its 1 m terrain has loaded.
   select(id) {
     this.selected = id;
-    this.view.setSelected?.(id);
-    if (id) this.#focus(id);
-    else this.flyHome();
+    this.vials.setSelected(id);
+    if (!id) {
+      this.closeup.close();
+      this.onCloseUp?.(null);
+      this.flyHome();
+      return;
+    }
+    const lake = this.lakes.get(id);
+    if (this.closeup.id !== id) this.#focus(this.basins.focus(lake));
+    this.onCloseUp?.({ id, loading: true });
+    this.closeup
+      .open(lake)
+      .then((f) => {
+        if (!f || this.selected !== id) return;
+        this.#focus(f);
+        this.onCloseUp?.({ id, loading: false });
+      })
+      .catch((err) => {
+        console.error(err);
+        this.onCloseUp?.({ id, loading: false, error: true });
+      });
     this.dirty = true;
   }
 
@@ -194,8 +204,7 @@ export class ReservoirScene {
     return landColor(h, slope, out);
   }
 
-  #focus(id) {
-    const f = this.view.focus(this.lakes.get(id));
+  #focus(f) {
     const dir = this.camera.position.clone().sub(this.controls.target).setY(0).normalize();
     const pos = f.target.clone().addScaledVector(dir, f.distance * 0.82).setY(f.target.y + f.distance * 0.55);
     this.#fly(f.target, pos);
@@ -258,12 +267,12 @@ export class ReservoirScene {
       if (s.current === s.to) continue;
       const k = s.ms ? Math.min(1, (now - s.t0) / s.ms) : 1;
       s.current = k >= 1 ? s.to : s.from + (s.to - s.from) * (1 - Math.pow(1 - k, 3));
-      this.view.setLevel(lake);
+      this.#setLevel(lake);
       this.dirty = true;
     }
 
     this.controls.update();
-    if (this.view.update?.(t, animated)) this.dirty = true;
+    if (this.vials.update(t, animated)) this.dirty = true;
 
     if (!this.visible || document.hidden) return;
     if (!animated && !this.dirty) return;
@@ -291,10 +300,10 @@ export class ReservoirScene {
     const v = new THREE.Vector3();
     const out = [];
     for (const lake of this.lakes.values()) {
-      this.view.labelPoint(lake, v);
+      this.vials.labelPoint(lake, v);
       const dist = v.distanceTo(this.camera.position);
       v.project(this.camera);
-      const shown = this.view.labelVisible?.(lake) ?? true;
+      const shown = !this.closeup.id || this.closeup.id === lake.id;
       out.push({ id: lake.id, x: (v.x * 0.5 + 0.5) * w, y: (-v.y * 0.5 + 0.5) * h, visible: shown && v.z < 1 && Math.abs(v.x) < 1.2 && Math.abs(v.y) < 1.2, dist });
     }
     this.onLabels(out);
@@ -304,7 +313,7 @@ export class ReservoirScene {
     const rect = this.canvas.getBoundingClientRect();
     const p = new THREE.Vector2(((e.clientX - rect.left) / rect.width) * 2 - 1, -((e.clientY - rect.top) / rect.height) * 2 + 1);
     this.raycaster.setFromCamera(p, this.camera);
-    const hits = this.raycaster.intersectObjects(this.view.pickables, false);
+    const hits = this.raycaster.intersectObjects(this.pickables, false);
     return hits[0]?.object.userData.id ?? null;
   }
 
@@ -314,7 +323,7 @@ export class ReservoirScene {
     if (id === this.hovered) return;
     this.hovered = id;
     this.canvas.style.cursor = id ? "pointer" : "";
-    this.view.setHover?.(id);
+    this.vials.setHover(id);
     this.onHover?.(id);
     this.dirty = true;
   };
@@ -335,7 +344,7 @@ export class ReservoirScene {
   #onPointerLeave = () => {
     if (!this.hovered) return;
     this.hovered = null;
-    this.view.setHover?.(null);
+    this.vials.setHover(null);
     this.onHover?.(null);
     this.dirty = true;
   };
@@ -407,44 +416,13 @@ export class ReservoirScene {
     };
   }
 
-  #addSky() {
-    const mat = new THREE.ShaderMaterial({
-      side: THREE.BackSide,
-      depthWrite: false,
-      fog: false,
-      uniforms: { uHorizon: { value: HORIZON }, uZenith: { value: new THREE.Color("#3d6aa3") }, uSun: { value: SUN } },
-      vertexShader: /* glsl */ `
-        varying vec3 vDir;
-        void main() {
-          vDir = normalize(position);
-          vec4 p = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          gl_Position = p.xyww;
-        }`,
-      fragmentShader: /* glsl */ `
-        uniform vec3 uHorizon; uniform vec3 uZenith; uniform vec3 uSun;
-        varying vec3 vDir;
-        void main() {
-          float h = clamp(vDir.y, 0.0, 1.0);
-          vec3 col = mix(uHorizon, uZenith, pow(h, 0.55));
-          // Below the horizon (seen only around a close-up), a deep blue backdrop.
-          col = mix(col, vec3(0.03, 0.08, 0.16), smoothstep(0.0, -0.35, vDir.y));
-          float sun = max(dot(normalize(vDir), uSun), 0.0);
-          col += vec3(1.0, 0.75, 0.45) * (pow(sun, 18.0) * 0.35 + pow(sun, 600.0) * 2.0);
-          gl_FragColor = vec4(col, 1.0);
-          #include <colorspace_fragment>
-        }`,
-    });
-    const sky = new THREE.Mesh(new THREE.SphereGeometry(400, 32, 16), mat);
-    sky.frustumCulled = false;
-    sky.renderOrder = -1;
-    this.scene.add(sky);
-  }
-
   #addLights() {
-    this.scene.add(new THREE.HemisphereLight("#b9d4ff", "#5a4630", 1.1));
+    this.hemi = new THREE.HemisphereLight("#b9d4ff", "#5a4630", 1.1);
+    this.scene.add(this.hemi);
     const sun = new THREE.DirectionalLight("#ffdcb0", 3.2);
     sun.position.copy(SUN).multiplyScalar(80);
     sun.castShadow = !this.mobile;
+    this.islandSun = sun;
     sun.shadow.mapSize.set(4096, 4096);
     Object.assign(sun.shadow.camera, { left: -45, right: 45, top: 45, bottom: -45, near: 10, far: 180 });
     sun.shadow.bias = -0.0004;

@@ -2,6 +2,8 @@
 // bulletins show up without rebuilding the site. The copy bundled in
 // public/data/ (scripts/copy-data.mjs) is only a fallback.
 
+import { CRITICAL } from "./model.js";
+
 export const DATASET_REPO = "https://github.com/MrSunshyne/mauritius-dataset-reservoirs";
 const LIVE = "https://raw.githubusercontent.com/MrSunshyne/mauritius-dataset-reservoirs/main/data/";
 const BUNDLED = import.meta.env.BASE_URL + "data/";
@@ -86,15 +88,13 @@ export function totalHistory(readings) {
 
 const dateFmt = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 export const formatDate = (iso) => (iso ? dateFmt.format(new Date(iso + "T00:00:00Z")) : "");
-export const pct = (v, digits = 1) => (v == null ? "–" : `${v.toFixed(digits)} %`);
-export const mm3 = (v) => (v == null ? "–" : `${v.toFixed(2)} Mm³`);
+const NNBSP = "\u00a0"; // keeps "46.3 %" on one line (a no-break space every font has)
+export const pct = (v, digits = 1) => (v == null ? "–" : `${v.toFixed(digits)}${NNBSP}%`);
+export const mm3 = (v, digits = 2) => (v == null ? "–" : `${v.toFixed(digits)}${NNBSP}Mm³`);
+export const pts = (v) => (v == null ? "–" : `${v > 0 ? "+" : v < 0 ? "−" : "±"}${Math.abs(v).toFixed(1)}${NNBSP}pts`);
 
-// Colour of a fill level, for the labels and bars: red when critical, through amber, to blue.
-export function levelColor(p) {
-  if (p == null) return "#94a3b8";
-  if (p < 25) return "#f87171";
-  if (p < 40) return "#fb923c";
-  if (p < 55) return "#facc15";
-  if (p < 75) return "#5eead4";
-  return "#38bdf8";
-}
+// One colour for water, one for alarm: the fill of a reservoir is drawn in the same blue
+// as the water in the 3D view, and in red below CRITICAL %.
+export const WATER = "#4aa8e0";
+export const ALERT = "#ff3e3e";
+export const fillColor = (p) => (p == null ? "#3a3a3a" : p < CRITICAL ? ALERT : WATER);

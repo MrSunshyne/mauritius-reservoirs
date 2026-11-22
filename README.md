@@ -1,18 +1,16 @@
 # Mauritius Reservoirs
 
-How full are the seven main reservoirs of Mauritius? This site shows it in 3D, on the island's terrain, with each reservoir at its real position and outline.
+How full are the seven main reservoirs of Mauritius? The island total and each reservoir, bulletin by bulletin since January 2024, against the same day a year earlier and the long-term average, on a 3D model of the island.
 
 Live at https://mrsunshyne.github.io/mauritius-reservoirs/
 
 ## What it shows
 
-- The island total, compared with the same date last year and the long-term average, as of the latest bulletin.
-- Mare aux Vacoas, Midlands, Bagatelle, La Ferme, Mare Longue, La Nicolière and Piton du Milieu, each drawn at its real position with its real outline, in one of three views (switch at the top right; `?view=basins|gauges|prisms` in the URL reopens the same one):
-  - **Basins** (default): a basin is carved under each lake, shaped so it holds the official capacity, and the water stands at the level that holds the reported %. The shoreline pulls back over a dry, cracked bed with a pale ring at the full level. Clicking a lake opens a cut-out block of land around it. The basin shape is a model: there is no public depth survey. Depths are drawn 3× deeper, on top of the terrain's 2.2×.
-  - **Gauges**: only the data. Lakes are flat and coloured by how full they are, with a glass vial above each one, filled to the reported %, marked at 25/50/75 %, last year and the long-term average.
-  - **Prisms**: a glass prism extruded from each lake's outline, as tall as the reservoir is big, filled to the reported %.
-- A timeline over every bulletin date in the dataset, with a play button that animates all the levels.
-- A card per reservoir: % full, volume, capacity, last year and average, a small history chart, the sources of that bulletin, and whether it was cross-checked.
+- The island total for a bulletin, in % and Mm³; how far it is from the same day a year earlier and from the long-term average, in points and in Mm³; and its change over the last week or two and the last month.
+- The seven reservoirs, lowest first: Mare aux Vacoas, Midlands, Bagatelle, La Ferme, Mare Longue, La Nicolière and Piton du Milieu. Each one shows its level, volume, what it supplies, how it compares with last year and the average, the date it was last reported (many bulletins leave some out), its pace over 30 days, and a chart of every report.
+- On the 3D island, each lake sits in a modelled basin: the water stands at the level that holds the reported %, so the shoreline pulls back over a dry, cracked bed with a pale ring at the full level. A glass vial above each lake fills to the same %, so the level reads at island scale.
+- Opening a reservoir shows a close-up block of the Land Drainage Authority's 1 m terrain around it, with the basin, the water, and the vial beside the lake.
+- A timeline over every bulletin, with a play button that animates all the levels.
 
 ## Where the data comes from
 
@@ -26,9 +24,10 @@ If that fails it falls back to the copy bundled in `public/data/`.
 ## Limits
 
 - Not an official source. Bulletins can be missing, and a single press article can carry a typo; unverified bulletins say so.
+- The basins are modelled from capacity and outline, not surveyed: the real shoreline at a given % will differ. Depths are drawn 3× deeper on top of the terrain's 2.2×.
+- "At that pace" dates are a straight line through a reservoir's last 30 days of reports. They ignore rain and changes in use.
 - When a bulletin leaves a reservoir out, the site keeps its last reported level and shows the date it comes from. Nothing is interpolated.
-- The basins are modelled from capacity and outline, not surveyed: the real shoreline at a given % will differ. The gauges and prisms views draw no shoreline at all.
-- Terrain is a 90 m grid with heights exaggerated 2.2×.
+- Island terrain is a 90 m grid, close-ups 1–2 m, heights exaggerated 2.2×.
 
 ## Run it
 
@@ -41,12 +40,15 @@ pnpm preview
 
 `pnpm build` first runs `scripts/copy-data.mjs`, which refreshes `public/data/` from a local checkout of the dataset at `../mauritius-dataset-reservoirs` when there is one.
 
-The terrain and lake outlines in `public/terrain/` are built once:
+The terrain, lake outlines and close-up blocks are built once:
 
 ```
 node scripts/build-terrain.mjs [path to mauritius-elevations/web/public/data]
 node scripts/build-outlines.mjs
+node scripts/build-closeups.mjs [path to mauritius-elevations/web/public/data/meta.json]
 ```
+
+`build-closeups.mjs` cuts a square around each lake from Moris 3D's 1 m terrain with HTTP range requests (its storage only allows the Moris 3D site to read it from a browser), at 1 m for the small lakes and 2 m for the large ones, into `public/closeups/` (0.2–1.4 MB each).
 
 Pushing to `master` deploys to GitHub Pages with `.github/workflows/deploy.yml`.
 
@@ -55,5 +57,7 @@ Pushing to `master` deploys to GitHub Pages with `.github/workflows/deploy.yml`.
 - Reservoir levels: Water Resources Commission bulletins as quoted by the press, collected in [mauritius-dataset-reservoirs](https://github.com/MrSunshyne/mauritius-dataset-reservoirs).
 - Capacities: [Ministry of Energy and Public Utilities](https://publicutilities.govmu.org/Pages/Water%20Sector/WRU.aspx).
 - Lake outlines: © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL.
-- Terrain: Copernicus DEM GLO-30 and Land Drainage Authority MNT 2021, via [Moris 3D](https://moris3d.ramgolam.com).
+- Island terrain: Copernicus DEM GLO-30 and Land Drainage Authority MNT 2021, via [Moris 3D](https://moris3d.ramgolam.com).
+- Close-ups: Land Drainage Authority MNT 2021 (1 m), via Moris 3D. The diorama style (palette, earth layers, plinth) follows Moris 3D's.
+- Fonts: Clash Display and Satoshi, from Fontshare.
 - Built with Vue 3, Vite, Tailwind CSS and three.js. Visits counted with GoatCounter.

@@ -1,65 +1,86 @@
 @import "tailwindcss";
 
+/* Clash Display and Satoshi from Fontshare (ITF Free Font License, which allows
+   self-hosting), as on data.ramgolam.com. */
+@font-face {
+  font-family: "Clash Display";
+  src: url("/fonts/clash-display-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/satoshi-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/satoshi-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Clash Display", "Satoshi", ui-sans-serif, sans-serif;
+  --color-ink: #0a0a0a;
+  --color-line: #1d1d1d;
+  --color-paper: #fcfcfc;
+  --color-soft: #a3a3a3;
+  --color-muted: #666666;
+  --color-water: #4aa8e0;
+  --color-alert: #ff3e3e;
 }
 
 html {
   color-scheme: dark;
-  background: #020617;
-  scroll-behavior: smooth;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-}
-
-@layer components {
-  /* Frosted glass panels floating over the 3D view. */
-  .panel {
-    border-radius: 1rem;
-    border: 1px solid rgb(255 255 255 / 0.1);
-    background: rgb(2 6 23 / 0.72);
-    box-shadow: 0 20px 50px -20px rgb(0 0 0 / 0.6);
-    backdrop-filter: blur(14px) saturate(1.2);
-  }
+/* Small uppercase labels, the house style for kickers and row names. */
+@utility kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
 }
 
 input.timeline {
   appearance: none;
-  height: 22px;
+  height: 24px;
   background: transparent;
   cursor: pointer;
 }
 input.timeline::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, rgb(56 189 248 / 0.5), rgb(255 255 255 / 0.25));
+  height: 1px;
+  background: #3a3a3a;
 }
 input.timeline::-moz-range-track {
-  height: 4px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, rgb(56 189 248 / 0.5), rgb(255 255 255 / 0.25));
+  height: 1px;
+  background: #3a3a3a;
 }
 input.timeline::-webkit-slider-thumb {
   appearance: none;
-  width: 18px;
+  width: 3px;
   height: 18px;
-  margin-top: -7px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 0 4px rgb(56 189 248 / 0.35);
+  margin-top: -9px;
+  background: var(--color-paper);
 }
 input.timeline::-moz-range-thumb {
-  width: 18px;
+  width: 3px;
   height: 18px;
   border: 0;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 0 4px rgb(56 189 248 / 0.35);
+  border-radius: 0;
+  background: var(--color-paper);
 }
-input.timeline:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 4px rgb(255 255 255 / 0.6);
+input.timeline:focus-visible {
+  outline: 1px solid var(--color-paper);
+  outline-offset: 4px;
 }

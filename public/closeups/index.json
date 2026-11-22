@@ -1,0 +1,76 @@
+{
+  "source": "Land Drainage Authority MNT 2021 (1 m), via Moris 3D (https://moris3d.ramgolam.com)",
+  "encoding": "gzip,row-delta,byte-planes",
+  "blocks": [
+    {
+      "id": "mare-aux-vacoas",
+      "res": 2,
+      "size": 2267,
+      "x0": 21271.83530377876,
+      "y0": 58005.317005230114,
+      "heightScale": 0.1,
+      "heightOffset": -100,
+      "bytes": 916056
+    },
+    {
+      "id": "midlands",
+      "res": 2,
+      "size": 1467,
+      "x0": 30797.83530377876,
+      "y0": 53019.317005230114,
+      "heightScale": 0.1,
+      "heightOffset": -100,
+      "bytes": 604638
+    },
+    {
+      "id": "bagatelle",
+      "res": 1,
+      "size": 1787,
+      "x0": 24487.83530377876,
+      "y0": 45515.317005230114,
+      "heightScale": 0.1,
+      "heightOffset": -100,
+      "bytes": 816166
+    },
+    {
+      "id": "la-ferme",
+      "res": 2,
+      "size": 1432,
+      "x0": 14445.83530377876,
+      "y0": 45741.317005230114,
+      "heightScale": 0.1,
+      "heightOffset": -100,
+      "bytes": 803211
+    },
+    {
+      "id": "mare-longue",
+      "res": 1,
+      "size": 2023,
+      "x0": 17683.83530377876,
+      "y0": 59991.317005230114,
+      "heightScale": 0.1,
+      "heightOffset": -100,
+      "bytes": 1274257
+    },
+    {
+      "id": "la-nicoliere",
+      "res": 1,
+      "size": 2032,
+      "x0": 34152.83530377876,
+      "y0": 35353.317005230114,
+      "heightScale": 0.1,
+      "heightOffset": -100,
+      "bytes": 1356677
+    },
+    {
+      "id": "piton-du-milieu",
+      "res": 1,
+      "size": 1931,
+      "x0": 30470.83530377876,
+      "y0": 50290.317005230114,
+      "heightScale": 0.1,
+      "heightOffset": -100,
+      "bytes": 231269
+    }
+  ]
+}

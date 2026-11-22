@@ -1,34 +1,39 @@
-// Constants and helpers shared by the scene and its views.
+// Constants and helpers shared by the scene, the basins, the vials and the close-up.
 import * as THREE from "three";
+import { TERRAIN_EXAG } from "../lib/model.js";
 
 export const KM = 1 / 1000; // scene units are kilometres
-export const EXAG = 2.2; // vertical exaggeration of the terrain
+export const EXAG = TERRAIN_EXAG;
 export const SUN = new THREE.Vector3(-0.55, 0.5, -0.67).normalize(); // low sun from the north-west (scene -z is north)
-export const HORIZON = new THREE.Color("#e7cfb8");
-export const DEEP_SEA = new THREE.Color("#082d4b");
+export const BACKGROUND = new THREE.Color("#0a0a0a");
+export const DEEP_SEA = new THREE.Color("#0b2233");
 
 // Metres above sea level to scene height.
 export const toY = (m) => m * KM * EXAG;
 
 const ramp = (stops) => stops.map(([v, hex]) => [v, new THREE.Color(hex)]);
-const LAND = ramp([
-  [0, "#d9c79b"],
-  [12, "#a5b36e"],
-  [80, "#7ea156"],
-  [250, "#5d8a45"],
-  [450, "#3f6e3a"],
-  [650, "#365a33"],
-  [800, "#5e5a4b"],
-]);
+// Moris 3D's "natural" palette (mauritius-elevations/web/app/engine/palettes.js).
+export const LAND_STOPS = [
+  [0, "#b4bd84"],
+  [4, "#9db470"],
+  [25, "#86aa5f"],
+  [150, "#6c9a53"],
+  [300, "#558849"],
+  [500, "#497944"],
+  [650, "#456f3f"],
+  [780, "#596e4a"],
+  [850, "#6c7358"],
+];
+const LAND = ramp(LAND_STOPS);
 // Sea floor by distance from the coast in metres; ends on the deep-sea plane's colour.
 const LAGOON = ramp([
-  [0, "#9fe3d0"],
-  [450, "#3cc2c4"],
-  [1300, "#1b8fae"],
-  [3600, "#0c4f7a"],
+  [0, "#a9e2d6"],
+  [300, "#6fcfc8"],
+  [900, "#2e9ab8"],
+  [2500, "#11577e"],
   [7000, "#" + DEEP_SEA.getHexString()],
 ]);
-const ROCK = new THREE.Color("#6f6656");
+export const ROCK = new THREE.Color("#68625a");
 
 function sampleRamp(stops, v, out) {
   if (v <= stops[0][0]) return out.copy(stops[0][1]);
@@ -42,10 +47,11 @@ function sampleRamp(stops, v, out) {
   return out.copy(stops[stops.length - 1][1]);
 }
 
-// Land colour from elevation and slope (rise over run): steep slopes read as bare rock.
+// Land colour from elevation and slope (rise over run): slopes of 28-50 degrees turn to rock.
 export function landColor(h, slope, out) {
   sampleRamp(LAND, h, out);
-  return out.lerp(ROCK, Math.min(1, Math.max(0, (slope - 0.35) * 1.6)));
+  const t = Math.min(1, Math.max(0, (slope - 0.53) / 0.66));
+  return out.lerp(ROCK, t * t * (3 - 2 * t) * 0.8);
 }
 
 export function seaColor(coastMetres, out) {
@@ -180,3 +186,58 @@ export function flatWaterMaterial(uTime) {
       }`,
   });
 }
+
+// Level-volume curve of a modelled basin: depths (metres below the full level) of the
+// cells inside the lake, each cellArea m². Returns the depth below full at which the
+// water holds a given fraction of the basin's volume.
+export function levelCurve(depths, cellArea, D, samples = 128) {
+  const vol = new Float64Array(samples + 1);
+  for (let j = 0; j <= samples; j++) {
+    const h = (D * j) / samples;
+    let v = 0;
+    for (let i = 0; i < depths.length; i++) if (depths[i] > h) v += (depths[i] - h) * cellArea;
+    vol[j] = v;
+  }
+  return (frac) => {
+    const target = frac * vol[0];
+    if (target >= vol[0]) return 0;
+    for (let j = 1; j <= samples; j++) {
+      if (vol[j] <= target) {
+        const t = (vol[j - 1] - target) / (vol[j - 1] - vol[j] || 1);
+        return (D * (j - 1 + t)) / samples;
+      }
+    }
+    return D;
+  };
+}
+
+// GLSL for the dry bed of a basin, shared by the island and the close-up. Expects
+// uWater, uFull, uRing (scene heights) and uDeep (scene depth over which silt darkens).
+export const BED_GLSL = /* glsl */ `
+  vec2 bedHash(vec2 p) { p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3))); return fract(sin(p) * 43758.5453); }
+  float bedCracks(vec2 x) {
+    vec2 n = floor(x); vec2 f = fract(x); float d1 = 8.0; float d2 = 8.0;
+    for (int j = -1; j <= 1; j++) for (int i = -1; i <= 1; i++) {
+      vec2 g = vec2(float(i), float(j)); vec2 r = g + bedHash(n + g) - f; float d = dot(r, r);
+      if (d < d1) { d2 = d1; d1 = d; } else if (d < d2) { d2 = d; }
+    }
+    return sqrt(d2) - sqrt(d1);
+  }
+  // Colours are linear (the renderer converts to sRGB): brown mud drying paler up the
+  // bank, a pale bathtub ring just below the full level, a dark wet band at the
+  // waterline, and silt that darkens with depth under the water.
+  vec3 bedColor(vec3 world, float uWater, float uFull, float uRing, float uDeep, float crackScale) {
+    float y = world.y;
+    vec2 p = world.xz * crackScale;
+    // Cracks fade out where a cell would be smaller than a few pixels, so they never shimmer.
+    float fade = 1.0 - smoothstep(0.15, 0.6, fwidth(p.x) + fwidth(p.y));
+    float crack = mix(1.0, 0.35 + 0.65 * smoothstep(0.0, 0.16, bedCracks(p)), fade);
+    vec3 mud = mix(vec3(0.17, 0.11, 0.065), vec3(0.3, 0.21, 0.13), smoothstep(uWater, uFull, y)) * crack;
+    float ring = smoothstep(uFull - uRing, uFull - uRing * 0.55, y);
+    vec3 col = mix(mud, vec3(0.72, 0.69, 0.6), ring);
+    float wet = 1.0 - smoothstep(uWater, uWater + uRing * 0.35, y);
+    col = mix(col, vec3(0.06, 0.045, 0.03), wet * 0.8);
+    if (y < uWater) col = mix(vec3(0.09, 0.08, 0.05), vec3(0.01, 0.025, 0.035), clamp((uWater - y) / uDeep, 0.0, 1.0));
+    return col;
+  }
+`;
