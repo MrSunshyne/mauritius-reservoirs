@@ -8,6 +8,7 @@ import { loadDataset, buildTimeline, historyOf, totalHistory, formatDate, pct, m
 import { islandSummary, reservoirSummary, sortedByLevel } from "./lib/stats.js";
 import { buildSeries, entryAt, dayOf } from "./lib/playback.js";
 import { BASIN_EXAG, TERRAIN_EXAG, CLOSE_EXAG, CRITICAL } from "./lib/model.js";
+import { setFavicon } from "./lib/favicon.js";
 
 const data = shallowRef(null);
 const error = ref(null);
@@ -123,9 +124,11 @@ const totals = computed(() => totalHistory(readings.value));
 const verified = computed(() => readings.value.filter((r) => r.verified).length);
 const firstDate = computed(() => readings.value[0]?.date);
 
-// The tab title carries the latest figure, like the owner's other sites.
+// The tab title and icon carry the latest figure: the drop fills to the island total.
 watch(island, (s) => {
-  if (s && isLatest.value && s.total != null) document.title = `Mauritius reservoirs: ${pct(s.total)} full (${formatDate(s.date)})`;
+  if (!s || !isLatest.value || s.total == null) return;
+  document.title = `Mauritius reservoirs: ${pct(s.total)} full (${formatDate(s.date)})`;
+  setFavicon(s.total);
 });
 
 const lessMore = (v) => (v < 0 ? "less" : "more");

@@ -11,6 +11,7 @@ Live at https://reservoirs.ramgolam.com/
 - On the 3D island, each lake sits in a modelled basin: the water stands at the level that holds the reported %, so the shoreline pulls back over a dry, cracked bed with a pale ring at the full level. A glass vial above each lake fills to the same %, so the level reads at island scale.
 - Opening a reservoir shows a close-up block of the Land Drainage Authority's 1 m terrain around it, with the basin, the water, and the vial beside the lake.
 - A timeline over every bulletin. Play runs through time continuously (30 days a second): each reservoir moves in a straight line between its own reports, marked "interpolated"; pausing or dragging lands on a real bulletin.
+- The tab icon is a water drop filled, by area, to the latest island total.
 
 ## Where the data comes from
 
@@ -47,6 +48,8 @@ node scripts/build-terrain.mjs [path to mauritius-elevations/web/public/data]
 node scripts/build-outlines.mjs
 node scripts/build-closeups.mjs [path to mauritius-elevations/web/public/data/meta.json]
 ```
+
+`node scripts/build-icons.mjs` writes `public/favicon.svg` and `public/apple-touch-icon.svg` from `src/lib/favicon.js`; `favicon-32.png`, `favicon.ico` and `apple-touch-icon.png` are those drawn at 32 and 180 px.
 
 `build-closeups.mjs` cuts a square around each lake from Moris 3D's 1 m terrain with HTTP range requests (its storage only allows the Moris 3D site to read it from a browser), at 1 m for the small lakes and 2 m for the large ones, into `public/closeups/` (0.2–1.4 MB each).
 
