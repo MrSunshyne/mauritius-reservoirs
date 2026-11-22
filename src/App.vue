@@ -41,6 +41,11 @@ watch(index, () => {
 
 const signed = (v) => (v == null ? "" : `${v > 0 ? "+" : v < 0 ? "−" : "±"}${Math.abs(v).toFixed(1)} pts`);
 
+// Wider charts on wider screens, so their text stays readable.
+const wideQuery = window.matchMedia("(min-width: 768px)");
+const wide = ref(wideQuery.matches);
+wideQuery.addEventListener("change", (e) => (wide.value = e.matches));
+
 // Latest known level of every reservoir, whatever bulletin it came from (latest.json).
 const latestRows = computed(() => {
   const latest = new Map((data.value?.latest?.reservoirs ?? []).map((r) => [r.id, r]));
@@ -80,7 +85,7 @@ function select(id) {
               <span class="text-sm leading-tight text-slate-300">full across<br />the island</span>
             </h1>
             <p class="mt-2 text-sm text-slate-300">
-              {{ entry.totalVolume != null ? `${entry.totalComputed ? "≈ " : ""}${mm3(entry.totalVolume)} of ${mm3(capacity)}` : `capacity ${mm3(capacity)}` }}
+              {{ entry.totalVolume != null ? `${entry.totalVolumeEstimated ? "≈ " : ""}${mm3(entry.totalVolume)} of ${mm3(capacity)}` : `capacity ${mm3(capacity)}` }}
             </p>
             <p class="mt-1 text-sm text-slate-400">
               As of the bulletin of <span class="text-white">{{ formatDate(entry.date) }}</span>
@@ -152,7 +157,7 @@ function select(id) {
 
       <section v-if="totals.length > 1" aria-labelledby="total">
         <h2 id="total" class="text-2xl font-semibold tracking-tight">Island total over time</h2>
-        <div class="mt-5"><HistoryChart :points="totals" :marker="entry?.date" :height="150" label="Island total fill level history" /></div>
+        <div class="mt-5"><HistoryChart :points="totals" :marker="entry?.date" :width="wide ? 720 : 320" :height="wide ? 200 : 150" label="Island total fill level history" /></div>
       </section>
 
       <section id="about" aria-labelledby="about-h" class="scroll-mt-6">

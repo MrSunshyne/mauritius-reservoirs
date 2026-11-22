@@ -54,17 +54,16 @@ export function buildTimeline(reservoirs, readings) {
         reading: from,
       };
     }
+    // A bulletin without a total gets one computed from the seven, when they were all reported that day.
     let total = reading.total?.percent ?? null;
-    let totalComputed = false;
     if (total == null && reservoirs.every((r) => levels[r.id] && !levels[r.id].stale)) {
       total = (reservoirs.reduce((s, r) => s + levels[r.id].volume, 0) / capacity) * 100;
-      totalComputed = true;
     }
     return {
       date: reading.date,
       total,
-      totalComputed,
       totalVolume: reading.total?.volume_mm3 ?? (total != null ? (total / 100) * capacity : null),
+      totalVolumeEstimated: reading.total?.volume_mm3 == null,
       lastYear: reading.last_year?.total?.percent ?? null,
       average: reading.average?.total?.percent ?? null,
       levels,
