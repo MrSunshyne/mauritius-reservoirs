@@ -5,12 +5,23 @@ import TimelineBar from "./components/TimelineBar.vue";
 import ReservoirCard from "./components/ReservoirCard.vue";
 import HistoryChart from "./components/HistoryChart.vue";
 import { loadDataset, buildTimeline, historyOf, totalHistory, formatDate, pct, mm3, levelColor, DATASET_REPO } from "./lib/data.js";
+import { VIEW_OPTIONS, DEFAULT_VIEW, BASIN_EXAG } from "./lib/views.js";
 
 const data = shallowRef(null);
 const error = ref(null);
 const index = ref(0);
 const selected = ref(null);
 const cardEl = ref(null);
+
+// Which visualisation the 3D view uses, kept in the URL (?view=) so links reopen it.
+const requested = new URLSearchParams(location.search).get("view");
+const view = ref(VIEW_OPTIONS.some((v) => v.id === requested) ? requested : DEFAULT_VIEW);
+watch(view, (v) => {
+  const url = new URL(location.href);
+  url.searchParams.set("view", v);
+  history.replaceState(history.state, "", url);
+});
+const SCALE = [10, 30, 45, 65, 85].map((p) => ({ p, color: levelColor(p) }));
 
 onMounted(async () => {
   try {
@@ -114,8 +125,21 @@ function select(id) {
       </header>
 
       <!-- 3D view -->
-      <div class="h-[62svh] min-h-[380px] md:absolute md:inset-0 md:h-auto">
-        <SceneView v-if="entry" :reservoirs="reservoirs" :levels="entry.levels" :selected="selected" :playing="playing" @select="select" />
+      <div class="relative h-[62svh] min-h-[380px] md:absolute md:inset-0 md:h-auto">
+        <SceneView v-if="entry" :reservoirs="reservoirs" :levels="entry.levels" :selected="selected" :playing="playing" :view="view" @select="select" />
+        <div role="radiogroup" aria-label="Visualisation" class="panel absolute right-3 top-3 z-20 flex gap-1 p-1 text-sm md:right-4 md:top-4">
+          <button
+            v-for="v in VIEW_OPTIONS"
+            :key="v.id"
+            role="radio"
+            :aria-checked="view === v.id"
+            class="rounded-lg px-3 py-1.5 font-medium transition-colors"
+            :class="view === v.id ? 'bg-white text-slate-900' : 'text-slate-300 hover:bg-white/10 hover:text-white'"
+            @click="view = v.id"
+          >
+            {{ v.label }}
+          </button>
+        </div>
         <p class="pointer-events-none absolute bottom-0 right-0 hidden px-3 py-1 text-[10px] text-slate-300/70 md:block">
           Terrain: Copernicus DEM GLO-30, LDA MNT 2021 via Moris 3D · Lakes: © OpenStreetMap contributors
         </p>
@@ -124,14 +148,25 @@ function select(id) {
       <!-- Timeline -->
       <div v-if="entry" class="relative z-10 px-4 pt-3 md:absolute md:bottom-6 md:left-4 md:p-0" :class="selected ? 'md:w-[min(640px,calc(100%-440px))]' : 'md:w-[min(640px,calc(100%-2rem))]'">
         <TimelineBar v-model="index" :timeline="timeline" />
-        <p class="mt-2 px-1 text-xs text-slate-400 md:text-slate-300/80">
+        <p v-if="view === 'basins'" class="mt-2 px-1 text-xs text-slate-400 md:text-slate-300/80">
+          Each lake sits in a basin that holds its official capacity; the water stands at the level that holds the reported %, so the shore pulls back over the dry bed.
+          <strong class="font-medium text-amber-200">Basin shape modelled from capacity; there is no public depth survey.</strong> Depths drawn {{ BASIN_EXAG }}× deeper, on top of the terrain's 2.2×.
+        </p>
+        <p v-else-if="view === 'gauges'" class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 px-1 text-xs text-slate-400 md:text-slate-300/80">
+          <span>Lakes coloured by how full they are; each vial fills to the reported %. Rings: <span class="text-[#ffb347]">same date last year</span>, white: long-term average.</span>
+          <span class="flex items-center gap-1">
+            <span v-for="s in SCALE" :key="s.p" class="h-2 w-5 rounded-sm" :style="{ background: s.color }"></span>
+            <span class="ml-1">empty → full</span>
+          </span>
+        </p>
+        <p v-else class="mt-2 px-1 text-xs text-slate-400 md:text-slate-300/80">
           Each glass prism stands on its lake: height is proportional to capacity, the water is filled to the reported level.
           <span class="text-[#ffb347]">Orange dashes</span>: same date last year. White dashes: long-term average.
         </p>
       </div>
 
       <!-- Card -->
-      <div ref="cardEl" class="relative z-10 scroll-mt-4 px-4 pt-4 md:pointer-events-none md:absolute md:bottom-6 md:right-4 md:top-4 md:w-[390px] md:overflow-y-auto md:p-0 [&>*]:pointer-events-auto">
+      <div ref="cardEl" class="relative z-10 scroll-mt-4 px-4 pt-4 md:pointer-events-none md:absolute md:bottom-6 md:right-4 md:top-20 md:w-[390px] md:overflow-y-auto md:p-0 [&>*]:pointer-events-auto">
         <ReservoirCard v-if="selectedReservoir" :reservoir="selectedReservoir" :level="entry.levels[selected]" :history="selectedHistory" :date="entry.date" @close="selected = null" />
       </div>
     </section>
@@ -184,8 +219,10 @@ function select(id) {
               This is not an official source: for decisions, rely on the Central Water Authority and the WRC.
             </p>
             <p>
-              The glass prisms are gauges, not lakes. There is no public depth survey of the reservoirs, so the site doesn't pretend to show a shrinking shoreline: each lake keeps its full outline,
-              and the prism above it fills to the reported %. Prism height is proportional to capacity.
+              There is no public depth survey of the reservoirs, so three views show the same numbers in different ways.
+              <strong class="font-medium text-white">Basins</strong> carves a basin under each real outline, shaped from its capacity, and lowers the water to the level that holds the reported %: a model, not a survey.
+              <strong class="font-medium text-white">Gauges</strong> sticks to the data: flat lakes coloured by fill and a vial per lake.
+              <strong class="font-medium text-white">Prisms</strong> stands a glass prism on each lake, as tall as the reservoir is big.
             </p>
             <p class="text-sm text-slate-400">
               Lake outlines © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" class="underline underline-offset-2">OpenStreetMap contributors</a> (ODbL).

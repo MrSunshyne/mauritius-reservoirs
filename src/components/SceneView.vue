@@ -7,6 +7,7 @@ const props = defineProps({
   levels: { type: Object, required: true }, // id -> level | null
   selected: { type: String, default: null },
   playing: { type: Boolean, default: false },
+  view: { type: String, required: true },
 });
 const emit = defineEmits(["select"]);
 
@@ -42,6 +43,7 @@ onMounted(async () => {
     scene.value = new ReservoirScene(canvas.value, {
       terrain,
       reservoirs: props.reservoirs,
+      view: props.view,
       reducedMotion,
       mobile: window.matchMedia("(max-width: 767px), (pointer: coarse)").matches,
       onSelect: (id) => emit("select", id),
@@ -66,6 +68,10 @@ watch(
 watch(
   () => props.selected,
   (id) => scene.value?.select(id),
+);
+watch(
+  () => props.view,
+  (v) => scene.value?.setView(v),
 );
 
 // Called by the scene every rendered frame: move the labels without going through Vue.

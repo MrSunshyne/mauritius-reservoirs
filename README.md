@@ -1,15 +1,16 @@
 # Mauritius Reservoirs
 
-How full are the seven main reservoirs of Mauritius? This site shows it in 3D: the island's terrain, and over each reservoir a glass prism shaped like the lake, filled with water to the reported level.
+How full are the seven main reservoirs of Mauritius? This site shows it in 3D, on the island's terrain, with each reservoir at its real position and outline.
 
 Live at https://mrsunshyne.github.io/mauritius-reservoirs/
 
 ## What it shows
 
 - The island total, compared with the same date last year and the long-term average, as of the latest bulletin.
-- Mare aux Vacoas, Midlands, Bagatelle, La Ferme, Mare Longue, La Nicolière and Piton du Milieu, each drawn at its real position with its real outline.
-  Each glass prism is as tall as the reservoir is big (height proportional to capacity), and the water inside rises to the reported %.
-  Orange dashes mark the same date last year, white dashes the long-term average, when the bulletin gave them.
+- Mare aux Vacoas, Midlands, Bagatelle, La Ferme, Mare Longue, La Nicolière and Piton du Milieu, each drawn at its real position with its real outline, in one of three views (switch at the top right; `?view=basins|gauges|prisms` in the URL reopens the same one):
+  - **Basins** (default): a basin is carved under each lake, shaped so it holds the official capacity, and the water stands at the level that holds the reported %. The shoreline pulls back over a dry, cracked bed with a pale ring at the full level. Clicking a lake opens a cut-out block of land around it. The basin shape is a model: there is no public depth survey. Depths are drawn 3× deeper, on top of the terrain's 2.2×.
+  - **Gauges**: only the data. Lakes are flat and coloured by how full they are, with a glass vial above each one, filled to the reported %, marked at 25/50/75 %, last year and the long-term average.
+  - **Prisms**: a glass prism extruded from each lake's outline, as tall as the reservoir is big, filled to the reported %.
 - A timeline over every bulletin date in the dataset, with a play button that animates all the levels.
 - A card per reservoir: % full, volume, capacity, last year and average, a small history chart, the sources of that bulletin, and whether it was cross-checked.
 
@@ -26,7 +27,7 @@ If that fails it falls back to the copy bundled in `public/data/`.
 
 - Not an official source. Bulletins can be missing, and a single press article can carry a typo; unverified bulletins say so.
 - When a bulletin leaves a reservoir out, the site keeps its last reported level and shows the date it comes from. Nothing is interpolated.
-- The prisms are gauges, not lakes. There is no public depth survey of the reservoirs, so the site does not draw a shrinking shoreline.
+- The basins are modelled from capacity and outline, not surveyed: the real shoreline at a given % will differ. The gauges and prisms views draw no shoreline at all.
 - Terrain is a 90 m grid with heights exaggerated 2.2×.
 
 ## Run it
