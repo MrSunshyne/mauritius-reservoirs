@@ -76,7 +76,7 @@ export class GaugesView {
   }
 
   focus(lake) {
-    return { target: new THREE.Vector3(lake.center.x, lake.fullY + HOVER + H * 0.45, lake.center.z), distance: Math.max(4.2, lake.radius * 3.5) };
+    return { target: new THREE.Vector3(lake.center.x, lake.fullY + HOVER + H * 0.4, lake.center.z), distance: Math.max(6.5, lake.radius * 3.5) };
   }
 
   update(t, animated) {
